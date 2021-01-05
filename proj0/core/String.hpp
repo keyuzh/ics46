@@ -128,7 +128,6 @@ public:
 private:
     char* content;
 
-
 };
 
 

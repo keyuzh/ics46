@@ -13,6 +13,7 @@
 #include "String.hpp"
 #include "OutOfBoundsException.hpp"
 
+
 namespace
 {
     unsigned int countLength(const char* chars)
@@ -26,6 +27,7 @@ namespace
         return len;
     }
 }
+
 
 String::String()
     : content{nullptr}
@@ -85,6 +87,7 @@ String::String(const String& s)
     }
 }
 
+
 String::~String() noexcept
 {
     delete[] content;
@@ -93,23 +96,26 @@ String::~String() noexcept
     
 String& String::operator=(const String& s)
 {
-    char* newContent = nullptr;
-    try
+    if (this != &s)
     {
-        unsigned int len = s.length();
-        newContent = new char[len];
-        for (unsigned int i = 0; i < len; i++)
+        char* newContent = nullptr;
+        try
         {
-            newContent[i] = s.at(i);
+            unsigned int len = s.length();
+            newContent = new char[len];
+            for (unsigned int i = 0; i < len; i++)
+            {
+                newContent[i] = s.at(i);
+            }
         }
+        catch (...)
+        {
+            delete[] newContent;
+            throw;
+        }
+        delete[] content;
+        content = newContent;
     }
-    catch (...)
-    {
-        delete[] newContent;
-        throw;
-    }
-    delete[] content;
-    content = newContent;
     return *this;
 }
 
@@ -166,8 +172,10 @@ char& String::at(unsigned int index)
     return content[index];
 }
 
+
 void String::clear()
 {
+    // make a empty string and replace original
     char* empty = nullptr; 
     try 
     {
@@ -182,6 +190,7 @@ void String::clear()
     delete[] content;
     content = empty;
 }
+
 
 int String::compareTo(const String& s) const noexcept
 {
@@ -212,6 +221,7 @@ int String::compareTo(const String& s) const noexcept
     return 0; // all char are exactly the same
 }
 
+
 String String::concatenate(const String& s) const
 {
     String result{*this}; // first make a copy of current string
@@ -219,36 +229,9 @@ String String::concatenate(const String& s) const
     return result;
 }
 
+
 bool String::contains(const String& substring) const noexcept
 {
-    // for (unsigned int i = 0; i < length(); i++)
-    // {
-    //     // check if char at current index is equal to beginning of substring
-    //     if (at(i) == substring.at(0))
-    //     {
-    //         bool equal = true;
-    //         for (unsigned int j = 0; j < substring.length(); j++)
-    //         {
-    //             try
-    //             {
-    //                 if (at(i+j) != substring.at(j))
-    //                 {
-    //                     equal = false;
-    //                     break;
-    //                 }
-    //             }
-    //             catch(const OutOfBoundsException e)
-    //             {
-    //                 return false;
-    //             }
-    //         }
-    //         if (equal)
-    //         {
-    //             return true;
-    //         }
-    //     }
-    // }
-    // return false;
     if (find(substring) == -1)
     {
         return false;
@@ -266,6 +249,7 @@ bool String::equals(const String& s) const noexcept
     return false;
 }
 
+
 int String::find(const String& substring) const noexcept
 {
     for (unsigned int i = 0; i < length(); i++)
@@ -277,18 +261,18 @@ int String::find(const String& substring) const noexcept
             for (unsigned int j = 0; j < substring.length(); j++)
             {
                 // if char is different, keep searching
-                // if out of bounds, then it means not find
+                // if out of bounds, then it means not found
                 try
                 {
                     if (at(i+j) != substring.at(j))
                     {
                         equal = false;
-                        break;
+                        break;  // keep searching through the string
                     }
                 }
                 catch(const OutOfBoundsException e)
                 {
-                    return -1;
+                    return -1;  // not found
                 }
             }
             // if the loop completed, it means we found a match
@@ -312,13 +296,9 @@ bool String::isEmpty() const noexcept
     return false;
 }
 
+
 unsigned int String::length() const noexcept
 {
-    // unsigned int len = 0;
-    // while (content[len] != 0)
-    // {
-    //     len++;
-    // }
     return countLength(content);
 }
 
@@ -328,13 +308,16 @@ String String::substring(unsigned int startIndex, unsigned int endIndex) const
     char* substringChars = nullptr;
     try
     {
-        // at() may throw exception here, need to clean up memory here
+        // at() may throw exception, need to clean up memory here
         substringChars = new char[endIndex - startIndex + 1];
+        // copy
         for (unsigned int i = 0; i < endIndex - startIndex; i++)
         {
             substringChars[i] = at(i + startIndex);
         }
+        // add \0 to the end
         substringChars[endIndex - startIndex] = 0;
+        // create new String object
         String substr{substringChars};
         delete[] substringChars;
         return substr;
@@ -349,5 +332,6 @@ String String::substring(unsigned int startIndex, unsigned int endIndex) const
 
 const char* String::toChars() const noexcept
 {
+    // already storing chars as a c-style string, simply return array of char
     return content;
 }

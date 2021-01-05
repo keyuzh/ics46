@@ -13,6 +13,14 @@ int main()
 {
     String s;
 
+    char b = '\0';
+    char a = 0;
+
+    if (a == b)
+    {
+        
+        std::cout << "0 == \\0" << std::endl;
+    }
     
 
     return 0;
