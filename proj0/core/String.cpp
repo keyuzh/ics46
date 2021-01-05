@@ -28,34 +28,61 @@ namespace
 }
 
 String::String()
-    : content{new char[1]}
+    : content{nullptr}
 {
-    content[0] = 0;
+    try
+    {
+        // initiate the string empty, only one null terminator
+        content = new char[1];
+        content[0] = 0;
+    }
+    catch (...)
+    {
+        delete[] content;
+        throw;
+    }
 }
 
 
 String::String(const char* chars)
+    : content{nullptr}
 {
-    unsigned int lengthIncludingNullTerminator = countLength(chars) + 1;
-    content = new char[lengthIncludingNullTerminator];
-    
-    for (unsigned int i = 0; i < lengthIncludingNullTerminator; i++)
+    try
     {
-        content[i] = chars[i];
+        unsigned int lengthIncludingNullTerminator = countLength(chars) + 1;
+        content = new char[lengthIncludingNullTerminator];
+        // copy from c-style string
+        for (unsigned int i = 0; i < lengthIncludingNullTerminator; i++)
+        {
+            content[i] = chars[i];
+        }
+    }
+    catch (...)
+    {
+        delete[] content;
+        throw;
     }
 }
 
 
 String::String(const String& s)
+    : content{nullptr}
 {
-    unsigned int len = s.length();
-    content = new char[len];
-
-    for (unsigned int i = 0; i < len; i++)
+    try
     {
-        content[i] = s.at(i);
+        unsigned int len = s.length();
+        content = new char[len];
+        // copy content from the other string
+        for (unsigned int i = 0; i < len; i++)
+        {
+            content[i] = s.at(i);
+        }
     }
-    
+    catch (...)
+    {
+        delete[] content;
+        throw;
+    }
 }
 
 String::~String() noexcept
@@ -66,13 +93,23 @@ String::~String() noexcept
     
 String& String::operator=(const String& s)
 {
-    unsigned int len = s.length();
-    delete[] content;
-    content = new char[len];
-    for (unsigned int i = 0; i < len; i++)
+    char* newContent = nullptr;
+    try
     {
-        content[i] = s.at(i);
+        unsigned int len = s.length();
+        newContent = new char[len];
+        for (unsigned int i = 0; i < len; i++)
+        {
+            newContent[i] = s.at(i);
+        }
     }
+    catch (...)
+    {
+        delete[] newContent;
+        throw;
+    }
+    delete[] content;
+    content = newContent;
     return *this;
 }
 
@@ -81,21 +118,29 @@ void String::append(const String& s)
 {
     unsigned int oldLength = length();
     unsigned int newLength = s.length();
-    char* resultString = new char[oldLength + newLength + 1];
+    char* resultString = nullptr;
+    try 
+    {
+        resultString = new char[oldLength + newLength + 1];
 
-    // first copy old string content
-    for (unsigned int i = 0; i < oldLength; i++)
-    {
-        resultString[i] = content[i];
+        // first copy old string content
+        for (unsigned int i = 0; i < oldLength; i++)
+        {
+            resultString[i] = content[i];
+        }
+        // then copy from the other string
+        for (unsigned int i = 0; i < newLength; i++)
+        {
+            resultString[oldLength + i] = s.at(i);
+        }
+        // finally add \0
+        resultString[oldLength + newLength] = 0;
     }
-    // then copy from the other string
-    for (unsigned int i = 0; i < newLength; i++)
+    catch (...)
     {
-        resultString[oldLength + i] = s.at(i);
+        delete[] resultString;
+        throw;
     }
-    // finally add \0
-    resultString[oldLength + newLength] = 0;
-    
     // replace old string
     delete[] content;
     content = resultString;
@@ -123,38 +168,54 @@ char& String::at(unsigned int index)
 
 void String::clear()
 {
+    char* empty = nullptr; 
+    try 
+    {
+        empty = new char[1];
+        empty[0] = 0;
+    }
+    catch (...)
+    {
+        delete[] empty;
+        throw;
+    }
     delete[] content;
-    content = new char[1];
-    content[0] = 0;
+    content = empty;
 }
 
 int String::compareTo(const String& s) const noexcept
 {
-    unsigned int index{0};
-    int difference{0};
-    
-    while (true)
+    for (unsigned int i = 0; i < length(); i++)
     {
         try
         {
-            difference = at(index) - s.at(index);
+            int difference = at(i) - s.at(i);
             if (difference != 0)
             {
+                // different char
                 return difference;
             }
         }
         catch(const OutOfBoundsException e)
         {
-            return difference;
+            // all char so far are the same, and this.length() > s.length()
+            // return positive value
+            return at(i);
         }
-        index++;
     }
+    if (length() < s.length())
+    {
+        // all char so far are the same, but this.length() < s.length()
+        // return negative value
+        return -s.at(length());
+    }
+    return 0; // all char are exactly the same
 }
 
 String String::concatenate(const String& s) const
 {
-    String result{content};
-    result.append(s);
+    String result{*this}; // first make a copy of current string
+    result.append(s); // append the other string to the end then return
     return result;
 }
 
@@ -215,6 +276,8 @@ int String::find(const String& substring) const noexcept
             bool equal = true;
             for (unsigned int j = 0; j < substring.length(); j++)
             {
+                // if char is different, keep searching
+                // if out of bounds, then it means not find
                 try
                 {
                     if (at(i+j) != substring.at(j))
@@ -228,6 +291,7 @@ int String::find(const String& substring) const noexcept
                     return -1;
                 }
             }
+            // if the loop completed, it means we found a match
             if (equal)
             {
                 return i;
@@ -240,7 +304,8 @@ int String::find(const String& substring) const noexcept
 
 bool String::isEmpty() const noexcept
 {
-    if (content[0] == 0)
+    // empty means length == 0
+    if (length() == 0)
     {
         return true;
     }
@@ -260,15 +325,25 @@ unsigned int String::length() const noexcept
 
 String String::substring(unsigned int startIndex, unsigned int endIndex) const
 {
-    char* substringChars = new char[endIndex - startIndex + 1];
-    for (unsigned int i = 0; i < endIndex - startIndex; i++)
+    char* substringChars = nullptr;
+    try
     {
-        substringChars[i] = at(i + startIndex);
+        // at() may throw exception here, need to clean up memory here
+        substringChars = new char[endIndex - startIndex + 1];
+        for (unsigned int i = 0; i < endIndex - startIndex; i++)
+        {
+            substringChars[i] = at(i + startIndex);
+        }
+        substringChars[endIndex - startIndex] = 0;
+        String substr{substringChars};
+        delete[] substringChars;
+        return substr;
     }
-    substringChars[endIndex - startIndex] = 0;
-    String substr{substringChars};
-    delete[] substringChars;
-    return substr;
+    catch (...)
+    {
+        delete[] substringChars;
+        throw;
+    }
 }
 
 

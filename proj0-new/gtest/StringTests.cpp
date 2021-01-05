@@ -291,20 +291,3 @@ TEST(StringTests, toCharsReturnsNullTerminatedCStyleString)
     EXPECT_STREQ(chars, s.toChars());
 }
 
-
-
-TEST(StringTests, compareToReturnsNegativeWhenLeftIsShorterThanRight)
-{
-    String s{"late"};
-    String t{"later"};
-
-    EXPECT_LT(s.compareTo(t), 0);
-}
-
-TEST(StringTests, compareToReturnsPositiveWhenLeftIsLongerThanRight)
-{
-    String s{"later"};
-    String t{"late"};
-
-    EXPECT_GT(s.compareTo(t), 0);
-}
