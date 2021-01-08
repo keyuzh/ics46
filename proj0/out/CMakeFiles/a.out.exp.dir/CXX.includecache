@@ -6,11 +6,5 @@
 
 #IncludeRegexTransform: 
 
-../core/String.hpp
-
 /home/ics46/projects/proj0/exp/expmain.cpp
-String.hpp
-/home/ics46/projects/proj0/exp/String.hpp
-iostream
--
 
