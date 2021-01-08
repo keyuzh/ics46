@@ -1,0 +1,116 @@
+#!/bin/bash
+
+
+set -e
+
+
+SCRIPT_DIR=$(readlink -m $(dirname $0))
+CORE_DIR=$SCRIPT_DIR/core
+TEMPLATE_NAME=$(cat $SCRIPT_DIR/.template)
+TARGZ_PATH=$SCRIPT_DIR/$TEMPLATE_NAME.tar.gz
+
+
+if [ ! -e $SCRIPT_DIR/out/bin/a.out.app ]; then
+    echo "WARNING: It looks like this project has not been built successfully"
+    echo "since it was last changed.  Your best bet is to run this command"
+    echo "to make sure it builds successfully before submitting your project:"
+    echo
+    echo "    ./build"
+    echo
+    echo "But if you know that your program does not build successfully"
+    echo "and you still want to gather your files, that's fine.  Just be"
+    echo "sure you're aware of the problem."
+    echo
+    echo
+fi
+
+
+echo "Gathering your solutions for submission..."
+
+cd $SCRIPT_DIR
+
+
+TEMP_DIR=$(mktemp -d)
+trap cleanup exit
+
+function cleanup()
+{
+    if [ -e $TEMP_DIR ]; then
+        rm -rf $TEMP_DIR
+    fi
+}
+
+function require_file()
+{
+    if [ ! -f $1 ]; then
+        echo "* No file named '$(basename $1)' found in the core/ directory."
+        echo "  (Did you complete this problem?)"
+        echo "  (Did you name the file precisely as '$(basename $1)', including spelling"
+        echo "   and capitalization?)"
+    fi
+}
+
+function require_pdf()
+{
+    if [ ! -f $1 ]; then
+        echo "* No file named '$(basename $1)' found in the core/ directory."
+        echo "  (Did you complete this problem?)"
+        echo "  (Did you name the file precisely as '$(basename $1)', including spelling"
+        echo "   and capitalization?)"
+    else
+        set +e
+
+        pdfinfo $1 >/dev/null 2>&1
+
+        PDF_CHECK_RESULT=$?
+
+        if [ $PDF_CHECK_RESULT -ne 0 ]; then
+            echo "* The file named '$(basename $1)' is likely not in the PDF format,"
+            echo "  as required.  See the write-up for instructions on creating PDFs"
+            echo "  and be sure you've followed them."
+        fi
+
+        set -e
+    fi
+}
+
+function gather_file()
+{
+    if [ -f $1 ]; then
+        cp $1 $TEMP_DIR
+    fi
+}
+
+
+# Check that the necessary files are there and in the right format.
+echo "Checking your core/ directory for the appropriate files..."
+require_pdf $CORE_DIR/problem1.pdf
+require_pdf $CORE_DIR/problem2.pdf
+require_file $CORE_DIR/problem3.cpp
+require_pdf $CORE_DIR/problem4.pdf
+require_pdf $CORE_DIR/problem5.pdf
+echo
+
+
+# Grab the necessary files that were there.
+echo "Gathering files for submission..."
+gather_file $CORE_DIR/problem1.pdf
+gather_file $CORE_DIR/problem2.pdf
+gather_file $CORE_DIR/problem3.cpp
+gather_file $CORE_DIR/problem4.pdf
+gather_file $CORE_DIR/problem5.pdf
+
+FILE_COUNT=$(ls $TEMP_DIR | wc -l)
+
+if [ $FILE_COUNT -gt 0 ]; then
+    cd $TEMP_DIR
+    tar cfvz $TARGZ_PATH *
+
+    echo
+    echo "Take note of the list of files above.  Those are the only ones"
+    echo "that have been gathered."
+else
+    echo
+    echo "There were no files gathered for submission."
+fi
+
