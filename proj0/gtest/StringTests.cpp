@@ -308,3 +308,11 @@ TEST(StringTests, compareToReturnsPositiveWhenLeftIsLongerThanRight)
 
     EXPECT_GT(s.compareTo(t), 0);
 }
+
+TEST(StringTests, containsCanFailToFindSubstringsWhenNotPresent2)
+{
+    String s{"Boo is definitely great today"};
+    String t{"day123"};
+
+    EXPECT_FALSE(s.contains(t));
+}

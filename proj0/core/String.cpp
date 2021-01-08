@@ -49,6 +49,7 @@ String::String()
 String::String(const char* chars)
     : content{nullptr}
 {
+    // initiate string from c-style string
     try
     {
         unsigned int lengthIncludingNullTerminator = countLength(chars) + 1;
@@ -70,15 +71,17 @@ String::String(const char* chars)
 String::String(const String& s)
     : content{nullptr}
 {
+    // initiate a copy of another string class
     try
     {
         unsigned int len = s.length();
-        content = new char[len];
+        content = new char[len+1];
         // copy content from the other string
         for (unsigned int i = 0; i < len; i++)
         {
             content[i] = s.at(i);
         }
+        content[len] = 0;  // add null terminator
     }
     catch (...)
     {
@@ -96,17 +99,19 @@ String::~String() noexcept
     
 String& String::operator=(const String& s)
 {
+    // copy assign from another string
     if (this != &s)
     {
         char* newContent = nullptr;
         try
         {
             unsigned int len = s.length();
-            newContent = new char[len];
+            newContent = new char[len+1];
             for (unsigned int i = 0; i < len; i++)
             {
                 newContent[i] = s.at(i);
             }
+            newContent[len] = 0;
         }
         catch (...)
         {
