@@ -137,7 +137,7 @@ void String::append(const String& s)
         // first copy old string content
         for (unsigned int i = 0; i < oldLength; i++)
         {
-            resultString[i] = content[i];
+            resultString[i] = at(i);
         }
         // then copy from the other string
         for (unsigned int i = 0; i < newLength; i++)
@@ -257,6 +257,10 @@ bool String::equals(const String& s) const noexcept
 
 int String::find(const String& substring) const noexcept
 {
+    if (substring.isEmpty())
+    {
+        return 0;  // return 0 if given empty string
+    }
     for (unsigned int i = 0; i < length(); i++)
     {
         // check if char at current index is equal to beginning of substring
@@ -310,6 +314,10 @@ unsigned int String::length() const noexcept
 
 String String::substring(unsigned int startIndex, unsigned int endIndex) const
 {
+    if (startIndex > endIndex)
+    {
+        throw OutOfBoundsException{};
+    }
     char* substringChars = nullptr;
     try
     {

@@ -14,6 +14,11 @@
 #include "OutOfBoundsException.hpp"
 #include "String.hpp"
 
+TEST(StringTests, notEmptyIfStringContainsAnything)
+{
+    String s{"abc"};
+    EXPECT_FALSE(s.isEmpty());
+}
 
 TEST(StringTests, emptyWhenDefaultConstructed)
 {
@@ -315,4 +320,163 @@ TEST(StringTests, containsCanFailToFindSubstringsWhenNotPresent2)
     String t{"day123"};
 
     EXPECT_FALSE(s.contains(t));
+}
+
+
+TEST(StringTests, canObtainIndividualCharactersFromNonConstString)
+{
+    const char* chars = "Boo!";
+
+    String s{chars};
+
+    EXPECT_EQ('B', s.at(0));
+    EXPECT_EQ('o', s.at(1));
+    EXPECT_EQ('o', s.at(2));
+    EXPECT_EQ('!', s.at(3));
+
+}
+
+
+
+TEST(StringTests, atThrowsExceptionWhenIndexIsInvalid)
+{
+    const char* chars = "Boo!";
+
+    String s{chars};
+
+    EXPECT_EQ('B', s.at(0));
+    EXPECT_EQ('o', s.at(1));
+    EXPECT_EQ('o', s.at(2));
+    EXPECT_EQ('!', s.at(3));
+    EXPECT_THROW({s.at(4);}, OutOfBoundsException);
+    EXPECT_THROW({s.at(-1);}, OutOfBoundsException);
+}
+
+TEST(StringTests, atThrowsExceptionforInvalidAssign)
+{
+    const char* chars = "Boo is happy";
+
+    String s{chars};
+
+    s.at(7) = 'g';
+    s.at(8) = 'r';
+    s.at(9) = 'e';
+    s.at(10) = 'a';
+    s.at(11) = 't';
+
+    EXPECT_THROW({s.at(13);}, OutOfBoundsException);
+    EXPECT_THROW({s.at(-2);}, OutOfBoundsException);
+}
+
+
+TEST(StringTests, concatenateEmptyStringAtBack)
+{
+    String s{"It is"};
+    String t{};
+    String c = s.concatenate(t);
+
+    EXPECT_EQ(5, c.length());
+    EXPECT_STREQ("It is", c.toChars());
+}
+
+TEST(StringTests, concatenateEmptyStringAtFront)
+{
+    String t{"It is"};
+    String s{};
+    String c = s.concatenate(t);
+
+    EXPECT_EQ(5, c.length());
+    EXPECT_STREQ("It is", c.toChars());
+}
+
+TEST(StringTests, canFindEmptySubstrings)
+{
+    String s{"Is Boo great today?"};
+    String t{""};
+
+    EXPECT_EQ(0, s.find(t));
+}
+
+
+TEST(StringTests, canFailToFindSubstringsInEmptyString)
+{
+    String s{""};
+    String t{"absolutely"};
+
+    EXPECT_EQ(-1, s.find(t));
+}
+
+
+TEST(StringTests, containsEmptySubstrings)
+{
+    String s{"Is Boo great today?"};
+    String t{""};
+
+    EXPECT_TRUE(s.contains(t));
+}
+
+
+TEST(StringTests, canFailToContainSubstringsInEmptyString)
+{
+    String s{""};
+    String t{"absolutely"};
+
+    EXPECT_FALSE(s.contains(t));
+}
+
+
+TEST(StringTests, EmptyStringsAreEqual)
+{
+    String s{""};
+    String t{};
+
+    EXPECT_TRUE(s.equals(t));
+}
+
+TEST(StringTests, comparetoTwoEmptyString)
+{
+    String s{""};
+    String t{};
+
+    EXPECT_EQ(0, s.compareTo(t));
+}
+
+TEST(StringTests, canObtainSubstringFromBeginning)
+{
+    String s{"Every day is Boo's day"};
+    String t = s.substring(0, 5);
+
+    EXPECT_EQ(5, t.length());
+    EXPECT_STREQ("Every", t.toChars());
+}
+
+
+TEST(StringTests, canObtainSubstringFromEnd)
+{
+    String s{"Every day is Boo's day"};
+    String t = s.substring(19,22);
+
+    EXPECT_EQ(3, t.length());
+    EXPECT_STREQ("day", t.toChars());
+}
+
+TEST(StringTests, obtainSubstringWithNegative)
+{
+    String s{"Every day is Boo's day"};
+    EXPECT_THROW({String t = s.substring(-2, 5);}, OutOfBoundsException);
+
+}
+
+TEST(StringTests, obtainSubstringWithBadValue)
+{
+    String s{"Every day is Boo's day"};
+    EXPECT_THROW({String t = s.substring(5, 2);}, OutOfBoundsException);
+}
+
+TEST(StringTests, obtainSubstringWithSameValue)
+{
+    String s{"Every day is Boo's day"};
+    String t = s.substring(5,5);
+    String u{};
+    EXPECT_TRUE(t.equals(u));
 }
