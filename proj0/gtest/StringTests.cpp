@@ -120,7 +120,6 @@ TEST(StringTests, canAssignIndividualCharactersInNonConstString)
     EXPECT_STREQ("Boo is great", s.toChars());
 }
 
-
 TEST(StringTests, obtainingCharactersFromConstStringOutOfBoundsFails)
 {
     const char* chars = "Boo!";
@@ -129,7 +128,6 @@ TEST(StringTests, obtainingCharactersFromConstStringOutOfBoundsFails)
 
     EXPECT_THROW({ s.at(4); }, OutOfBoundsException);
 }
-
 
 TEST(StringTests, obtainingCharactersFromNonConstStringOutOfBoundsFails)
 {
@@ -140,7 +138,6 @@ TEST(StringTests, obtainingCharactersFromNonConstStringOutOfBoundsFails)
     EXPECT_THROW({ s.at(4); }, OutOfBoundsException);
 }
 
-
 TEST(StringTests, clearRemovesAllCharacters)
 {
     String s{"Boo is asleep"};
@@ -150,7 +147,6 @@ TEST(StringTests, clearRemovesAllCharacters)
     EXPECT_STREQ("", s.toChars());
 }
 
-
 TEST(StringTests, compareToReturnsZeroWhenEquivalent)
 {
     String s{"Where is Boo?"};
@@ -158,7 +154,6 @@ TEST(StringTests, compareToReturnsZeroWhenEquivalent)
 
     EXPECT_EQ(0, s.compareTo(t));
 }
-
 
 TEST(StringTests, compareToReturnsNegativeWhenLeftIsLessThanRight)
 {
@@ -168,7 +163,6 @@ TEST(StringTests, compareToReturnsNegativeWhenLeftIsLessThanRight)
     EXPECT_LT(s.compareTo(t), 0);
 }
 
-
 TEST(StringTests, compareToReturnsPositiveWhenLeftIsGreaterThanRight)
 {
     String s{"later"};
@@ -176,7 +170,6 @@ TEST(StringTests, compareToReturnsPositiveWhenLeftIsGreaterThanRight)
 
     EXPECT_GT(s.compareTo(t), 0);
 }
-
 
 TEST(StringTests, concatenateBuildsNewStringContainingAllCharacters)
 {
@@ -188,7 +181,6 @@ TEST(StringTests, concatenateBuildsNewStringContainingAllCharacters)
     EXPECT_STREQ("It is great to see Boo", c.toChars());
 }
 
-
 TEST(StringTests, containsCanFindSubstringsWhenPresent)
 {
     String s{"Is Boo great today?"};
@@ -197,7 +189,6 @@ TEST(StringTests, containsCanFindSubstringsWhenPresent)
     EXPECT_TRUE(s.contains(t));
 }
 
-
 TEST(StringTests, containsCanFailToFindSubstringsWhenNotPresent)
 {
     String s{"Boo is definitely great today"};
@@ -205,7 +196,6 @@ TEST(StringTests, containsCanFailToFindSubstringsWhenNotPresent)
 
     EXPECT_FALSE(s.contains(t));
 }
-
 
 TEST(StringTests, stringsAreEqualWhenContainingTheSameCharacterSequences)
 {
@@ -217,7 +207,6 @@ TEST(StringTests, stringsAreEqualWhenContainingTheSameCharacterSequences)
     EXPECT_TRUE(s.equals(t));
 }
 
-
 TEST(StringTests, stringsAreNotEqualWhenCharactersAreDifferent)
 {
     String s{"Hello"};
@@ -225,7 +214,6 @@ TEST(StringTests, stringsAreNotEqualWhenCharactersAreDifferent)
 
     EXPECT_FALSE(s.equals(t));
 }
-
 
 TEST(StringTests, canFindSubstringsWhenPresent)
 {
@@ -235,7 +223,6 @@ TEST(StringTests, canFindSubstringsWhenPresent)
     EXPECT_EQ(3, s.find(t));
 }
 
-
 TEST(StringTests, canFailToFindSubstringsWhenNotPresent)
 {
     String s{"Boo is definitely great today"};
@@ -244,14 +231,12 @@ TEST(StringTests, canFailToFindSubstringsWhenNotPresent)
     EXPECT_EQ(-1, s.find(t));
 }
 
-
 TEST(StringTests, emptyWhenContainingNoCharacters)
 {
     String s{""};
 
     EXPECT_TRUE(s.isEmpty());
 }
-
 
 TEST(StringTests, notEmptyWhenContainingCharacters)
 {
@@ -260,14 +245,12 @@ TEST(StringTests, notEmptyWhenContainingCharacters)
     EXPECT_FALSE(s.isEmpty());
 }
 
-
 TEST(StringTests, lengthIsNumberOfCharacters)
 {
     String s{"This is Boo's day"};
 
     EXPECT_EQ(17, s.length());
 }
-
 
 TEST(StringTests, canObtainSubstring)
 {
@@ -278,14 +261,12 @@ TEST(StringTests, canObtainSubstring)
     EXPECT_STREQ("Boo", t.toChars());
 }
 
-
 TEST(StringTests, obtainingSubstringOutOfBoundsFails)
 {
     String s{"Boo's eyes are closed"};
     
     EXPECT_THROW({ s.substring(15, 100); }, OutOfBoundsException);
 }
-
 
 TEST(StringTests, toCharsReturnsNullTerminatedCStyleString)
 {
@@ -295,8 +276,6 @@ TEST(StringTests, toCharsReturnsNullTerminatedCStyleString)
 
     EXPECT_STREQ(chars, s.toChars());
 }
-
-
 
 TEST(StringTests, compareToReturnsNegativeWhenLeftIsShorterThanRight)
 {
@@ -322,7 +301,6 @@ TEST(StringTests, containsCanFailToFindSubstringsWhenNotPresent2)
     EXPECT_FALSE(s.contains(t));
 }
 
-
 TEST(StringTests, canObtainIndividualCharactersFromNonConstString)
 {
     const char* chars = "Boo!";
@@ -335,8 +313,6 @@ TEST(StringTests, canObtainIndividualCharactersFromNonConstString)
     EXPECT_EQ('!', s.at(3));
 
 }
-
-
 
 TEST(StringTests, atThrowsExceptionWhenIndexIsInvalid)
 {
@@ -368,7 +344,6 @@ TEST(StringTests, atThrowsExceptionforInvalidAssign)
     EXPECT_THROW({s.at(-2);}, OutOfBoundsException);
 }
 
-
 TEST(StringTests, concatenateEmptyStringAtBack)
 {
     String s{"It is"};
@@ -397,7 +372,6 @@ TEST(StringTests, canFindEmptySubstrings)
     EXPECT_EQ(0, s.find(t));
 }
 
-
 TEST(StringTests, canFailToFindSubstringsInEmptyString)
 {
     String s{""};
@@ -405,7 +379,6 @@ TEST(StringTests, canFailToFindSubstringsInEmptyString)
 
     EXPECT_EQ(-1, s.find(t));
 }
-
 
 TEST(StringTests, containsEmptySubstrings)
 {
@@ -415,7 +388,6 @@ TEST(StringTests, containsEmptySubstrings)
     EXPECT_TRUE(s.contains(t));
 }
 
-
 TEST(StringTests, canFailToContainSubstringsInEmptyString)
 {
     String s{""};
@@ -423,7 +395,6 @@ TEST(StringTests, canFailToContainSubstringsInEmptyString)
 
     EXPECT_FALSE(s.contains(t));
 }
-
 
 TEST(StringTests, EmptyStringsAreEqual)
 {
@@ -449,7 +420,6 @@ TEST(StringTests, canObtainSubstringFromBeginning)
     EXPECT_EQ(5, t.length());
     EXPECT_STREQ("Every", t.toChars());
 }
-
 
 TEST(StringTests, canObtainSubstringFromEnd)
 {
