@@ -316,7 +316,7 @@ String String::substring(unsigned int startIndex, unsigned int endIndex) const
 {
     if (startIndex > endIndex)
     {
-        throw OutOfBoundsException{};
+        return String{};
     }
     char* substringChars = nullptr;
     try

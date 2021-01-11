@@ -433,14 +433,16 @@ TEST(StringTests, canObtainSubstringFromEnd)
 TEST(StringTests, obtainSubstringWithNegative)
 {
     String s{"Every day is Boo's day"};
-    EXPECT_THROW({String t = s.substring(-2, 5);}, OutOfBoundsException);
+    String t = s.substring(-2, 5);
+    EXPECT_STREQ("", t.toChars());
 
 }
 
 TEST(StringTests, obtainSubstringWithBadValue)
 {
     String s{"Every day is Boo's day"};
-    EXPECT_THROW({String t = s.substring(5, 2);}, OutOfBoundsException);
+    String t = s.substring(5,2);
+    EXPECT_STREQ("", t.toChars());
 }
 
 TEST(StringTests, obtainSubstringWithSameValue)
