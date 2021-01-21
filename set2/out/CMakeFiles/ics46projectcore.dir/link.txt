@@ -1,0 +1,2 @@
+/usr/bin/ar qc lib/libics46projectcore.a  CMakeFiles/ics46projectcore.dir/core/ArrayList.cpp.o CMakeFiles/ics46projectcore.dir/core/problem1.cpp.o
+/usr/bin/ranlib lib/libics46projectcore.a

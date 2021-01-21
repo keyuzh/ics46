@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ics46/projects/set2/core/ArrayList.hpp
+string
+-
+
+/home/ics46/projects/set2/core/problem1.cpp
+ArrayList.hpp
+/home/ics46/projects/set2/core/ArrayList.hpp
+algorithm
+-
+

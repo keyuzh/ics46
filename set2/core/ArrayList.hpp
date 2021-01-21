@@ -141,6 +141,13 @@ private:
     std::string* items;
     unsigned int sz;
     unsigned int cap;
+
+// new added public member functions
+public:
+    // move constructor
+    ArrayList(ArrayList&& a);
+    // move assignment operator
+    ArrayList& operator=(ArrayList&& a);
 };
 
 
