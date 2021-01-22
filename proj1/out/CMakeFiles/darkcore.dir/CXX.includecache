@@ -14,8 +14,6 @@ ics46/observable/Observable.hpp
 Direction.hpp
 ../include/darkmaze/Direction.hpp
 
-../include/darkmaze/MazeGenerator.hpp
-
 ../include/darkmaze/MazeSolution.hpp
 utility
 -
@@ -83,32 +81,6 @@ memory
 -
 vector
 -
-
-/home/ics46/projects/proj1/core/TheFourthGenerator.cpp
-ics46/factory/DynamicFactory.hpp
--
-random
--
-utility
--
-vector
--
-Direction.hpp
-/home/ics46/projects/proj1/core/Direction.hpp
-Maze.hpp
-/home/ics46/projects/proj1/core/Maze.hpp
-MazeGenerator.hpp
-/home/ics46/projects/proj1/core/MazeGenerator.hpp
-TheFourthGenerator.hpp
-/home/ics46/projects/proj1/core/TheFourthGenerator.hpp
-
-/home/ics46/projects/proj1/core/TheFourthGenerator.hpp
-random
--
-vector
--
-MazeGenerator.hpp
-/home/ics46/projects/proj1/core/MazeGenerator.hpp
 
 /home/ics46/projects/proj1/core/TheThirdOne.cpp
 ics46/factory/DynamicFactory.hpp

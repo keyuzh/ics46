@@ -33,21 +33,21 @@ namespace
         {
             return false;
         }
-
+        
         switch (dir)
         {
         case Direction::up:
             // true if previous movement is down
-            return (solution.getMovements().back() == Direction::down);
+            return (movements.back() == Direction::down);
 
         case Direction::down:
-            return (solution.getMovements().back() == Direction::up);
+            return (movements.back() == Direction::up);
         
         case Direction::left:
-            return (solution.getMovements().back() == Direction::right);
+            return (movements.back() == Direction::right);
         
         case Direction::right:
-            return (solution.getMovements().back() == Direction::left);
+            return (movements.back() == Direction::left);
         }
     }
 
