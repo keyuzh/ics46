@@ -57,42 +57,42 @@ include CMakeFiles/darkcore.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/darkcore.dir/flags.make
 
-CMakeFiles/darkcore.dir/core/generate.cpp.o: CMakeFiles/darkcore.dir/flags.make
-CMakeFiles/darkcore.dir/core/generate.cpp.o: ../core/generate.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj1/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/darkcore.dir/core/generate.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/darkcore.dir/core/generate.cpp.o -c /home/ics46/projects/proj1/core/generate.cpp
+CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o: CMakeFiles/darkcore.dir/flags.make
+CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o: ../core/TheFourthGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj1/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o -c /home/ics46/projects/proj1/core/TheFourthGenerator.cpp
 
-CMakeFiles/darkcore.dir/core/generate.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/darkcore.dir/core/generate.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj1/core/generate.cpp > CMakeFiles/darkcore.dir/core/generate.cpp.i
+CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj1/core/TheFourthGenerator.cpp > CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.i
 
-CMakeFiles/darkcore.dir/core/generate.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/darkcore.dir/core/generate.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj1/core/generate.cpp -o CMakeFiles/darkcore.dir/core/generate.cpp.s
+CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj1/core/TheFourthGenerator.cpp -o CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.s
 
-CMakeFiles/darkcore.dir/core/solve.cpp.o: CMakeFiles/darkcore.dir/flags.make
-CMakeFiles/darkcore.dir/core/solve.cpp.o: ../core/solve.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj1/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/darkcore.dir/core/solve.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/darkcore.dir/core/solve.cpp.o -c /home/ics46/projects/proj1/core/solve.cpp
+CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o: CMakeFiles/darkcore.dir/flags.make
+CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o: ../core/TheThirdOne.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj1/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o -c /home/ics46/projects/proj1/core/TheThirdOne.cpp
 
-CMakeFiles/darkcore.dir/core/solve.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/darkcore.dir/core/solve.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj1/core/solve.cpp > CMakeFiles/darkcore.dir/core/solve.cpp.i
+CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj1/core/TheThirdOne.cpp > CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.i
 
-CMakeFiles/darkcore.dir/core/solve.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/darkcore.dir/core/solve.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj1/core/solve.cpp -o CMakeFiles/darkcore.dir/core/solve.cpp.s
+CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj1/core/TheThirdOne.cpp -o CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.s
 
 # Object files for target darkcore
 darkcore_OBJECTS = \
-"CMakeFiles/darkcore.dir/core/generate.cpp.o" \
-"CMakeFiles/darkcore.dir/core/solve.cpp.o"
+"CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o" \
+"CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o"
 
 # External object files for target darkcore
 darkcore_EXTERNAL_OBJECTS =
 
-lib/libdarkcore.a: CMakeFiles/darkcore.dir/core/generate.cpp.o
-lib/libdarkcore.a: CMakeFiles/darkcore.dir/core/solve.cpp.o
+lib/libdarkcore.a: CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o
+lib/libdarkcore.a: CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o
 lib/libdarkcore.a: CMakeFiles/darkcore.dir/build.make
 lib/libdarkcore.a: CMakeFiles/darkcore.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj1/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library lib/libdarkcore.a"

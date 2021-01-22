@@ -1,2 +1,2 @@
-/usr/bin/ar qc lib/libdarkcore.a  CMakeFiles/darkcore.dir/core/generate.cpp.o CMakeFiles/darkcore.dir/core/solve.cpp.o
+/usr/bin/ar qc lib/libdarkcore.a  CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o
 /usr/bin/ranlib lib/libdarkcore.a

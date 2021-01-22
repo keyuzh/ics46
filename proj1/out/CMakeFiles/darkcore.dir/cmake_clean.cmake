@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/darkcore.dir/core/generate.cpp.o"
-  "CMakeFiles/darkcore.dir/core/solve.cpp.o"
+  "CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o"
+  "CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o"
   "lib/libdarkcore.a"
   "lib/libdarkcore.pdb"
 )

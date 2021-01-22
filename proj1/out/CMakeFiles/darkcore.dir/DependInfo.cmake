@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ics46/projects/proj1/core/generate.cpp" "/home/ics46/projects/proj1/out/CMakeFiles/darkcore.dir/core/generate.cpp.o"
-  "/home/ics46/projects/proj1/core/solve.cpp" "/home/ics46/projects/proj1/out/CMakeFiles/darkcore.dir/core/solve.cpp.o"
+  "/home/ics46/projects/proj1/core/TheFourthGenerator.cpp" "/home/ics46/projects/proj1/out/CMakeFiles/darkcore.dir/core/TheFourthGenerator.cpp.o"
+  "/home/ics46/projects/proj1/core/TheThirdOne.cpp" "/home/ics46/projects/proj1/out/CMakeFiles/darkcore.dir/core/TheThirdOne.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
