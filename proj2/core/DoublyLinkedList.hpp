@@ -45,7 +45,7 @@
 #include "EmptyException.hpp"
 #include "IteratorException.hpp"
 
-
+#include <iostream>
 
 template <typename ValueType>
 class DoublyLinkedList
@@ -220,6 +220,9 @@ public:
     protected:
         // You may want protected member variables and member functions,
         // which will be accessible to the derived classes.
+        bool pastStart;
+        bool pastEnd;
+        Node* current;
     };
 
 
@@ -240,6 +243,7 @@ public:
 
     private:
         // You may want private member variables and member functions.
+        const DoublyLinkedList<ValueType>* list;
     };
 
 
@@ -283,6 +287,7 @@ public:
 
     private:
         // You may want private member variables and member functions.
+        DoublyLinkedList<ValueType>* list;
     };
 
 
@@ -302,37 +307,123 @@ private:
 
     // You can feel free to add private member variables and member
     // functions here; there's a pretty good chance you'll need some.
+    Node* head;
+    Node* tail;
+
+    void insertBetween(Node* first, Node* second, const ValueType& value)
+    {
+        // insert a new node between the given two nodes
+        Node* newNode = new Node;
+        newNode->value = value;
+        newNode->prev = first;
+        newNode->next = second;
+
+        first->next = newNode;
+        second->prev = newNode;
+    }
+
+    void remove(Node* node)
+    {
+        if (head == node)
+        {
+            removeFromStart();
+        }
+        else if (tail == node)
+        {
+            removeFromEnd();
+        }
+        else
+        {
+            Node* prevNode = node->prev;
+            Node* nextNode = node->next;
+            prevNode->next = nextNode;
+            nextNode->prev = prevNode;
+            delete node;
+        }
+    }
 };
 
+namespace
+{
+    template <typename T>
+    void deleteLinkedList(T* head)
+    {
+        T* current = head;
+        while (current != nullptr)
+        {
+            T* toRemove = current;
+            current = current->next;
+            delete toRemove;
+        }
+    }
 
+    template <typename T>
+    void myswap(T& a, T& b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+
+} // namespace
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList() noexcept
+    : head{nullptr}, tail{nullptr}
 {
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList(const DoublyLinkedList& list)
+    : head{nullptr}, tail{nullptr}
 {
+    std::cout << "doing copy construction" << std::endl;
+    Node* current = list.head;
+    while (current != nullptr)
+    {
+        ValueType newValue = current->value;
+        addToEnd(newValue);
+        current = current->next;
+    }
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList(DoublyLinkedList&& list) noexcept
+    : head{nullptr}, tail{nullptr}
 {
+    myswap(head, list.head);
+    myswap(tail, list.tail);
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::~DoublyLinkedList() noexcept
 {
+    deleteLinkedList(head);
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(const DoublyLinkedList& list)
 {
+        std::cout << "doing assign construction" << std::endl;
+    if (this != &list)
+    {
+        deleteLinkedList(head);
+        head = nullptr;
+        tail = nullptr;
+
+        Node* current = list.head;
+
+        while (current != nullptr)
+        {
+            ValueType newValue = current->value;
+            addToEnd(newValue);
+            current = current->next;
+        }
+    }
     return *this;
 }
 
@@ -340,6 +431,9 @@ DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(const Doubly
 template <typename ValueType>
 DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(DoublyLinkedList&& list) noexcept
 {
+    std::cout << "doing move construction" << std::endl;
+    myswap(head, list.head);
+    myswap(tail, list.tail);
     return *this;
 }
 
@@ -347,24 +441,88 @@ DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(DoublyLinked
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::addToStart(const ValueType& value)
 {
+    Node* newHead = new Node;
+
+    newHead->value = value;
+    newHead->prev = nullptr;
+    newHead->next = head;
+
+    if (isEmpty())
+    {
+        tail = newHead;
+    }
+    else
+    {
+        // point first node's prev to new node
+        head->prev = newHead;
+    }
+    head = newHead;
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::addToEnd(const ValueType& value)
 {
+    Node* newTail = new Node;
+
+    newTail->value = value;
+    newTail->prev = tail;
+    newTail->next = nullptr;
+
+    if (isEmpty())
+    {
+        head = newTail;
+    }
+    else
+    {
+        // point last node's next to new node
+        tail->next = newTail;
+    }
+    tail = newTail;
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::removeFromStart()
 {
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    Node* toRemove = head;
+    // point head to the second node
+    head = head->next;
+    if (head == nullptr)  // empty list now
+    {
+        tail = nullptr;
+    }
+    else
+    {
+        head->prev = nullptr;
+    }
+    delete toRemove;
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::removeFromEnd()
 {
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    Node* toRemove = tail;
+    // point tail to second-to-last node
+    tail = tail->prev;
+    if (tail == nullptr)
+    {
+        head = nullptr;
+    }
+    else
+    {
+        tail->next = nullptr;
+    }
+    delete toRemove;
 }
 
 
@@ -375,8 +533,11 @@ const ValueType& DoublyLinkedList<ValueType>::first() const
     // something that would make this code compile.  you're definitely
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.
-
-    return (new Node)->value;
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    return head->value;
 }
 
 
@@ -388,8 +549,11 @@ ValueType& DoublyLinkedList<ValueType>::first()
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.  This
     // version *will* leak memory and *will* return an undefined value.
-
-    return (new Node)->value;
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    return head->value;
 }
 
 
@@ -401,8 +565,11 @@ const ValueType& DoublyLinkedList<ValueType>::last() const
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.  This
     // version *will* leak memory and *will* return an undefined value.
-
-    return (new Node)->value;
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    return tail->value;
 }
 
 
@@ -414,21 +581,35 @@ ValueType& DoublyLinkedList<ValueType>::last()
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.  This
     // version *will* leak memory and *will* return an undefined value.
-
-    return (new Node)->value;
+    if (isEmpty())
+    {
+        throw EmptyException{};
+    }
+    return tail->value;
 }
 
 
 template <typename ValueType>
 unsigned int DoublyLinkedList<ValueType>::size() const noexcept
 {
-    return 0;
+    unsigned int sz{0};
+    Node* current = head;
+    while (current != nullptr)
+    {
+        current = current->next;
+        sz++;
+    }
+    return sz;
 }
 
 
 template <typename ValueType>
 bool DoublyLinkedList<ValueType>::isEmpty() const noexcept
 {
+    if (head == nullptr)
+    {
+        return true;
+    }
     return false;
 }
 
@@ -449,39 +630,65 @@ typename DoublyLinkedList<ValueType>::ConstIterator DoublyLinkedList<ValueType>:
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::IteratorBase::IteratorBase(const DoublyLinkedList& list) noexcept
+    : pastStart{true}, pastEnd{true}, current{nullptr}
 {
+    if (list.isEmpty())
+    {
+        return;
+    }
+    current = list.head;
+    pastStart = false;
+    pastEnd = false;    
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::IteratorBase::moveToNext()
 {
+    if (pastEnd)
+    {
+        throw IteratorException{};
+    }
+    current = current->next;
+    if (current == nullptr)
+    {
+        pastEnd = true;
+    }
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::IteratorBase::moveToPrevious()
 {
+    if (pastStart)
+    {
+        throw IteratorException{};
+    }
+    current = current->prev;
+    if (current == nullptr)
+    {
+        pastStart = true;
+    }
 }
 
 
 template <typename ValueType>
 bool DoublyLinkedList<ValueType>::IteratorBase::isPastStart() const noexcept
 {
-    return false;
+    return pastStart;
 }
 
 
 template <typename ValueType>
 bool DoublyLinkedList<ValueType>::IteratorBase::isPastEnd() const noexcept
 {
-    return false;
+    return pastEnd;
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::ConstIterator::ConstIterator(const DoublyLinkedList& list) noexcept
-    : IteratorBase{list}
+    : IteratorBase{list}, list{&list}
 {
 }
 
@@ -494,14 +701,17 @@ const ValueType& DoublyLinkedList<ValueType>::ConstIterator::value() const
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.  This
     // version *will* leak memory and *will* return an undefined value.
-
-    return (new Node)->value;
+    if (IteratorBase::isPastStart() || IteratorBase::isPastEnd())
+    {
+        throw IteratorException{};
+    }
+    return IteratorBase::current->value;
 }
 
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::Iterator::Iterator(DoublyLinkedList& list) noexcept
-    : IteratorBase{list}
+    : IteratorBase{list}, list{&list}
 {
 }
 
@@ -514,26 +724,67 @@ ValueType& DoublyLinkedList<ValueType>::Iterator::value() const
     // going to want to replace this with something else before you
     // ever call this member function and expect it to work.  This
     // version *will* leak memory and *will* return an undefined value.
-
-    return (new Node)->value;
+    if (IteratorBase::isPastStart() || IteratorBase::isPastEnd())
+    {
+        throw IteratorException{};
+    }
+    return IteratorBase::current->value;
 }
-
-
+    
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::Iterator::insertBefore(const ValueType& value)
 {
+    if (IteratorBase::isPastStart())
+    {
+        throw IteratorException{};
+    }
+    
+    if (IteratorBase::current == list->head)
+    {
+        // inserting before the first value
+        std::cout << "inserting before the first value" << std::endl;
+        list->addToStart(value);
+    }
+    std::cout << "NOT inserting before the first value" << std::endl;
+    list->insertBetween(IteratorBase::current->prev, IteratorBase::current, value);
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::Iterator::insertAfter(const ValueType& value)
 {
+    if (IteratorBase::isPastEnd())
+    {
+        throw IteratorException{};
+    }
+    if (IteratorBase::current == list->tail)
+    {
+        // inserting after the last node
+        std::cout << "inserting after teh last node" << std::endl;
+        list->addToEnd(value);
+    }
+    std::cout << "NOT inserting after the lsat node" << std::endl;
+    list->insertBetween(IteratorBase::current, IteratorBase::current->next, value);
 }
 
 
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::Iterator::remove(bool moveToNextAfterward)
 {
+    if (IteratorBase::isPastStart() || IteratorBase::isPastEnd())
+    {
+        throw IteratorException{};
+    }
+    Node* toRemove = IteratorBase::current;
+    if (moveToNextAfterward)
+    {
+        IteratorBase::moveToNext();       
+    }
+    else
+    {
+        IteratorBase::moveToPrevious();
+    }
+    list->remove(toRemove);
 }
 
 
