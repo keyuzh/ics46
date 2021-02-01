@@ -6,5 +6,29 @@
 
 #IncludeRegexTransform: 
 
+../core/DoublyLinkedList.hpp
+EmptyException.hpp
+../core/EmptyException.hpp
+IteratorException.hpp
+../core/IteratorException.hpp
+iostream
+-
+
+../core/EmptyException.hpp
+
+../core/IteratorException.hpp
+
+../core/Queue.hpp
+DoublyLinkedList.hpp
+../core/DoublyLinkedList.hpp
+
 /home/ics46/projects/proj2/app/main.cpp
+string
+-
+iostream
+-
+vector
+-
+Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
 

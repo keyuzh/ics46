@@ -14,155 +14,155 @@
 #include "Queue.hpp"
 
 
-// TEST(Queue_SanityCheckTests, emptyWhenDefaultConstructed)
-// {
-//     Queue<int> q;
-//     EXPECT_TRUE(q.isEmpty());
-// }
+TEST(Queue_SanityCheckTests, emptyWhenDefaultConstructed)
+{
+    Queue<int> q;
+    EXPECT_TRUE(q.isEmpty());
+}
 
 
-// TEST(Queue_SanityCheckTests, sizeIsZeroWhenDefaultConstructed)
-// {
-//     Queue<int> q;
-//     EXPECT_EQ(0, q.size());
-// }
+TEST(Queue_SanityCheckTests, sizeIsZeroWhenDefaultConstructed)
+{
+    Queue<int> q;
+    EXPECT_EQ(0, q.size());
+}
 
 
-// TEST(Queue_SanityCheckTests, whenEnqueuing_SizeIncreases)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, whenEnqueuing_SizeIncreases)
+{
+    Queue<int> q;
 
-//     for (unsigned int i = 1; i <= 10; ++i)
-//     {
-//         q.enqueue(i * 5);
-//         EXPECT_EQ(i, q.size());
-//     }
-// }
-
-
-// TEST(Queue_SanityCheckTests, afterEnqueuing_QueueIsNoLongerEmpty)
-// {
-//     Queue<int> q;
-//     q.enqueue(10);
-//     EXPECT_FALSE(q.isEmpty());
-// }
+    for (unsigned int i = 1; i <= 10; ++i)
+    {
+        q.enqueue(i * 5);
+        EXPECT_EQ(i, q.size());
+    }
+}
 
 
-// namespace
-// {
-//     struct Date
-//     {
-//         unsigned int year;
-//         unsigned int month;
-//         unsigned int day;
-//     };
-// }
+TEST(Queue_SanityCheckTests, afterEnqueuing_QueueIsNoLongerEmpty)
+{
+    Queue<int> q;
+    q.enqueue(10);
+    EXPECT_FALSE(q.isEmpty());
+}
 
 
-// TEST(Queue_SanityCheckTests, enqueuingValuesOfVariousTypesIsSupported)
-// {
-//     Queue<int> intQueue;
-//     intQueue.enqueue(10);
-//     EXPECT_EQ(10, intQueue.front());
-
-//     Queue<std::string> stringQueue;
-//     stringQueue.enqueue("Boo");
-//     EXPECT_EQ("Boo", stringQueue.front());
-
-//     Queue<Date> dateQueue;
-//     dateQueue.enqueue({2005, 11, 1});
-//     EXPECT_EQ(2005, dateQueue.front().year);
-//     EXPECT_EQ(11, dateQueue.front().month);
-//     EXPECT_EQ(1, dateQueue.front().day);
-// }
+namespace
+{
+    struct Date
+    {
+        unsigned int year;
+        unsigned int month;
+        unsigned int day;
+    };
+}
 
 
-// TEST(Queue_SanityCheckTests, queueOrderingIsCorrect)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, enqueuingValuesOfVariousTypesIsSupported)
+{
+    Queue<int> intQueue;
+    intQueue.enqueue(10);
+    EXPECT_EQ(10, intQueue.front());
 
-//     for (unsigned int i = 1; i <= 10; ++i)
-//     {
-//         q.enqueue(i);
-//     }
+    Queue<std::string> stringQueue;
+    stringQueue.enqueue("Boo");
+    EXPECT_EQ("Boo", stringQueue.front());
 
-//     for (unsigned int i = 1; i <= 10; ++i)
-//     {
-//         EXPECT_EQ(i, q.front());
-//         q.dequeue();
-//     }
-// }
-
-
-// TEST(Queue_SanityCheckTests, whenDequeuing_SizeDecreases)
-// {
-//     Queue<int> q;
-
-//     for (unsigned int i = 0; i < 10; ++i)
-//     {
-//         q.enqueue(0);
-//     }
-
-//     for (unsigned int i = 10; i >= 1; --i)
-//     {
-//         q.dequeue();
-//         EXPECT_EQ(i - 1, q.size());
-//     }
-// }
+    Queue<Date> dateQueue;
+    dateQueue.enqueue({2005, 11, 1});
+    EXPECT_EQ(2005, dateQueue.front().year);
+    EXPECT_EQ(11, dateQueue.front().month);
+    EXPECT_EQ(1, dateQueue.front().day);
+}
 
 
-// TEST(Queue_SanityCheckTests, whenDequeuing_QueueIsEmptyAfterRemovingLast)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, queueOrderingIsCorrect)
+{
+    Queue<int> q;
 
-//     for (unsigned int i = 0; i < 10; ++i)
-//     {
-//         q.enqueue(i);
-//     }
+    for (unsigned int i = 1; i <= 10; ++i)
+    {
+        q.enqueue(i);
+    }
 
-//     for (unsigned int i = 0; i < 10; ++i)
-//     {
-//         EXPECT_FALSE(q.isEmpty());
-//         q.dequeue();
-//     }
-
-//     EXPECT_TRUE(q.isEmpty());
-// }
+    for (unsigned int i = 1; i <= 10; ++i)
+    {
+        EXPECT_EQ(i, q.front());
+        q.dequeue();
+    }
+}
 
 
-// TEST(Queue_SanityCheckTests, cannotDequeueWhenEmpty)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, whenDequeuing_SizeDecreases)
+{
+    Queue<int> q;
 
-//     EXPECT_THROW({ q.dequeue(); }, EmptyException);
-// }
+    for (unsigned int i = 0; i < 10; ++i)
+    {
+        q.enqueue(0);
+    }
+
+    for (unsigned int i = 10; i >= 1; --i)
+    {
+        q.dequeue();
+        EXPECT_EQ(i - 1, q.size());
+    }
+}
 
 
-// TEST(Queue_SanityCheckTests, cannotFrontWhenEmpty)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, whenDequeuing_QueueIsEmptyAfterRemovingLast)
+{
+    Queue<int> q;
 
-//     EXPECT_THROW({ q.front(); }, EmptyException);
-// }
+    for (unsigned int i = 0; i < 10; ++i)
+    {
+        q.enqueue(i);
+    }
+
+    for (unsigned int i = 0; i < 10; ++i)
+    {
+        EXPECT_FALSE(q.isEmpty());
+        q.dequeue();
+    }
+
+    EXPECT_TRUE(q.isEmpty());
+}
 
 
-// TEST(Queue_SanityCheckTests, canIterateQueuesInQueueOrder)
-// {
-//     Queue<int> q;
+TEST(Queue_SanityCheckTests, cannotDequeueWhenEmpty)
+{
+    Queue<int> q;
 
-//     for (unsigned int i = 1; i <= 10; ++i)
-//     {
-//         q.enqueue(i);
-//     }
+    EXPECT_THROW({ q.dequeue(); }, EmptyException);
+}
 
-//     Queue<int>::ConstIterator iterator = q.constIterator();
 
-//     for (unsigned int i = 1; i <= 10; ++i)
-//     {
-//         ASSERT_EQ(i, iterator.value());
-//         iterator.moveToNext();
-//     }
+TEST(Queue_SanityCheckTests, cannotFrontWhenEmpty)
+{
+    Queue<int> q;
 
-//     EXPECT_TRUE(iterator.isPastEnd());
-// }
+    EXPECT_THROW({ q.front(); }, EmptyException);
+}
+
+
+TEST(Queue_SanityCheckTests, canIterateQueuesInQueueOrder)
+{
+    Queue<int> q;
+
+    for (unsigned int i = 1; i <= 10; ++i)
+    {
+        q.enqueue(i);
+    }
+
+    Queue<int>::ConstIterator iterator = q.constIterator();
+
+    for (unsigned int i = 1; i <= 10; ++i)
+    {
+        ASSERT_EQ(i, iterator.value());
+        iterator.moveToNext();
+    }
+
+    EXPECT_TRUE(iterator.isPastEnd());
+}
 
