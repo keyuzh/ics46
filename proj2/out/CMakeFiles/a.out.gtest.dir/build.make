@@ -96,11 +96,53 @@ CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/gtest/gtestmain.cpp -o CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.s
 
+CMakeFiles/a.out.gtest.dir/app/Register.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/app/Register.cpp.o: ../app/Register.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/a.out.gtest.dir/app/Register.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/app/Register.cpp.o -c /home/ics46/projects/proj2/app/Register.cpp
+
+CMakeFiles/a.out.gtest.dir/app/Register.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/app/Register.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj2/app/Register.cpp > CMakeFiles/a.out.gtest.dir/app/Register.cpp.i
+
+CMakeFiles/a.out.gtest.dir/app/Register.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/app/Register.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/app/Register.cpp -o CMakeFiles/a.out.gtest.dir/app/Register.cpp.s
+
+CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o: ../app/Simulation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o -c /home/ics46/projects/proj2/app/Simulation.cpp
+
+CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj2/app/Simulation.cpp > CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.i
+
+CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/app/Simulation.cpp -o CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.s
+
+CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o: ../app/Statistics.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o -c /home/ics46/projects/proj2/app/Statistics.cpp
+
+CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj2/app/Statistics.cpp > CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.i
+
+CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/app/Statistics.cpp -o CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.s
+
 # Object files for target a.out.gtest
 a_out_gtest_OBJECTS = \
 "CMakeFiles/a.out.gtest.dir/gtest/DoublyLinkedList_SanityCheckTests.cpp.o" \
 "CMakeFiles/a.out.gtest.dir/gtest/Queue_SanityCheckTests.cpp.o" \
-"CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
+"CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/app/Register.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o"
 
 # External object files for target a.out.gtest
 a_out_gtest_EXTERNAL_OBJECTS =
@@ -108,9 +150,12 @@ a_out_gtest_EXTERNAL_OBJECTS =
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/DoublyLinkedList_SanityCheckTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/Queue_SanityCheckTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/app/Register.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/build.make
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/a.out.gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable bin/a.out.gtest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.gtest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

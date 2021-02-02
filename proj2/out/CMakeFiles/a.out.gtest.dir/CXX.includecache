@@ -22,17 +22,35 @@ iostream
 DoublyLinkedList.hpp
 ../core/DoublyLinkedList.hpp
 
-/home/ics46/projects/proj2/gtest/DoublyLinkedList_SanityCheckTests.cpp
+/home/ics46/projects/proj2/app/Register.hpp
+Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
+structs.hpp
+/home/ics46/projects/proj2/app/structs.hpp
+
+/home/ics46/projects/proj2/app/Simulation.cpp
+Simulation.hpp
+/home/ics46/projects/proj2/app/Simulation.hpp
+vector
+-
+Register.hpp
+/home/ics46/projects/proj2/app/Register.hpp
 string
 -
-gtest/gtest.h
+sstream
 -
-DoublyLinkedList.hpp
-/home/ics46/projects/proj2/gtest/DoublyLinkedList.hpp
 
-/home/ics46/projects/proj2/gtest/Queue_SanityCheckTests.cpp
-gtest/gtest.h
+/home/ics46/projects/proj2/app/Simulation.hpp
+Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
+structs.hpp
+/home/ics46/projects/proj2/app/structs.hpp
+vector
+-
+
+/home/ics46/projects/proj2/app/structs.hpp
+vector
 -
 Queue.hpp
-/home/ics46/projects/proj2/gtest/Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
 

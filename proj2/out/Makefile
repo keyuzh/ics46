@@ -149,6 +149,105 @@ a.out.app/fast:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/build
 .PHONY : a.out.app/fast
 
+app/Register.o: app/Register.cpp.o
+
+.PHONY : app/Register.o
+
+# target to build an object file
+app/Register.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Register.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Register.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Register.cpp.o
+.PHONY : app/Register.cpp.o
+
+app/Register.i: app/Register.cpp.i
+
+.PHONY : app/Register.i
+
+# target to preprocess a source file
+app/Register.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Register.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Register.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Register.cpp.i
+.PHONY : app/Register.cpp.i
+
+app/Register.s: app/Register.cpp.s
+
+.PHONY : app/Register.s
+
+# target to generate assembly for a file
+app/Register.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Register.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Register.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Register.cpp.s
+.PHONY : app/Register.cpp.s
+
+app/Simulation.o: app/Simulation.cpp.o
+
+.PHONY : app/Simulation.o
+
+# target to build an object file
+app/Simulation.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Simulation.cpp.o
+.PHONY : app/Simulation.cpp.o
+
+app/Simulation.i: app/Simulation.cpp.i
+
+.PHONY : app/Simulation.i
+
+# target to preprocess a source file
+app/Simulation.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Simulation.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Simulation.cpp.i
+.PHONY : app/Simulation.cpp.i
+
+app/Simulation.s: app/Simulation.cpp.s
+
+.PHONY : app/Simulation.s
+
+# target to generate assembly for a file
+app/Simulation.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Simulation.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Simulation.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Simulation.cpp.s
+.PHONY : app/Simulation.cpp.s
+
+app/Statistics.o: app/Statistics.cpp.o
+
+.PHONY : app/Statistics.o
+
+# target to build an object file
+app/Statistics.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Statistics.cpp.o
+.PHONY : app/Statistics.cpp.o
+
+app/Statistics.i: app/Statistics.cpp.i
+
+.PHONY : app/Statistics.i
+
+# target to preprocess a source file
+app/Statistics.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Statistics.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Statistics.cpp.i
+.PHONY : app/Statistics.cpp.i
+
+app/Statistics.s: app/Statistics.cpp.s
+
+.PHONY : app/Statistics.s
+
+# target to generate assembly for a file
+app/Statistics.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Statistics.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Statistics.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Statistics.cpp.s
+.PHONY : app/Statistics.cpp.s
+
 app/main.o: app/main.cpp.o
 
 .PHONY : app/main.o
@@ -295,6 +394,15 @@ help:
 	@echo "... a.out.exp"
 	@echo "... edit_cache"
 	@echo "... a.out.app"
+	@echo "... app/Register.o"
+	@echo "... app/Register.i"
+	@echo "... app/Register.s"
+	@echo "... app/Simulation.o"
+	@echo "... app/Simulation.i"
+	@echo "... app/Simulation.s"
+	@echo "... app/Statistics.o"
+	@echo "... app/Statistics.i"
+	@echo "... app/Statistics.s"
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"

@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/a.out.exp.dir/app/Register.cpp.o"
+  "CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o"
+  "CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o"
   "CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o"
   "bin/a.out.exp"
   "bin/a.out.exp.pdb"
