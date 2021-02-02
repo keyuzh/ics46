@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+BOOST_LIB_COUNT=$(apt list --installed 2>/dev/null | grep libboost-all-dev | wc -l)
+
+
+if [ $BOOST_LIB_COUNT -eq 0 ]; then
+    echo "Before continuing with this project, you'll need to install an update,"
+    echo "because it requires a library that was not installed on the ICS 46 VM"
+    echo "before it was distributed to everyone."
+    echo
+    echo "Run this command from the Linux shell:"
+    echo
+    echo "    ics46 update install_boost"
+    exit 1
+fi
+
+
+SCRIPT_DIR=$(readlink -m $(dirname $0))
+OUT_DIR=$SCRIPT_DIR/out
+
+export QT_HOME=/usr/local/Qt/5.15.2/gcc_64
+
+
+if [ $# -lt 1 ]; then
+    WHAT_TO_MAKE=
+elif [ $1 == "all" ]; then
+    WHAT_TO_MAKE=
+elif [ $1 == "app" ]; then
+    WHAT_TO_MAKE=a.out.app
+elif [ $1 == "exp" ]; then
+    WHAT_TO_MAKE=a.out.exp
+elif [ $1 == "gtest" ]; then
+    WHAT_TO_MAKE=a.out.gtest
+else
+    echo "Must build either 'app', 'exp', 'gtest', or 'all'"
+    exit 1
+fi
+
+
+if [ ! -e $OUT_DIR ]; then
+    mkdir -p $OUT_DIR
+fi
+
+
+cd $OUT_DIR
+cmake $SCRIPT_DIR
+
+
+if [ $? -eq 0 ]; then
+    make $WHAT_TO_MAKE
+fi
+
