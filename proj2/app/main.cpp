@@ -1,63 +1,23 @@
-#include <string>
-#include <iostream>
-#include <vector>
-#include "Queue.hpp"
-#include "EmptyException.hpp"
+// main.cpp
+// ICS46 Winter 2021 Project 2
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4
 
-#include "Customer.hpp"
-#include "Register.hpp"
 #include "Simulation.hpp"
 #include "Statistics.hpp"
-
-namespace
-{
-    template <typename T>
-    void print(const T& s, bool newline=true)
-    {
-        std::cout << s;
-        if (newline)
-        {
-        std::cout << std::endl;
-        }
-    }
-} // namespace
-
+#include "Log.hpp"
 
 int main()
 {
-    Simulation sim;
-    setup(sim);
-
-    print("length");
-    print(sim.length);
-
-    print("number of registers");
-    print(sim.registers.size());
-
-    print("max line length");
-    print(sim.maxLineLength);
-
-    print("line processing times");
-    for (int i = 0; i < sim.registers.size(); i++)
-    {
-        print(sim.registers.at(i).processTime);
-    }
-    
-    print("num of lines");
-    print(sim.lines.size());
-
+    // initiates the classes we need
+    Log log;
+    Statistics stats;
+    Simulation sim{&log, &stats};
+    // get first few lines of input
+    sim.setup();
     // now that the setup is complete, start the simulation
-    while (sim.currentTime < sim.length)
-    {
-        getCustomerInput(sim);
-        while (sim.currentTime <= sim.nextArrivalTime)
-        {
-            print("current time:", false);
-            print(sim.currentTime);
-            simulateOneSecond(sim);
-        }
-    }
-    
+    sim.startSimulation();
+
     return 0;
 }
-

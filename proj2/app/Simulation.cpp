@@ -1,22 +1,37 @@
-#include "Simulation.hpp"
-#include <vector>
-#include "Register.hpp"
-#include <string>
-#include <sstream>
+// Simulation.cpp
+// ICS46 Winter 2021 Project 2
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4
 
-void setup(Simulation& sim)
+// handles the mechanics of simulation
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "Simulation.hpp"
+
+
+Simulation::Simulation(Log* log, Statistics* stats)
+    : log{log}, stats{stats}
+{
+}
+
+
+void Simulation::setup()
 {
     // length of simulation, converted to seconds
     unsigned int simulationMinute;
     std::cin >> simulationMinute;
-    sim.length = simulationMinute * 60;
+    length = simulationMinute * 60;
 
     // initiates current time to 0
-    sim.currentTime = 0;
+    currentTime = 0;
 
     // number of registers and max line length
     unsigned int registerCount;
-    std::cin >> registerCount >> sim.maxLineLength;
+    std::cin >> registerCount >> maxLineLength;
 
     // single line or multi line
     std::string lineMode;
@@ -29,62 +44,173 @@ void setup(Simulation& sim)
         lineCount = registerCount;
     }
     // initiates the queues
-    sim.lines = std::vector<Queue<Customer>>{lineCount, Queue<Customer>{}};
+    lines = std::vector<Queue<Customer>>{lineCount, Queue<Customer>{}};
 
     // get each register's processing time
     for (unsigned int i = 0; i < registerCount; i++)
     {
         unsigned int processTime;
         std::cin >> processTime;
-        sim.registers.push_back(Register{
-            processTime, sim.maxLineLength, &sim.lines.at(i), 0
-            });
+        if (lineMode == "S")
+        {
+            // single line mode
+            registers.push_back(Register{processTime, &lines.at(0), 0});
+        }
+        else
+        {
+            registers.push_back(Register{processTime, &lines.at(i), 0});
+        }
     }
 }
 
-void getCustomerInput(Simulation& sim)
+
+void Simulation::startSimulation()
 {
-    std::cout << "GETTING INPUT" << std::endl;
+    log->logStart();
+    while (currentTime < length)
+    {
+        getCustomerInput();
+        // if the input time is greater than simulation time, ignore that 
+        // and only do simulation until the length
+        while (currentTime <= length && currentTime <= nextArrivalTime)
+        {
+            // print("current time:", false);
+            // print(sim.currentTime);
+            simulateOneSecond();
+        }
+    }
+    stats->writeStatistics();
+}
+
+
+void Simulation::simulateOneSecond()
+{
+    if (currentTime == length)
+    {
+        // end of simulation
+        log->logEnd(currentTime);
+        currentTime++;
+        return;
+    }
+    
+    // if customer arrives at this time, put them into queues
+    if (currentTime == nextArrivalTime)
+    {
+        addCustomerToLine(nextArrivalCount);
+    }
+    simlulateRegisters();
+    currentTime++;
+}   
+
+
+void Simulation::simlulateRegisters()
+{
+    // for every registers, if its free, get one customer from the queue
+    for (unsigned int i = 0; i < registers.size(); i++)
+    {
+        Register* reg = &registers.at(i);
+        unsigned int regNumber = i + 1;
+        if (!reg->registerEmpty())
+        {
+            simulateNonEmptyRegister(reg, regNumber);
+        }
+        // now check if the register becomes empty
+        if (reg->registerEmpty())
+        {
+            unsigned int lineNumber = getLineNumber(regNumber);
+            simulateEmptyRegister(reg, regNumber, lineNumber);
+        }
+    }
+}
+
+
+// if register has a customer, decrement the remaining time and see if its finished
+void Simulation::simulateNonEmptyRegister(Register* reg, unsigned int regNumber)
+{
+    reg->decrementRemainingTime();
+    if (reg->getRemainingTime() == 0)
+    {
+        // one customer exited register
+        log->exitRegister(currentTime, regNumber);
+        stats->exitRegister();
+    }
+}
+
+
+// try getting a customer from queue into register,
+// if not (queue is empty), do nothing for this round of simulation
+void Simulation::simulateEmptyRegister(
+    Register* reg, unsigned int regNumber, unsigned int lineNumber)
+{
+    try
+    {
+        unsigned int enterQueueTime = reg->processCustomer();
+        unsigned int waitTime = currentTime - enterQueueTime;
+        // log the customer exiting the line and add to statistics data
+        log->exitLine(currentTime, lineNumber, getLineLength(lineNumber), waitTime);
+        stats->exitLine();
+        stats->addWaittime(waitTime);
+        // now the customer entered the register, log that as well
+        log->enterRegister(currentTime, regNumber);
+    }
+    catch(const EmptyException& e)
+    {
+        // empty queue, just wait
+    }
+}
+
+
+// the input after initial setup, next arrival time and count
+void Simulation::getCustomerInput()
+{
     std::string first;
     std::cin >> first;
     if (first == "END")
     {
         // end is equvalent to input: 0, length of simulation
-        sim.nextArrivalCount = 0;
-        sim.nextArrivalTime = sim.length;
+        nextArrivalCount = 0;
+        nextArrivalTime = length;
         return;
     }
 
-    sim.nextArrivalCount = std::stoi(first);
+    // convert that string to int
+    nextArrivalCount = std::stoi(first);
     // time of next customer arrival and the number of customers
-    std::cin >> sim.nextArrivalTime;
-    std::cout << "HERE" << std::endl;
-    std::cout << sim.nextArrivalCount << sim.nextArrivalTime << std::endl;
+    std::cin >> nextArrivalTime;
 }
 
 
-unsigned int findShortestQueue(const Simulation& sim)
+// lost a customer, record it
+void Simulation::lostCustomer()
 {
-    // returns the number of shortest queue (1-index), if there's a tie
-    // returns the lowest queue number
-    if (sim.lines.size() == 1)
+    log->lost(currentTime);
+    stats->lostCustomer();
+}
+
+
+// returns the number of the shortest line
+unsigned int Simulation::findShortestLine()
+{
+    // returns the number of shortest line (1-index), if there's a tie
+    // returns the lowest line number
+    if (lines.size() == 1)
     {
         // single line
         return 1;
     }
 
     // find the size of shortest queue
-    unsigned int shortest = sim.lines.at(0).size();
-    for (unsigned int i = 1; i < sim.lines.size(); i++)
+    unsigned int shortest = lines.at(0).size();
+    for (unsigned int i = 1; i < lines.size(); i++)
     {
-        unsigned int sz = sim.lines.at(i).size();
+        unsigned int sz = lines.at(i).size();
         shortest = std::min(shortest, sz);
     }
     // find which queue has that size
     unsigned int queueNumber = 0;
-    for (unsigned int i = 0; i < sim.lines.size(); i++)
+    for (unsigned int i = 0; i < lines.size(); i++)
     {
-        if (sim.lines.at(i).size() == shortest)
+        if (lines.at(i).size() == shortest)
         {
             queueNumber = i + 1; // since 1-indexing
             break;
@@ -93,92 +219,76 @@ unsigned int findShortestQueue(const Simulation& sim)
     return queueNumber;
 }
 
-bool addToQueue(Simulation& sim, unsigned int queueNumber)
-{
-    // add a customer to the queue at queueNumber if possible,
-    // return false if the queue is full
-    unsigned int queueIndex = queueNumber - 1;
 
-    if (sim.lines.at(queueIndex).size() == sim.maxLineLength)
-    {
-        // queue is full
-        return false;
-    }
-
-    Customer* customer = new Customer{};
-    sim.lines.at(queueIndex).enqueue(*customer);
-    // print("entered line", false);
-    // print(queueNumber);
-    std::cout << sim.currentTime << " entered line " << queueNumber;
-    std::cout << " length " << sim.registers.at(queueIndex).line->size();
-    std::cout << std::endl;
-    return true;
-}
-
-void lostCustomer(Simulation& sim)
-{
-    std::cout << sim.currentTime << " lost" << std::endl;
-    // TODO: increment lost count
-}
-
-void addCustomerToLine(Simulation& sim, unsigned int customerCount)
+// add a customer
+void Simulation::addCustomerToLine(unsigned int customerCount)
 {
     // add some number of customers to shortest lines, if every line is full
     // the customer is lost
     for (unsigned int i = 0; i < customerCount; i++)
     {
         // first find the shortest queues
-        unsigned int shortestQueue = findShortestQueue(sim);
+        unsigned int shortestQueue = findShortestLine();
         // add that customer into that queue
-        if (!addToQueue(sim, shortestQueue))
+        if (!addToLine(shortestQueue))
         {
-            lostCustomer(sim);
+            // cant add that customer to queue
+            lostCustomer();
         }
     }
 }
 
-void simlulateRegisters(Simulation& sim)
-{
-    // for every registers, if its free, get one customer from the queue
-    for (unsigned int i = 0; i < sim.registers.size(); i++)
-    {
-        unsigned int registerNum = i+1;
-        if (!registerEmpty(sim.registers.at(i)))
-        {
-            // if register has a customer, decrement the remaining time and see
-            // if its finished
-            unsigned int remaining = --sim.registers.at(i).remainingTime;
-            if (remaining == 0)
-            {
-                // one customer exited register
-                std::cout << sim.currentTime << " exited register " << registerNum << std::endl;
-                // TODO: increment exited customer count
-            }
-        }
 
-        if (registerEmpty(sim.registers.at(i)))
-        {
-            processCustomer(sim, i+1);
-        }
+// try to add a customer to a line, raise EmptyException if failed
+bool Simulation::addToLine(unsigned int queueNumber)
+{
+    // add a customer to the queue at queueNumber if possible,
+    // return false if the queue is full
+    unsigned int queueIndex = queueNumber - 1;
+
+    if (lines.at(queueIndex).size() == maxLineLength)
+    {
+        // queue is full
+        return false;
     }
 
+    Customer customer = Customer{currentTime};
+    lines.at(queueIndex).enqueue(customer);
+    log->enterLine(currentTime, queueNumber, getLineLength(queueNumber));
+    stats->enterLine();
+    return true;
 }
 
-void simulateOneSecond(Simulation& sim)
+
+// returns the current time in simulation
+unsigned int Simulation::getCurrentTime()
 {
-    if (sim.currentTime == sim.length)
+    return currentTime;
+}
+
+
+// returns a reference of a given line
+Queue<Customer>& Simulation::getLine(unsigned int lineNumber)
+{
+    return lines.at(lineNumber-1);
+}
+
+
+// returns the length of a given line
+unsigned int Simulation::getLineLength(unsigned int lineNumber)
+{
+    return getLine(lineNumber).size();
+}
+
+
+// given a register number, returns the corresponding line number
+unsigned int Simulation::getLineNumber(unsigned int regNumber)
+{
+    if (lines.size() == 1)
     {
-        // end of simulation
-        std::cout << sim.length << " end" << std::endl;
-        sim.currentTime++;
-        return;
+        // single-line -> always line 1
+        return 1;
     }
-    
-    // if customer arrives at this time, put them into queues
-    if (sim.currentTime == sim.nextArrivalTime)
-    {
-        addCustomerToLine(sim, sim.nextArrivalCount);
-    }
-    simlulateRegisters(sim);
-    sim.currentTime++;
+    // multi-line -> same number
+    return regNumber;
 }

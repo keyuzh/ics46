@@ -70,9 +70,22 @@ CMakeFiles/a.out.exp.dir/exp/expmain.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.exp.dir/exp/expmain.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/exp/expmain.cpp -o CMakeFiles/a.out.exp.dir/exp/expmain.cpp.s
 
+CMakeFiles/a.out.exp.dir/app/Log.cpp.o: CMakeFiles/a.out.exp.dir/flags.make
+CMakeFiles/a.out.exp.dir/app/Log.cpp.o: ../app/Log.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/a.out.exp.dir/app/Log.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.exp.dir/app/Log.cpp.o -c /home/ics46/projects/proj2/app/Log.cpp
+
+CMakeFiles/a.out.exp.dir/app/Log.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.exp.dir/app/Log.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj2/app/Log.cpp > CMakeFiles/a.out.exp.dir/app/Log.cpp.i
+
+CMakeFiles/a.out.exp.dir/app/Log.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.exp.dir/app/Log.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj2/app/Log.cpp -o CMakeFiles/a.out.exp.dir/app/Log.cpp.s
+
 CMakeFiles/a.out.exp.dir/app/Register.cpp.o: CMakeFiles/a.out.exp.dir/flags.make
 CMakeFiles/a.out.exp.dir/app/Register.cpp.o: ../app/Register.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/a.out.exp.dir/app/Register.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/a.out.exp.dir/app/Register.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.exp.dir/app/Register.cpp.o -c /home/ics46/projects/proj2/app/Register.cpp
 
 CMakeFiles/a.out.exp.dir/app/Register.cpp.i: cmake_force
@@ -85,7 +98,7 @@ CMakeFiles/a.out.exp.dir/app/Register.cpp.s: cmake_force
 
 CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o: CMakeFiles/a.out.exp.dir/flags.make
 CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o: ../app/Simulation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o -c /home/ics46/projects/proj2/app/Simulation.cpp
 
 CMakeFiles/a.out.exp.dir/app/Simulation.cpp.i: cmake_force
@@ -98,7 +111,7 @@ CMakeFiles/a.out.exp.dir/app/Simulation.cpp.s: cmake_force
 
 CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o: CMakeFiles/a.out.exp.dir/flags.make
 CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o: ../app/Statistics.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o -c /home/ics46/projects/proj2/app/Statistics.cpp
 
 CMakeFiles/a.out.exp.dir/app/Statistics.cpp.i: cmake_force
@@ -112,6 +125,7 @@ CMakeFiles/a.out.exp.dir/app/Statistics.cpp.s: cmake_force
 # Object files for target a.out.exp
 a_out_exp_OBJECTS = \
 "CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o" \
+"CMakeFiles/a.out.exp.dir/app/Log.cpp.o" \
 "CMakeFiles/a.out.exp.dir/app/Register.cpp.o" \
 "CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o" \
 "CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o"
@@ -120,12 +134,13 @@ a_out_exp_OBJECTS = \
 a_out_exp_EXTERNAL_OBJECTS =
 
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o
+bin/a.out.exp: CMakeFiles/a.out.exp.dir/app/Log.cpp.o
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/app/Register.cpp.o
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/build.make
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable bin/a.out.exp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj2/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable bin/a.out.exp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.exp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -45,7 +45,6 @@
 #include "EmptyException.hpp"
 #include "IteratorException.hpp"
 
-#include <iostream>
 
 template <typename ValueType>
 class DoublyLinkedList
@@ -220,9 +219,14 @@ public:
     protected:
         // You may want protected member variables and member functions,
         // which will be accessible to the derived classes.
+
+        // stores whether the iterator is at pastEnd or pastStart location
         bool pastStart;
         bool pastEnd;
+        // pointer to the node that the iterator is at
         Node* current;
+        // pointer back to the DDL object
+        const DoublyLinkedList<ValueType>* list;
     };
 
 
@@ -243,7 +247,6 @@ public:
 
     private:
         // You may want private member variables and member functions.
-        const DoublyLinkedList<ValueType>* list;
     };
 
 
@@ -307,100 +310,46 @@ private:
 
     // You can feel free to add private member variables and member
     // functions here; there's a pretty good chance you'll need some.
+
+    // pointers to the head and tail node
     Node* head;
     Node* tail;
+
+    // size of linked list
     unsigned int sz;
 
-    void incrementSize()
+    // used for copying a linked list
+    struct LinkedListParameters
     {
-        sz++;
-    }
+        Node* head;
+        Node* tail;
+        unsigned int size;
+    };
+
+    // HELPER MEMBER FUNCTIONS
+    // increment current size
+    void incrementSize();
     
-    void decrementSize()
-    {
-        sz--;
-    }
+    // decrement current size
+    void decrementSize();
 
-    void insertBetween(Node* first, Node* second, const ValueType& value)
-    {
-        // insert a new node between the given two nodes
-        Node* newNode = new Node;
-        newNode->value = value;
-        newNode->prev = first;
-        newNode->next = second;
+    // insert a new node between the given two nodes
+    void insertBetween(Node* first, Node* second, const ValueType& value);
 
-        first->next = newNode;
-        second->prev = newNode;
-        incrementSize();
-    }
+    // remove the given node from linked list
+    void remove(Node* node);
 
-    void remove(Node* node)
-    {
-        if (head == node)
-        {
-            removeFromStart();
-        }
-        else if (tail == node)
-        {
-            removeFromEnd();
-        }
-        else
-        {
-            // redirect the pointers in prev and next node
-            Node* prevNode = node->prev;
-            Node* nextNode = node->next;
-            prevNode->next = nextNode;
-            nextNode->prev = prevNode;
-            delete node;
-            decrementSize();
-        }
-    }
+    // given a head to a linked list, delete all its nodes
+    void deleteLinkedList(Node* removeHead);
 
-    void copyLinkedList(Node* otherHead)
-    {
-        Node* current = otherHead;
-        while (current != nullptr)
-        {
-            ValueType newValue = current->value;
-            addToEnd(newValue);
-            current = current->next;
-        }
-    }
-
-    void clear()
-    {
-        while (!isEmpty())
-        {
-            removeFromStart();
-        }
-        
-        // Node* current = head;
-        // while (current != nullptr)
-        // {
-        //     Node* toRemove = current;
-        //     current = current->next;
-        //     delete toRemove;
-        // }
-        // head = nullptr;
-        // tail = nullptr;
-        // sz = 0;
-    }
+    // given a head to another linked list, copy the contents from that list,
+    // returns the new pointers and new sizes
+    LinkedListParameters copyLinkedList(Node* otherHead);
 };
 
 namespace
 {
-    template <typename T>
-    void deleteLinkedList(T* head)
-    {
-        T* current = head;
-        while (current != nullptr)
-        {
-            T* toRemove = current;
-            current = current->next;
-            delete toRemove;
-        }
-    }
-
+    // implement the swap function
     template <typename T>
     void swap(T& a, T& b)
     {
@@ -409,7 +358,7 @@ namespace
         b = temp;
     }
 
-} // namespace
+}
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList() noexcept
@@ -422,8 +371,11 @@ template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList(const DoublyLinkedList& list)
     : head{nullptr}, tail{nullptr}, sz{0}
 {
-    std::cout << "doing copy construction" << std::endl;
-    copyLinkedList(list.head);
+    // copy construction
+    LinkedListParameters newParam = copyLinkedList(list.head);
+    head = newParam.head;
+    tail = newParam.tail;
+    sz = newParam.size;
 }
 
 
@@ -431,6 +383,7 @@ template <typename ValueType>
 DoublyLinkedList<ValueType>::DoublyLinkedList(DoublyLinkedList&& list) noexcept
     : head{nullptr}, tail{nullptr}, sz{0}
 {
+    // move construction
     swap(head, list.head);
     swap(tail, list.tail);
     swap(sz, list.sz);
@@ -440,7 +393,8 @@ DoublyLinkedList<ValueType>::DoublyLinkedList(DoublyLinkedList&& list) noexcept
 template <typename ValueType>
 DoublyLinkedList<ValueType>::~DoublyLinkedList() noexcept
 {
-    clear();
+    // clear();
+    deleteLinkedList(head);
 }
 
 
@@ -448,15 +402,15 @@ DoublyLinkedList<ValueType>::~DoublyLinkedList() noexcept
 template <typename ValueType>
 DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(const DoublyLinkedList& list)
 {
-        std::cout << "doing assign construction" << std::endl;
     if (this != &list)
     {
-        // delete what we have now and fill it with content in the other list
-        // deleteLinkedList(head);
-        // head = nullptr;
-        // tail = nullptr;
-        clear();
-        copyLinkedList(list.head);
+        // copy first, then delete current content and update
+        LinkedListParameters newParam = copyLinkedList(list.head);
+        // clear();
+        deleteLinkedList(head);
+        head = newParam.head;
+        tail = newParam.tail;
+        sz = newParam.size;
     }
     return *this;
 }
@@ -465,7 +419,6 @@ DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(const Doubly
 template <typename ValueType>
 DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(DoublyLinkedList&& list) noexcept
 {
-    std::cout << "doing move construction" << std::endl;
     swap(head, list.head);
     swap(tail, list.tail);
     swap(sz, list.sz);
@@ -476,8 +429,8 @@ DoublyLinkedList<ValueType>& DoublyLinkedList<ValueType>::operator=(DoublyLinked
 template <typename ValueType>
 void DoublyLinkedList<ValueType>::addToStart(const ValueType& value)
 {
+    // create a new node
     Node* newHead = new Node;
-
     newHead->value = value;
     newHead->prev = nullptr;
     newHead->next = head;
@@ -491,6 +444,7 @@ void DoublyLinkedList<ValueType>::addToStart(const ValueType& value)
         // point first node's prev to new node
         head->prev = newHead;
     }
+    // update head and size
     head = newHead;
     incrementSize();
 }
@@ -500,7 +454,6 @@ template <typename ValueType>
 void DoublyLinkedList<ValueType>::addToEnd(const ValueType& value)
 {
     Node* newTail = new Node;
-
     newTail->value = value;
     newTail->prev = tail;
     newTail->next = nullptr;
@@ -514,6 +467,7 @@ void DoublyLinkedList<ValueType>::addToEnd(const ValueType& value)
         // point last node's next to new node
         tail->next = newTail;
     }
+    // update tail and size
     tail = newTail;
     incrementSize();
 }
@@ -529,14 +483,16 @@ void DoublyLinkedList<ValueType>::removeFromStart()
     Node* toRemove = head;
     // point head to the second node
     head = head->next;
-    if (head == nullptr)  // empty list now
+    if (head == nullptr)
     {
+        // empty list now
         tail = nullptr;
     }
     else
     {
         head->prev = nullptr;
     }
+    // delete the old node and update size
     delete toRemove;
     decrementSize();
 }
@@ -554,12 +510,14 @@ void DoublyLinkedList<ValueType>::removeFromEnd()
     tail = tail->prev;
     if (tail == nullptr)
     {
+        // empty now
         head = nullptr;
     }
     else
     {
         tail->next = nullptr;
     }
+    // delete the old node and update size
     delete toRemove;
     decrementSize();
 }
@@ -620,7 +578,6 @@ template <typename ValueType>
 bool DoublyLinkedList<ValueType>::isEmpty() const noexcept
 {
     if (size() == 0)
-    // if (head == nullptr)
     {
         return true;
     }
@@ -644,12 +601,14 @@ typename DoublyLinkedList<ValueType>::ConstIterator DoublyLinkedList<ValueType>:
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::IteratorBase::IteratorBase(const DoublyLinkedList& list) noexcept
-    : pastStart{true}, pastEnd{true}, current{nullptr}
+    : pastStart{true}, pastEnd{true}, current{nullptr}, list{&list}
 {
     if (list.isEmpty())
     {
+        // if empty, what we have initialized is correct
         return;
     }
+    // update member variables
     current = list.head;
     pastStart = false;
     pastEnd = false;    
@@ -661,11 +620,20 @@ void DoublyLinkedList<ValueType>::IteratorBase::moveToNext()
 {
     if (pastEnd)
     {
+        // can't move to next
         throw IteratorException{};
+    }
+    if (pastStart)
+    {
+        // now moved back to head
+        current = list->head;
+        pastStart = false;
+        return;
     }
     current = current->next;
     if (current == nullptr)
     {
+        // moved past end
         pastEnd = true;
     }
 }
@@ -678,9 +646,17 @@ void DoublyLinkedList<ValueType>::IteratorBase::moveToPrevious()
     {
         throw IteratorException{};
     }
+    if (pastEnd)
+    {
+        // now moved back to tail
+        current = list->tail;
+        pastEnd = false;
+        return;
+    }
     current = current->prev;
     if (current == nullptr)
     {
+        // passed start
         pastStart = true;
     }
 }
@@ -702,7 +678,7 @@ bool DoublyLinkedList<ValueType>::IteratorBase::isPastEnd() const noexcept
 
 template <typename ValueType>
 DoublyLinkedList<ValueType>::ConstIterator::ConstIterator(const DoublyLinkedList& list) noexcept
-    : IteratorBase{list}, list{&list}
+    : IteratorBase{list}
 {
 }
 
@@ -712,6 +688,7 @@ const ValueType& DoublyLinkedList<ValueType>::ConstIterator::value() const
 {
     if (this->isPastStart() || this->isPastEnd())
     {
+        // cannot be past start or past end
         throw IteratorException{};
     }
     return this->current->value;
@@ -730,6 +707,7 @@ ValueType& DoublyLinkedList<ValueType>::Iterator::value() const
 {
     if (this->isPastStart() || this->isPastEnd())
     {
+        // cannot be past start or past end
         throw IteratorException{};
     }
     return this->current->value;
@@ -742,15 +720,16 @@ void DoublyLinkedList<ValueType>::Iterator::insertBefore(const ValueType& value)
     {
         throw IteratorException{};
     }
-    
     if (this->current == list->head)
     {
         // inserting before the first value
-        std::cout << "inserting before the first value" << std::endl;
         list->addToStart(value);
     }
-    std::cout << "NOT inserting before the first value" << std::endl;
-    list->insertBetween(this->current->prev, this->current, value);
+    else
+    {
+        // insert between current node and the node before
+        list->insertBetween(this->current->prev, this->current, value);
+    }
 }
 
 
@@ -764,11 +743,13 @@ void DoublyLinkedList<ValueType>::Iterator::insertAfter(const ValueType& value)
     if (this->current == list->tail)
     {
         // inserting after the last node
-        std::cout << "inserting after teh last node" << std::endl;
         list->addToEnd(value);
     }
-    std::cout << "NOT inserting after the lsat node" << std::endl;
-    list->insertBetween(this->current, this->current->next, value);
+    else
+    {
+        // insert between current node and the node after this
+        list->insertBetween(this->current, this->current->next, value);
+    }
 }
 
 
@@ -779,10 +760,13 @@ void DoublyLinkedList<ValueType>::Iterator::remove(bool moveToNextAfterward)
     {
         throw IteratorException{};
     }
+    // it may not be the best way to solve this, but moving the current pointer
+    // before deleting the node can use other member functions and much easier
+    // to implement
     Node* toRemove = this->current;
     if (moveToNextAfterward)
     {
-        this->moveToNext();       
+        this->moveToNext();
     }
     else
     {
@@ -791,7 +775,122 @@ void DoublyLinkedList<ValueType>::Iterator::remove(bool moveToNextAfterward)
     list->remove(toRemove);
 }
 
+// increment current size
+template <typename ValueType>
+void DoublyLinkedList<ValueType>::incrementSize()
+{
+    sz++;
+}
 
+// decrement current size
+template <typename ValueType>
+void DoublyLinkedList<ValueType>::decrementSize()
+{
+    sz--;
+}
+
+// insert a new node between the given two nodes
+template <typename ValueType>
+void DoublyLinkedList<ValueType>::insertBetween(Node* first, Node* second, const ValueType& value)
+{
+    Node* newNode = new Node;
+    newNode->value = value;
+    newNode->prev = first;
+    newNode->next = second;
+
+    // redirect pointers
+    first->next = newNode;
+    second->prev = newNode;
+    incrementSize();
+}
+
+// remove the given node from linked list
+template <typename ValueType>
+void DoublyLinkedList<ValueType>::remove(Node* node)
+{
+    // if removing from head or tail, the public member functions will work
+    if (head == node)
+    {
+        removeFromStart();
+    }
+    else if (tail == node)
+    {
+        removeFromEnd();
+    }
+    else
+    {
+        // redirect the pointers in prev and next node
+        Node* prevNode = node->prev;
+        Node* nextNode = node->next;
+        prevNode->next = nextNode;
+        nextNode->prev = prevNode;
+        // clean up memory
+        delete node;
+        decrementSize();
+    }
+}
+
+// deletes all nodes inside the linked list
+template <typename ValueType>
+void DoublyLinkedList<ValueType>::deleteLinkedList(Node* removeHead)
+{
+    Node* current = removeHead;
+    while (current != nullptr)
+    {
+        Node* toRemove = current;
+        current = current->next;
+        delete toRemove;
+    }
+}
+
+// given a head to another linked list, copy the contents from that list,
+// returns the new pointers and new sizes
+template <typename ValueType>
+typename DoublyLinkedList<ValueType>::LinkedListParameters DoublyLinkedList<ValueType>::copyLinkedList(Node* otherHead)
+{
+    Node* current = otherHead;
+    // initiates pointers to the new list
+    Node* newHead = nullptr;
+    Node* newTail = nullptr;
+    unsigned int newSize = 0;
+    try
+    {
+        // start copying
+        bool firstIteration{true};
+        while (current != nullptr)
+        {
+            ValueType newValue = current->value;
+
+            // make a new node and copy value
+            Node* newNode = new Node;
+            newNode->value = newValue;
+            newNode->prev = newTail;
+            newNode->next = nullptr;
+
+            if (firstIteration)
+            {
+                // first time, point the node as the head
+                newHead = newNode;
+                firstIteration = false;
+            }
+            else
+            {
+                // point last node's next to new node
+                newTail->next = newNode;
+            }
+            // point tail to new node and adjust size
+            newTail = newNode;
+            current = current->next;
+            newSize++;
+        }
+    }
+    catch(...)
+    {
+        // if anything fails, delete everything copied so far and re throw
+        deleteLinkedList(newHead);
+        throw;
+    }
+    return LinkedListParameters{newHead, newTail, newSize};
+}
 
 #endif
-

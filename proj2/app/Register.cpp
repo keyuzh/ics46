@@ -1,26 +1,48 @@
+// Register.cpp
+// ICS46 Winter 2021 Project 2
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4
+
+// Handles actions related to a specific register
+
+#include "Customer.hpp"
 #include "Register.hpp"
 
-bool registerEmpty(const Register& reg)
+Register::Register(
+    unsigned int processTime, Queue<Customer>* line, unsigned int remaining)
+    : processTime{processTime}, line{line}, remainingTime{remaining}
 {
-    return (reg.remainingTime == 0);
-    // if (reg.remainingTime > 0)
-    // {
-    //     return false;
-    // }
 }
 
-void processCustomer(Simulation& sim, unsigned int queueNum)
+// whether a register is empty (avaliable for customers to come)
+bool Register::registerEmpty()
 {
-    // pulls one customer from queue(if any), and start processing it
-    try
-    {
-        unsigned int queueIndex = queueNum - 1;
-        sim.registers.at(queueIndex).line->dequeue();
-        std::cout << sim.currentTime << " exited line " << queueNum << std::endl;
-        sim.registers.at(queueIndex).remainingTime = sim.registers.at(queueIndex).processTime;
-        std::cout << sim.currentTime << " entered register " << queueNum << std::endl;
-    }
-    catch(const EmptyException& e)
-    {
-    }
+    return (remainingTime == 0);
+}
+
+// pulls one customer from queue(if any), and start processing it
+// if the queue is empty, throws EmptyException
+// returns: the time when the customer entered the queue
+unsigned int Register::processCustomer()
+{
+    Customer firstCustomer = line->front();
+    unsigned int enterTime = firstCustomer.enterQueueTime;
+    // dequeue this customer
+    line->dequeue();
+    // start processing this customer, reset this counter
+    remainingTime = processTime;
+    return enterTime;
+}
+
+// one second passes
+void Register::decrementRemainingTime()
+{
+    --remainingTime;
+}
+
+// returns the remaining time that the register need to process this customer
+unsigned int Register::getRemainingTime()
+{
+    return remainingTime;
 }

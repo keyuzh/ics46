@@ -1,1 +1,1 @@
-/usr/bin/clang++     CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o CMakeFiles/a.out.exp.dir/app/Register.cpp.o CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o  -o bin/a.out.exp  -lc++ -lpthread 
+/usr/bin/clang++     CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o CMakeFiles/a.out.exp.dir/app/Log.cpp.o CMakeFiles/a.out.exp.dir/app/Register.cpp.o CMakeFiles/a.out.exp.dir/app/Simulation.cpp.o CMakeFiles/a.out.exp.dir/app/Statistics.cpp.o  -o bin/a.out.exp  -lc++ -lpthread 

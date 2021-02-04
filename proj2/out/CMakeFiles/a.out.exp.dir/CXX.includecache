@@ -11,8 +11,6 @@ EmptyException.hpp
 ../core/EmptyException.hpp
 IteratorException.hpp
 ../core/IteratorException.hpp
-iostream
--
 
 ../core/EmptyException.hpp
 
@@ -22,35 +20,47 @@ iostream
 DoublyLinkedList.hpp
 ../core/DoublyLinkedList.hpp
 
-/home/ics46/projects/proj2/app/Register.hpp
-Queue.hpp
-/home/ics46/projects/proj2/app/Queue.hpp
-structs.hpp
-/home/ics46/projects/proj2/app/structs.hpp
+/home/ics46/projects/proj2/app/Customer.hpp
 
-/home/ics46/projects/proj2/app/Simulation.cpp
-Simulation.hpp
-/home/ics46/projects/proj2/app/Simulation.hpp
-vector
+/home/ics46/projects/proj2/app/Log.cpp
+iostream
 -
-Register.hpp
-/home/ics46/projects/proj2/app/Register.hpp
 string
 -
-sstream
+Log.hpp
+/home/ics46/projects/proj2/app/Log.hpp
+
+/home/ics46/projects/proj2/app/Log.hpp
+
+/home/ics46/projects/proj2/app/Register.hpp
+Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
+Customer.hpp
+/home/ics46/projects/proj2/app/Customer.hpp
+
+/home/ics46/projects/proj2/app/Simulation.cpp
+iostream
 -
+string
+-
+vector
+-
+Simulation.hpp
+/home/ics46/projects/proj2/app/Simulation.hpp
 
 /home/ics46/projects/proj2/app/Simulation.hpp
-Queue.hpp
-/home/ics46/projects/proj2/app/Queue.hpp
-structs.hpp
-/home/ics46/projects/proj2/app/structs.hpp
 vector
 -
+Customer.hpp
+/home/ics46/projects/proj2/app/Customer.hpp
+Log.hpp
+/home/ics46/projects/proj2/app/Log.hpp
+Queue.hpp
+/home/ics46/projects/proj2/app/Queue.hpp
+Register.hpp
+/home/ics46/projects/proj2/app/Register.hpp
+Statistics.hpp
+/home/ics46/projects/proj2/app/Statistics.hpp
 
-/home/ics46/projects/proj2/app/structs.hpp
-vector
--
-Queue.hpp
-/home/ics46/projects/proj2/app/Queue.hpp
+/home/ics46/projects/proj2/app/Statistics.hpp
 

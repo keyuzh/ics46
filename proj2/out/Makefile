@@ -149,6 +149,39 @@ a.out.app/fast:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/build
 .PHONY : a.out.app/fast
 
+app/Log.o: app/Log.cpp.o
+
+.PHONY : app/Log.o
+
+# target to build an object file
+app/Log.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Log.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Log.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Log.cpp.o
+.PHONY : app/Log.cpp.o
+
+app/Log.i: app/Log.cpp.i
+
+.PHONY : app/Log.i
+
+# target to preprocess a source file
+app/Log.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Log.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Log.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Log.cpp.i
+.PHONY : app/Log.cpp.i
+
+app/Log.s: app/Log.cpp.s
+
+.PHONY : app/Log.s
+
+# target to generate assembly for a file
+app/Log.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/Log.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/Log.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/Log.cpp.s
+.PHONY : app/Log.cpp.s
+
 app/Register.o: app/Register.cpp.o
 
 .PHONY : app/Register.o
@@ -394,6 +427,9 @@ help:
 	@echo "... a.out.exp"
 	@echo "... edit_cache"
 	@echo "... a.out.app"
+	@echo "... app/Log.o"
+	@echo "... app/Log.i"
+	@echo "... app/Log.s"
 	@echo "... app/Register.o"
 	@echo "... app/Register.i"
 	@echo "... app/Register.s"
