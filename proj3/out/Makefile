@@ -149,6 +149,19 @@ a.out.app/fast:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/build
 .PHONY : a.out.app/fast
 
+#=============================================================================
+# Target rules for targets named othelloaistudent
+
+# Build rule for target.
+othelloaistudent: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 othelloaistudent
+.PHONY : othelloaistudent
+
+# fast build rule for target.
+othelloaistudent/fast:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/build
+.PHONY : othelloaistudent/fast
+
 app/main.o: app/main.cpp.o
 
 .PHONY : app/main.o
@@ -175,6 +188,33 @@ app/main.s: app/main.cpp.s
 app/main.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/main.cpp.s
 .PHONY : app/main.cpp.s
+
+core/HowToExitVim.o: core/HowToExitVim.cpp.o
+
+.PHONY : core/HowToExitVim.o
+
+# target to build an object file
+core/HowToExitVim.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o
+.PHONY : core/HowToExitVim.cpp.o
+
+core/HowToExitVim.i: core/HowToExitVim.cpp.i
+
+.PHONY : core/HowToExitVim.i
+
+# target to preprocess a source file
+core/HowToExitVim.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.i
+.PHONY : core/HowToExitVim.cpp.i
+
+core/HowToExitVim.s: core/HowToExitVim.cpp.s
+
+.PHONY : core/HowToExitVim.s
+
+# target to generate assembly for a file
+core/HowToExitVim.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s
+.PHONY : core/HowToExitVim.cpp.s
 
 exp/expmain.o: exp/expmain.cpp.o
 
@@ -241,9 +281,13 @@ help:
 	@echo "... a.out.exp"
 	@echo "... edit_cache"
 	@echo "... a.out.app"
+	@echo "... othelloaistudent"
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"
+	@echo "... core/HowToExitVim.o"
+	@echo "... core/HowToExitVim.i"
+	@echo "... core/HowToExitVim.s"
 	@echo "... exp/expmain.o"
 	@echo "... exp/expmain.i"
 	@echo "... exp/expmain.s"

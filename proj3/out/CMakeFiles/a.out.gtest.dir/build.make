@@ -80,6 +80,7 @@ a_out_gtest_EXTERNAL_OBJECTS =
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/build.make
 bin/a.out.gtest: ../lib/libothellogame.so
+bin/a.out.gtest: lib/libothelloaistudent.a
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bin/a.out.gtest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.gtest.dir/link.txt --verbose=$(VERBOSE)

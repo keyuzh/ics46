@@ -84,6 +84,7 @@ bin/a.out.app: ../lib/libothelloplugin.so
 bin/a.out.app: ../lib/libothelloclient.so
 bin/a.out.app: ../lib/libothellogame.so
 bin/a.out.app: ../lib/libothelloai.so
+bin/a.out.app: lib/libothelloaistudent.a
 bin/a.out.app: /usr/local/Qt/5.15.2/gcc_64/lib/libQt5Widgets.so.5.15.2
 bin/a.out.app: /usr/local/Qt/5.15.2/gcc_64/lib/libQt5Gui.so.5.15.2
 bin/a.out.app: /usr/local/Qt/5.15.2/gcc_64/lib/libQt5Core.so.5.15.2

@@ -99,4 +99,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/a.out.gtest.dir/DependInfo.cmake"
   "CMakeFiles/a.out.exp.dir/DependInfo.cmake"
   "CMakeFiles/a.out.app.dir/DependInfo.cmake"
+  "CMakeFiles/othelloaistudent.dir/DependInfo.cmake"
   )

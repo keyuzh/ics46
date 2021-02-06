@@ -80,6 +80,7 @@ a_out_exp_EXTERNAL_OBJECTS =
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/exp/expmain.cpp.o
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/build.make
 bin/a.out.exp: ../lib/libothellogame.so
+bin/a.out.exp: lib/libothelloaistudent.a
 bin/a.out.exp: CMakeFiles/a.out.exp.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bin/a.out.exp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.exp.dir/link.txt --verbose=$(VERBOSE)
