@@ -16,21 +16,22 @@ ICS46_DYNAMIC_FACTORY_REGISTER(OthelloAI, keyuz4::HowToExitVim, "How to exit Vim
 
 // try doing 1 level search first
 
-std::pair<int, int> evaluation(const OthelloGameState& s)
+bool isTurn(const OthelloGameState&s, char self)
+{
+    bool turn{false};
+    if ( (self == 'b' && s.isBlackTurn()) || (self == 'w' && s.isWhiteTurn()) )
+    {
+        turn = true;
+    }
+    return turn;
+}
+
+std::map<int, std::pair<int, int>> evaluation(const OthelloGameState& s, char self)
 {
     // for all valid moves
-    // find the move that maximizes self score
-
+    // find the move that maximizes self score or minimized opponent score
     // find out which turn it is
-    char self;
-    if (s.isBlackTurn())
-    {
-        self = 'b';
-    }
-    else
-    {
-        self = 'w';
-    }
+    bool isSelfTurn{isTurn(s, self)};
 
     //vector of all valid moves
     std::vector<std::pair<int, int>> validMoves;
@@ -56,7 +57,12 @@ std::pair<int, int> evaluation(const OthelloGameState& s)
     }
     
     std::pair<int, int> maxReturnMove;
-    int maxReturn{INT32_MIN};
+    int maxReturn{INT32_MAX};
+    int scoreDiff;
+    if (isSelfTurn)
+    {
+        maxReturn = INT32_MIN;
+    }
 
     for (auto move : validMoves)
     {
@@ -71,20 +77,29 @@ std::pair<int, int> evaluation(const OthelloGameState& s)
         {
             score = clone->whiteScore() - currentScore;
         }
-        if (score > maxReturn)
+        if (isSelfTurn && score > maxReturn)
         {
             maxReturnMove = move;
             maxReturn = score;
+            scoreDiff = score;
+        }
+        else if (!isSelfTurn && score < maxReturn)
+        {
+            maxReturnMove = move;
+            maxReturn = score;
+            scoreDiff = score;
         }
     }
-    return maxReturnMove;
+    // std::map<int, std::pair<int, int>> m {{scoreDiff, maxReturnMove}};
+    // return m;
+    return std::map<int, std::pair<int, int>>{{scoreDiff, maxReturnMove}};
 }
 
-std::pair<int, int> search(const OthelloGameState& s, int depth)
+std::map<int, std::pair<int, int>> search(const OthelloGameState& s, int depth, char self)
 {
     if (depth == 0)
     {
-        return evaluation(s);
+        return evaluation(s, self);
     }
 
     std::vector<std::pair<int, int>> validMoves;
@@ -99,41 +114,40 @@ std::pair<int, int> search(const OthelloGameState& s, int depth)
         }
     }
 
-    int currentScore;
-    if (self == 'b')
-    {
-        currentScore = s.blackScore();
-    }
-    else
-    {
-        currentScore = s.whiteScore();
-    }
-    
-    std::pair<int, int> maxReturnMove;
-    int maxReturn{INT32_MIN};
-
+    std::map<int, std::pair<int, int>> possibility;
     for (auto move : validMoves)
     {
         std::unique_ptr<OthelloGameState> clone = s.clone();
         clone->makeMove(move.first, move.second);
-        int score;
-        if (self == 'b')
-        {
-            score = clone->blackScore() - currentScore;
-        }
-        else
-        {
-            score = clone->whiteScore() - currentScore;
-        }
-        if (score > maxReturn)
-        {
-            maxReturnMove = move;
-            maxReturn = score;
-        }
+        possibility.merge(search(*clone, depth-1, self));
     }
+
+    int maxReturn{INT32_MAX};
+    bool
+    if (isTurn(s, self))
+    {
+        maxReturn = INT32_MIN;
+    }
+
+    for (auto move : possibility)
+    {
+        if (move.first)
+        {
+            /* code */
+        }
+        
+    }
+    
+
 }
 
 std::pair<int, int> keyuz4::HowToExitVim::chooseMove(const OthelloGameState& state)
 {
-    return search(state, 0);
+    char self{'w'};
+    if (state.isBlackTurn())
+    {
+        self = 'b';
+    }
+    
+    return search(state, 0, self);
 }
