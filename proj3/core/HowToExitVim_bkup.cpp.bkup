@@ -1,0 +1,243 @@
+// HowToExitVim.cpp
+// ICS46 Winter 2021 Project 3
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4    
+
+#include <utility>
+#include <vector>
+
+#include <ics46/factory/DynamicFactory.hpp>
+
+#include "HowToExitVim.hpp"
+
+ICS46_DYNAMIC_FACTORY_REGISTER(OthelloAI, keyuz4::HowToExitVim, "How to exit Vim");
+
+
+
+bool isTurn(const OthelloGameState&s, char self)
+{
+    bool turn{false};
+    if ( (self == 'b' && s.isBlackTurn()) || (self == 'w' && s.isWhiteTurn()) )
+    {
+        turn = true;
+    }
+    return turn;
+}
+
+int countCorner(const OthelloGameState& s)
+{
+    int score{0};
+    int max_x{s.board().width() - 1};
+    int max_y{s.board().height() - 1};
+    std::vector<OthelloCell> corner {
+        s.board().cellAt(0,0), s.board().cellAt(0,max_y), s.board().cellAt(max_x, 0), s.board().cellAt(max_x, max_y)
+    };
+    
+    for (OthelloCell cell : corner)
+    {
+        switch (cell)
+        {
+        case OthelloCell::black:
+            score++;
+            break;
+        case OthelloCell::white:
+            score--;
+            break;
+        default:
+            break;
+        }
+    }
+    return score;
+}
+
+int countSide(const OthelloGameState& s)
+{
+    int score{0};
+    int max_x{s.board().width() - 1};
+    int max_y{s.board().height() - 1};
+    std::vector<OthelloCell> side;
+    for (int x = 0; x <= max_x; x++)
+    {
+        side.push_back(s.board().cellAt(x, 0));
+    }
+    for (int x = 0; x <= max_x; x++)
+    {
+        side.push_back(s.board().cellAt(x, max_y));
+    }
+    for (int y = 0; y <= max_y; y++)
+    {
+        side.push_back(s.board().cellAt(max_x, y));
+    }
+    for (int y = 0; y <= max_x; y++)
+    {
+        side.push_back(s.board().cellAt(0, y));
+    }
+    
+    for (OthelloCell cell : side)
+    {
+        switch (cell)
+        {
+        case OthelloCell::black:
+            score++;
+            break;
+        case OthelloCell::white:
+            score--;
+            break;
+        default:
+            break;
+        }
+    }
+    return score;
+}
+
+
+int evaluation(const OthelloGameState& s)
+{
+    // right now
+    // simply evaluate the number of pieces
+    // large number -> better for black
+    int score{0};
+    score += s.blackScore() - s.whiteScore();
+
+    // corners are important
+    score += countSide(s) * 100;
+
+    return score;
+
+
+    // // for all valid moves
+    // // find the move that maximizes self score or minimized opponent score
+    // // find out which turn it is
+    // bool isSelfTurn{isTurn(s, self)};
+
+    // //vector of all valid moves
+    // std::vector<std::pair<int, int>> validMoves;
+    // for (int x = 0; x < s.board().width(); x++)
+    // {
+    //     for (int y = 0; y < s.board().height(); y++)
+    //     {
+    //         if (s.isValidMove(x,y))
+    //         {
+    //             validMoves.push_back(std::make_pair(x,y));
+    //         }
+    //     }
+    // }
+
+    // int currentScore;
+    // if (self == 'b')
+    // {
+    //     currentScore = s.blackScore();
+    // }
+    // else
+    // {
+    //     currentScore = s.whiteScore();
+    // }
+    
+    // std::pair<int, int> maxReturnMove;
+    // int maxReturn{INT32_MAX};
+    // int scoreDiff;
+    // if (isSelfTurn)
+    // {
+    //     maxReturn = INT32_MIN;
+    // }
+
+    // for (auto move : validMoves)
+    // {
+    //     std::unique_ptr<OthelloGameState> clone = s.clone();
+    //     clone->makeMove(move.first, move.second);
+    //     int score;
+    //     if (self == 'b')
+    //     {
+    //         score = clone->blackScore() - currentScore;
+    //     }
+    //     else
+    //     {
+    //         score = clone->whiteScore() - currentScore;
+    //     }
+    //     if (isSelfTurn && score > maxReturn)
+    //     {
+    //         maxReturnMove = move;
+    //         maxReturn = score;
+    //         scoreDiff = score;
+    //     }
+    //     else if (!isSelfTurn && score < maxReturn)
+    //     {
+    //         maxReturnMove = move;
+    //         maxReturn = score;
+    //         scoreDiff = score;
+    //     }
+    // }
+    // // std::map<int, std::pair<int, int>> m {{scoreDiff, maxReturnMove}};
+    // // return m;
+    // return std::map<int, std::pair<int, int>>{{scoreDiff, maxReturnMove}};
+}
+
+std::vector<std::pair<int, int>> findAllMoves(const OthelloGameState& s)
+{
+    std::vector<std::pair<int, int>> valid;
+    for (int x = 0; x < s.board().width(); x++)
+    {
+        for (int y = 0; y < s.board().height(); y++)
+        {
+            if (s.isValidMove(x,y))
+            {
+                valid.push_back(std::make_pair(x,y));
+            }
+        }
+    }
+    return valid;
+}
+
+struct Outcome
+{
+    int eval;
+    int x;
+    int y;
+};
+
+Outcome search(const OthelloGameState& s, int depth, char self)
+{
+    if (depth == 0)
+    {
+        return Outcome{evaluation(s), 0, 0};
+    }
+
+    std::vector<std::pair<int, int>> validMoves = findAllMoves(s);
+    Outcome bestResult;
+    // if (self == 'b')
+    // {
+    //     bestResult.eval = INT32_MIN;
+    // }
+    // else
+    // {
+    //     bestResult.eval = INT32_MAX;
+    // }
+    bestResult.eval = (self == 'b') ? INT32_MIN : INT32_MAX;
+
+    bool firstIteration{true};
+    for (auto move : validMoves)
+    {
+        std::unique_ptr<OthelloGameState> clone = s.clone();
+        clone->makeMove(move.first, move.second);
+        Outcome result = search(*clone, depth-1, self);
+        if (firstIteration || (self == 'b' && result.eval > bestResult.eval) || (self == 'w' && result.eval < bestResult.eval))
+        {
+            bestResult = Outcome{result.eval, move.first, move.second};
+            firstIteration = false;
+        }
+    }
+    return bestResult;
+}
+
+std::pair<int, int> keyuz4::HowToExitVim::chooseMove(const OthelloGameState& state)
+{
+    char self{'w'};
+    if (state.isBlackTurn())
+    {
+        self = 'b';
+    }
+
+    Outcome best = search(state, 5, self);
+    return std::make_pair(best.x, best.y);
+}

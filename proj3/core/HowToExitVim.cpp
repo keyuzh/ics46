@@ -6,6 +6,7 @@
 
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include <ics46/factory/DynamicFactory.hpp>
 
@@ -14,140 +15,356 @@
 ICS46_DYNAMIC_FACTORY_REGISTER(OthelloAI, keyuz4::HowToExitVim, "How to exit Vim");
 
 
-// try doing 1 level search first
 
-bool isTurn(const OthelloGameState&s, char self)
+bool isSelfTurn(const OthelloGameState&s, OthelloCell self)
 {
-    bool turn{false};
-    if ( (self == 'b' && s.isBlackTurn()) || (self == 'w' && s.isWhiteTurn()) )
+    if ( (self == OthelloCell::black && s.isBlackTurn()) || (self == OthelloCell::white && s.isWhiteTurn()) )
     {
-        turn = true;
+        return true;
     }
-    return turn;
+    return false;
 }
 
-std::map<int, std::pair<int, int>> evaluation(const OthelloGameState& s, char self)
+bool isCorner(const OthelloBoard& board, int x, int y)
 {
-    // for all valid moves
-    // find the move that maximizes self score or minimized opponent score
-    // find out which turn it is
-    bool isSelfTurn{isTurn(s, self)};
-
-    //vector of all valid moves
-    std::vector<std::pair<int, int>> validMoves;
-    for (int x = 0; x < s.board().width(); x++)
+    if (x == 0 || x == board.width() - 1)
     {
-        for (int y = 0; y < s.board().height(); y++)
+        if (y == 0 || y == board.height() - 1)
         {
-            if (s.isValidMove(x,y))
-            {
-                validMoves.push_back(std::make_pair(x,y));
-            }
+            return true;
         }
     }
+    return false;
+}
 
-    int currentScore;
-    if (self == 'b')
-    {
-        currentScore = s.blackScore();
-    }
-    else
-    {
-        currentScore = s.whiteScore();
-    }
+double countCorner(const OthelloGameState& s, OthelloCell self)
+{
+    int selfCorner{0};
+    int otherCorner{0};
     
-    std::pair<int, int> maxReturnMove;
-    int maxReturn{INT32_MAX};
-    int scoreDiff;
-    if (isSelfTurn)
-    {
-        maxReturn = INT32_MIN;
-    }
+    // find the edge of board
+    int max_x{s.board().width() - 1};
+    int max_y{s.board().height() - 1};
 
-    for (auto move : validMoves)
+    std::vector<OthelloCell> corner {
+        s.board().cellAt(0,     0), s.board().cellAt(0,     max_y),
+        s.board().cellAt(max_x, 0), s.board().cellAt(max_x, max_y)
+    };
+    
+    for (OthelloCell cell : corner)
     {
-        std::unique_ptr<OthelloGameState> clone = s.clone();
-        clone->makeMove(move.first, move.second);
-        int score;
-        if (self == 'b')
+        if (cell == OthelloCell::empty)
         {
-            score = clone->blackScore() - currentScore;
+            continue;
+        }
+        else if (cell == self)
+        {
+            selfCorner++;
         }
         else
         {
-            score = clone->whiteScore() - currentScore;
-        }
-        if (isSelfTurn && score > maxReturn)
-        {
-            maxReturnMove = move;
-            maxReturn = score;
-            scoreDiff = score;
-        }
-        else if (!isSelfTurn && score < maxReturn)
-        {
-            maxReturnMove = move;
-            maxReturn = score;
-            scoreDiff = score;
+            otherCorner++;
         }
     }
-    // std::map<int, std::pair<int, int>> m {{scoreDiff, maxReturnMove}};
-    // return m;
-    return std::map<int, std::pair<int, int>>{{scoreDiff, maxReturnMove}};
+    // find the fraction of corners grabbed between my color and opponent
+    // plus one in the end to avoid divide by zero
+    double score = double(selfCorner - otherCorner) / double(selfCorner + otherCorner + 1);
+    // std::cout << "corner score: " << score << std::endl;
+    return score;
 }
 
-std::map<int, std::pair<int, int>> search(const OthelloGameState& s, int depth, char self)
+// int countCornerDangerZone(const OthelloGameState& s, char self)
+// {
+//     // the cells next to corner tiles are dangerous, avoid taking them
+
+
+// }
+
+int countSide(const OthelloGameState& s)
 {
-    if (depth == 0)
+    int score{0};
+    int max_x{s.board().width() - 1};
+    int max_y{s.board().height() - 1};
+    std::vector<OthelloCell> side;
+    for (int x = 0; x <= max_x; x++)
     {
-        return evaluation(s, self);
+        side.push_back(s.board().cellAt(x, 0));
+    }
+    for (int x = 0; x <= max_x; x++)
+    {
+        side.push_back(s.board().cellAt(x, max_y));
+    }
+    for (int y = 0; y <= max_y; y++)
+    {
+        side.push_back(s.board().cellAt(max_x, y));
+    }
+    for (int y = 0; y <= max_x; y++)
+    {
+        side.push_back(s.board().cellAt(0, y));
+    }
+    
+    for (OthelloCell cell : side)
+    {
+        switch (cell)
+        {
+        case OthelloCell::black:
+            score++;
+            break;
+        case OthelloCell::white:
+            score--;
+            break;
+        default:
+            break;
+        }
+    }
+    return score;
+}
+
+bool isRowFull(const OthelloBoard& board, int y)
+{
+    for (int x = 0; x < board.width(); x++)
+    {
+        if (board.cellAt(x, y) == OthelloCell::empty)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isColFull(const OthelloBoard& board, int x)
+{
+    for (int y = 0; y < board.height(); y++)
+    {
+        if (board.cellAt(x, y) == OthelloCell::empty)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isDiagonalFull(const OthelloBoard& board, int x, int y)
+{
+    int check = std::max({x, y, board.width() - x, board.width() - y});
+    for (int i = 1; i < check; i++)
+    {
+        // check the four diagonals
+        if (board.isValidCell(x + i, y + i) && board.cellAt(x + i, y + i) == OthelloCell::empty)
+        {
+            return false;
+        }
+        if (board.isValidCell(x + i, y - i) && board.cellAt(x + i, y - i) == OthelloCell::empty)
+        {
+            return false;
+        }
+        if (board.isValidCell(x - i, y + i) && board.cellAt(x - i, y + i) == OthelloCell::empty)
+        {
+            return false;
+        }
+        if (board.isValidCell(x - i, y - i) && board.cellAt(x - i, y - i) == OthelloCell::empty)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+int stability(const OthelloGameState& s, OthelloCell self)
+{
+    int stable{0};
+    // cells that cannot be flipped are safe
+    // first find rows (y) that is full
+    std::vector<int> fullY;
+    for (int row = 0; row < s.board().height(); row++)
+    {
+        if (isRowFull(s.board(), row))
+        {
+            fullY.push_back(row);
+        }
+    }
+    // then find full col (x)
+    std::vector<int> fullX;
+    for (int col = 0; col < s.board().width(); col++)
+    {
+        if (isColFull(s.board(), col))
+        {
+            fullX.push_back(col);
+        }
+    }
+    // for every (x, y) that is full, check if it is self color
+    for (auto x : fullX)
+    {
+        for (auto y: fullY)
+        {
+            if (s.board().cellAt(x, y) == self && isDiagonalFull(s.board(), x, y))
+            {
+                stable++;
+            }
+        }
+    }
+    // std::cout << "stability score: " << stable << std::endl;
+    return stable;
+}
+
+double scoreDifference(const OthelloGameState& s, OthelloCell self)
+{
+    int myCell;
+    int opponentCell;
+
+    if (self == OthelloCell::black)
+    {
+        myCell = s.blackScore();
+        opponentCell = s.whiteScore();
+    }
+    else
+    {
+        myCell = s.whiteScore();
+        opponentCell = s.blackScore();
     }
 
-    std::vector<std::pair<int, int>> validMoves;
+    // find difference in similar way as corner cells, except the number of
+    // cells is guaranteed to be greater than zero
+    double score = double(myCell - opponentCell) / double(myCell + opponentCell);
+    // std::cout << "score: " << score << std::endl;
+    return score;
+}
+
+double evaluation(const OthelloGameState& s)
+{
+    // Corner Grab (Measures if the current player can take a corner with its next move, 
+    // Weighted highly at all times.)
+
+    // Stability (Measures the number of discs that cannot be flipped for the rest of the 
+    // game. Weighted highly at all times.)
+
+    // Mobility (Measures the number of moves the player is currently able to make. Has 
+    // significant weight in the opening game, but diminishes to zero weight towards the endgame.)
+
+    // Placment (piece placement score of the current player minus the piece placement 
+    // score of the opponent.)
+
+    // Frontier Discs (number of spaces adjacent to opponent pieces minus the the number 
+    // of spaces adjacent to the current player's pieces.)
+
+    // Disc difference (Measures the difference in the number of discs on the board. Has 
+    // zero weight in the opening, but increases to a moderate weight in the midgame, and to 
+    // a significant weight in the endgame.)
+
+    // Parity (Measures who is expected to make the last move of the game. Has zero weight 
+    // in the opening, but increases to a very large weight in the midgame and endgame.) 
+    // (currently unused feature)
+
+    double score{0};
+    OthelloCell self = (s.isBlackTurn()) ? OthelloCell::black : OthelloCell::white; 
+
+    score += 1000 * countCorner(s, self);
+
+    score += 50 * stability(s, self);
+
+
+    score += scoreDifference(s, self);
+    // std::cout << "evaluation: " << score << std::endl;
+    return score;
+
+}
+
+std::vector<std::pair<int, int>> findAllMoves(const OthelloGameState& s)
+{
+    std::vector<std::pair<int, int>> valid;
     for (int x = 0; x < s.board().width(); x++)
     {
         for (int y = 0; y < s.board().height(); y++)
         {
             if (s.isValidMove(x,y))
             {
-                validMoves.push_back(std::make_pair(x,y));
+                valid.push_back(std::make_pair(x,y));
             }
         }
     }
+    return valid;
+}
 
-    std::map<int, std::pair<int, int>> possibility;
-    for (auto move : validMoves)
+struct Outcome
+{
+    int eval;
+    int x;
+    int y;
+};
+
+double search(const OthelloGameState& s, int depth, OthelloCell self)
+{
+    if (depth == 0)
     {
-        std::unique_ptr<OthelloGameState> clone = s.clone();
-        clone->makeMove(move.first, move.second);
-        possibility.merge(search(*clone, depth-1, self));
+        return evaluation(s);
     }
 
-    int maxReturn{INT32_MAX};
-    bool
-    if (isTurn(s, self))
-    {
-        maxReturn = INT32_MIN;
-    }
+    std::vector<std::pair<int, int>> validMoves = findAllMoves(s);
+    // Outcome bestResult;
+    // double bestScore = (isSelfTurn(s, self)) ? -999999999 : 9999999999;
+    // bestResult.eval = (self == 'b') ? INT32_MIN : INT32_MAX;
 
-    for (auto move : possibility)
+    // bool firstIteration{true};
+    double bestScore;
+    if (isSelfTurn(s, self))
     {
-        if (move.first)
+        bestScore = -99999999;
+        for (auto move : validMoves)
         {
-            /* code */
+            // find maximum
+            std::unique_ptr<OthelloGameState> clone = s.clone();
+            clone->makeMove(move.first, move.second);
+            double result = search(*clone, depth-1, self);
+            if (result > bestScore)
+            {
+                bestScore = result;
+            }
         }
-        
     }
-    
-
+    else
+    {
+        bestScore = 99999999;
+        for (auto move : validMoves)
+        {
+            // find minimum
+            std::unique_ptr<OthelloGameState> clone = s.clone();
+            clone->makeMove(move.first, move.second);
+            double result = search(*clone, depth-1, self);
+            if (result < bestScore)
+            {
+                bestScore = result;
+            }
+        }
+    }
+    return bestScore;
 }
 
 std::pair<int, int> keyuz4::HowToExitVim::chooseMove(const OthelloGameState& state)
 {
-    char self{'w'};
-    if (state.isBlackTurn())
+    OthelloCell self = (state.isBlackTurn()) ? OthelloCell::black : OthelloCell::white; 
+
+    std::vector<std::pair<int, int>> validMoves = findAllMoves(state);
+    // TODO: if we can block the opponent next move
+    double bestScore{-99999999};
+    std::pair<int, int> bestMove = validMoves.at(0);
+    for (auto move : validMoves)
     {
-        self = 'b';
+        if (isCorner(state.board(), move.first, move.second))
+        {
+            // if we can grab a corner, dont search the tree
+            return move;
+        }
+        // find maximum
+        std::unique_ptr<OthelloGameState> clone = state.clone();
+        clone->makeMove(move.first, move.second);
+        double result = search(*clone, 5, self);
+        if (result > bestScore)
+        {
+            bestScore = result;
+            bestMove = move;
+        }
     }
-    
-    return search(state, 0, self);
+    // std::cout << "best score: " << bestScore << std::endl;
+    // std::cout << "at " << bestMove.first << " " << bestMove.second << std::endl;
+    return bestMove;
 }
