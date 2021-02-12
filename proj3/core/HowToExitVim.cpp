@@ -73,12 +73,54 @@ double countCorner(const OthelloGameState& s, OthelloCell self)
     return score;
 }
 
-// int countCornerDangerZone(const OthelloGameState& s, char self)
-// {
-//     // the cells next to corner tiles are dangerous, avoid taking them
+bool isFrontier(const OthelloBoard& board, int x, int y)
+{
+    if (board.cellAt(x,y) == OthelloCell::empty)
+    {
+        return false;
+    }
+    
+    for (int i = -1; i <= 1; i++)
+    {
+        for (int j = -1; j <= 1; j++)
+        {
+            if (board.isValidCell(x+i, y+j) && board.cellAt(x+i, y+j) == OthelloCell::empty)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-
-// }
+double countFrontier(const OthelloBoard& board, const OthelloCell& self)
+{
+    // smaller is better
+    // count the number of cells that is next to empty cell
+    int myFrontier{0};
+    int otherFrontier{0};
+    // side cells are excluded
+    for (int x = 1; x < board.width()-1; x++)
+    {
+        for (int y = 1; y < board.height()-1; y++)
+        {
+            if (isFrontier(board, x, y))
+            {
+                if (board.cellAt(x,y) == self)
+                {
+                    myFrontier++;
+                }
+                else
+                {
+                    otherFrontier++;
+                }
+            }
+        }
+    }
+    std::cout << "myF" << myFrontier << std::endl;
+    std::cout << "otherF" << otherFrontier << std::endl;
+    return double(myFrontier - otherFrontier) / double(myFrontier + otherFrontier + 1);
+}
 
 int countSide(const OthelloGameState& s)
 {
@@ -230,11 +272,33 @@ double scoreDifference(const OthelloGameState& s, OthelloCell self)
     return score;
 }
 
+int gamePhase(const OthelloGameState& s)
+{
+    int totalCells = s.board().width() * s.board().height();
+    int currentCells = s.blackScore() + s.whiteScore();
+    double percentFilled = double(currentCells) / double(totalCells);
+
+    if (percentFilled < 0.3)
+    {
+        // early
+        return 0;
+    }
+    if (percentFilled < 0.8)
+    {
+        // mid-game
+        return 1;
+    }
+    // late game
+    return 2;
+}
+
 double evaluation(const OthelloGameState& s)
 {
+    // done
     // Corner Grab (Measures if the current player can take a corner with its next move, 
     // Weighted highly at all times.)
 
+    // need fix
     // Stability (Measures the number of discs that cannot be flipped for the rest of the 
     // game. Weighted highly at all times.)
 
@@ -244,9 +308,11 @@ double evaluation(const OthelloGameState& s)
     // Placment (piece placement score of the current player minus the piece placement 
     // score of the opponent.)
 
+    // done
     // Frontier Discs (number of spaces adjacent to opponent pieces minus the the number 
     // of spaces adjacent to the current player's pieces.)
 
+    // done
     // Disc difference (Measures the difference in the number of discs on the board. Has 
     // zero weight in the opening, but increases to a moderate weight in the midgame, and to 
     // a significant weight in the endgame.)
@@ -257,13 +323,30 @@ double evaluation(const OthelloGameState& s)
 
     double score{0};
     OthelloCell self = (s.isBlackTurn()) ? OthelloCell::black : OthelloCell::white; 
+    int phase = gamePhase(s);
+    switch (phase)
+    {
+    case 0:
+        // early game
+        // score += -500 * countFrontier(s.board(), self);
+        score += -5 * scoreDifference(s, self);
+        break;
+    case 1:
+        // mid game
+        score += 5 * scoreDifference(s, self);
+        score += -20 * countFrontier(s.board(), self);
+        break;
+    case 2:
+        // end game
+        score += 20 * scoreDifference(s, self);
+        break;
+    }
 
+    score += 10 * stability(s, self);
     score += 1000 * countCorner(s, self);
 
-    score += 50 * stability(s, self);
 
 
-    score += scoreDifference(s, self);
     // std::cout << "evaluation: " << score << std::endl;
     return score;
 
@@ -315,6 +398,7 @@ double search(const OthelloGameState& s, int depth, OthelloCell self)
             std::unique_ptr<OthelloGameState> clone = s.clone();
             clone->makeMove(move.first, move.second);
             double result = search(*clone, depth-1, self);
+            // std::cout << result << std::endl;
             if (result > bestScore)
             {
                 bestScore = result;
@@ -357,7 +441,7 @@ std::pair<int, int> keyuz4::HowToExitVim::chooseMove(const OthelloGameState& sta
         // find maximum
         std::unique_ptr<OthelloGameState> clone = state.clone();
         clone->makeMove(move.first, move.second);
-        double result = search(*clone, 5, self);
+        double result = search(*clone, 0, self);
         if (result > bestScore)
         {
             bestScore = result;
