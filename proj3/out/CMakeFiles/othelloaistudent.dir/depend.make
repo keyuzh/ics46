@@ -14,3 +14,16 @@ CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o: ../include/othellogame/
 CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o: ../core/HowToExitVim.cpp
 CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o: ../core/HowToExitVim.hpp
 
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/DuplicateTypeRegistrationException.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/DynamicFactory.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/DynamicFactoryRegistration.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/RegisteredType.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/UnregisteredNameException.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/ics46/factory/UnregisteredTypeException.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/othellogame/OthelloAI.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/othellogame/OthelloBoard.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/othellogame/OthelloCell.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../include/othellogame/OthelloGameState.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../core/MyRandom.cpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../core/MyRandom.hpp
+

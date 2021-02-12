@@ -4,6 +4,9 @@
 // ID: 19898090
 // UCINetID: keyuz4    
 
+#ifndef HOWTOEXITVIM_HPP
+#define HOWTOEXITVIM_HPP
+
 #include "OthelloAI.hpp"
 
 namespace keyuz4
@@ -16,3 +19,5 @@ namespace keyuz4
 
     };
 } // namespace keyuz4
+
+#endif

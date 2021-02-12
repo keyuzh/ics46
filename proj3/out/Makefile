@@ -216,6 +216,33 @@ core/HowToExitVim.cpp.s:
 	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s
 .PHONY : core/HowToExitVim.cpp.s
 
+core/MyRandom.o: core/MyRandom.cpp.o
+
+.PHONY : core/MyRandom.o
+
+# target to build an object file
+core/MyRandom.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
+.PHONY : core/MyRandom.cpp.o
+
+core/MyRandom.i: core/MyRandom.cpp.i
+
+.PHONY : core/MyRandom.i
+
+# target to preprocess a source file
+core/MyRandom.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.i
+.PHONY : core/MyRandom.cpp.i
+
+core/MyRandom.s: core/MyRandom.cpp.s
+
+.PHONY : core/MyRandom.s
+
+# target to generate assembly for a file
+core/MyRandom.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s
+.PHONY : core/MyRandom.cpp.s
+
 exp/expmain.o: exp/expmain.cpp.o
 
 .PHONY : exp/expmain.o
@@ -288,6 +315,9 @@ help:
 	@echo "... core/HowToExitVim.o"
 	@echo "... core/HowToExitVim.i"
 	@echo "... core/HowToExitVim.s"
+	@echo "... core/MyRandom.o"
+	@echo "... core/MyRandom.i"
+	@echo "... core/MyRandom.s"
 	@echo "... exp/expmain.o"
 	@echo "... exp/expmain.i"
 	@echo "... exp/expmain.s"

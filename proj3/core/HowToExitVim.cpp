@@ -37,6 +37,85 @@ bool isCorner(const OthelloBoard& board, int x, int y)
     return false;
 }
 
+bool isSide(const OthelloBoard& board, int x, int y)
+{
+    if (x == 0 || x == board.width()-1)
+    {
+        if (y > 1 && y < board.height()-2)
+        {
+            return true;
+        }
+    }
+    if (y == 0 || y == board.height()-1)
+    {
+        if (x > 1 && x < board.width()-2)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isSideDanger(const OthelloBoard& board, int x, int y)
+{
+    if (x == 1 || x == board.width()-2)
+    {
+        if (y > 1 && y < board.height()-2)
+        {
+            return true;
+        }
+    }
+    if (y == 1 || y == board.height()-2)
+    {
+        if (x > 1 && x < board.width()-2)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isGreaterCorner(const OthelloBoard& board, int x, int y)
+{
+    if (x < 2 || x > board.width() - 3)
+    {
+        if (y < 2 || y > board.height() - 3)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isCornerDanger(const OthelloBoard& board, int x, int y)
+{
+    return (isGreaterCorner(board, x, y) && !isCorner(board, x, y));
+}
+
+double placementScore(const OthelloBoard& board, int x, int y)
+{
+    double score = 1;
+
+    if (isCorner(board, x, y))
+    {
+        score = 10;
+    }
+    else if (isCornerDanger(board, x, y))
+    {
+        score = 0.1;
+    }
+    else if (isSide(board, x, y))
+    {
+        score = 5;
+    }
+    else if (isSideDanger(board, x, y))
+    {
+        score = 0.2;
+    }
+    return score;
+}
+
+
 double countCorner(const OthelloGameState& s, OthelloCell self)
 {
     int selfCorner{0};
@@ -329,20 +408,20 @@ double evaluation(const OthelloGameState& s)
     case 0:
         // early game
         // score += -500 * countFrontier(s.board(), self);
-        score += -5 * scoreDifference(s, self);
+        score += 20 * scoreDifference(s, self);
         break;
     case 1:
         // mid game
-        score += 5 * scoreDifference(s, self);
-        score += -20 * countFrontier(s.board(), self);
+        score += 50 * scoreDifference(s, self);
+        score += -25 * countFrontier(s.board(), self);
         break;
     case 2:
         // end game
-        score += 20 * scoreDifference(s, self);
+        score += 500 * scoreDifference(s, self);
         break;
     }
 
-    score += 10 * stability(s, self);
+    score += 50 * stability(s, self);
     score += 1000 * countCorner(s, self);
 
 
@@ -375,6 +454,17 @@ struct Outcome
     int y;
 };
 
+int boardSize(const OthelloGameState& s)
+{
+    return s.board().width() * s.board().height();
+}
+
+int boardSize(const OthelloBoard& b)
+{
+    return b.width() * b.height();
+}
+
+
 double search(const OthelloGameState& s, int depth, OthelloCell self)
 {
     if (depth == 0)
@@ -383,6 +473,7 @@ double search(const OthelloGameState& s, int depth, OthelloCell self)
     }
 
     std::vector<std::pair<int, int>> validMoves = findAllMoves(s);
+    double mobilityScore = double(validMoves.size()) / double(boardSize(s));
     // Outcome bestResult;
     // double bestScore = (isSelfTurn(s, self)) ? -999999999 : 9999999999;
     // bestResult.eval = (self == 'b') ? INT32_MIN : INT32_MAX;
@@ -398,6 +489,8 @@ double search(const OthelloGameState& s, int depth, OthelloCell self)
             std::unique_ptr<OthelloGameState> clone = s.clone();
             clone->makeMove(move.first, move.second);
             double result = search(*clone, depth-1, self);
+            result *= mobilityScore;
+            result *= placementScore(s.board(), move.first, move.second);
             // std::cout << result << std::endl;
             if (result > bestScore)
             {
@@ -414,6 +507,8 @@ double search(const OthelloGameState& s, int depth, OthelloCell self)
             std::unique_ptr<OthelloGameState> clone = s.clone();
             clone->makeMove(move.first, move.second);
             double result = search(*clone, depth-1, self);
+            result *= mobilityScore;
+            result *= placementScore(s.board(), move.first, move.second);
             if (result < bestScore)
             {
                 bestScore = result;
@@ -448,7 +543,5 @@ std::pair<int, int> keyuz4::HowToExitVim::chooseMove(const OthelloGameState& sta
             bestMove = move;
         }
     }
-    // std::cout << "best score: " << bestScore << std::endl;
-    // std::cout << "at " << bestMove.first << " " << bestMove.second << std::endl;
     return bestMove;
 }

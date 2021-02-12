@@ -14,3 +14,16 @@ CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o
  ../include/othellogame/OthelloGameState.hpp
  /home/ics46/projects/proj3/core/HowToExitVim.cpp
  /home/ics46/projects/proj3/core/HowToExitVim.hpp
+CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
+ ../include/ics46/factory/DuplicateTypeRegistrationException.hpp
+ ../include/ics46/factory/DynamicFactory.hpp
+ ../include/ics46/factory/DynamicFactoryRegistration.hpp
+ ../include/ics46/factory/RegisteredType.hpp
+ ../include/ics46/factory/UnregisteredNameException.hpp
+ ../include/ics46/factory/UnregisteredTypeException.hpp
+ ../include/othellogame/OthelloAI.hpp
+ ../include/othellogame/OthelloBoard.hpp
+ ../include/othellogame/OthelloCell.hpp
+ ../include/othellogame/OthelloGameState.hpp
+ /home/ics46/projects/proj3/core/MyRandom.cpp
+ /home/ics46/projects/proj3/core/MyRandom.hpp
