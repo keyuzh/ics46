@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o"
   "CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o"
   "CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o"
   "lib/libothelloaistudent.a"

@@ -1,2 +1,2 @@
-/usr/bin/ar qc lib/libothelloaistudent.a  CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
+/usr/bin/ar qc lib/libothelloaistudent.a  CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
 /usr/bin/ranlib lib/libothelloaistudent.a

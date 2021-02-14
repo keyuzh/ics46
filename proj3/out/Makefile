@@ -189,6 +189,33 @@ app/main.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/main.cpp.s
 .PHONY : app/main.cpp.s
 
+core/Evaluation.o: core/Evaluation.cpp.o
+
+.PHONY : core/Evaluation.o
+
+# target to build an object file
+core/Evaluation.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o
+.PHONY : core/Evaluation.cpp.o
+
+core/Evaluation.i: core/Evaluation.cpp.i
+
+.PHONY : core/Evaluation.i
+
+# target to preprocess a source file
+core/Evaluation.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.i
+.PHONY : core/Evaluation.cpp.i
+
+core/Evaluation.s: core/Evaluation.cpp.s
+
+.PHONY : core/Evaluation.s
+
+# target to generate assembly for a file
+core/Evaluation.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.s
+.PHONY : core/Evaluation.cpp.s
+
 core/HowToExitVim.o: core/HowToExitVim.cpp.o
 
 .PHONY : core/HowToExitVim.o
@@ -312,6 +339,9 @@ help:
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"
+	@echo "... core/Evaluation.o"
+	@echo "... core/Evaluation.i"
+	@echo "... core/Evaluation.s"
 	@echo "... core/HowToExitVim.o"
 	@echo "... core/HowToExitVim.i"
 	@echo "... core/HowToExitVim.s"

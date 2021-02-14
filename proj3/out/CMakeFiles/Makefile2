@@ -85,7 +85,7 @@ CMakeFiles/a.out.gtest.dir/all: CMakeFiles/othelloaistudent.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/a.out.gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/a.out.gtest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 0
 .PHONY : CMakeFiles/a.out.gtest.dir/rule
@@ -112,7 +112,7 @@ CMakeFiles/a.out.exp.dir/all: CMakeFiles/othelloaistudent.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/a.out.exp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/a.out.exp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 0
 .PHONY : CMakeFiles/a.out.exp.dir/rule
@@ -139,7 +139,7 @@ CMakeFiles/a.out.app.dir/all: CMakeFiles/othelloaistudent.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/a.out.app.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/a.out.app.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 0
 .PHONY : CMakeFiles/a.out.app.dir/rule
@@ -161,12 +161,12 @@ CMakeFiles/a.out.app.dir/clean:
 CMakeFiles/othelloaistudent.dir/all:
 	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/depend
 	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=7,8,9 "Built target othelloaistudent"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=7,8,9,10 "Built target othelloaistudent"
 .PHONY : CMakeFiles/othelloaistudent.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/othelloaistudent.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/othelloaistudent.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj3/out/CMakeFiles 0
 .PHONY : CMakeFiles/othelloaistudent.dir/rule
