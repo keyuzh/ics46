@@ -189,60 +189,6 @@ app/main.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/main.cpp.s
 .PHONY : app/main.cpp.s
 
-core/Evaluation.o: core/Evaluation.cpp.o
-
-.PHONY : core/Evaluation.o
-
-# target to build an object file
-core/Evaluation.cpp.o:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o
-.PHONY : core/Evaluation.cpp.o
-
-core/Evaluation.i: core/Evaluation.cpp.i
-
-.PHONY : core/Evaluation.i
-
-# target to preprocess a source file
-core/Evaluation.cpp.i:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.i
-.PHONY : core/Evaluation.cpp.i
-
-core/Evaluation.s: core/Evaluation.cpp.s
-
-.PHONY : core/Evaluation.s
-
-# target to generate assembly for a file
-core/Evaluation.cpp.s:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.s
-.PHONY : core/Evaluation.cpp.s
-
-core/HowToExitVim.o: core/HowToExitVim.cpp.o
-
-.PHONY : core/HowToExitVim.o
-
-# target to build an object file
-core/HowToExitVim.cpp.o:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o
-.PHONY : core/HowToExitVim.cpp.o
-
-core/HowToExitVim.i: core/HowToExitVim.cpp.i
-
-.PHONY : core/HowToExitVim.i
-
-# target to preprocess a source file
-core/HowToExitVim.cpp.i:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.i
-.PHONY : core/HowToExitVim.cpp.i
-
-core/HowToExitVim.s: core/HowToExitVim.cpp.s
-
-.PHONY : core/HowToExitVim.s
-
-# target to generate assembly for a file
-core/HowToExitVim.cpp.s:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s
-.PHONY : core/HowToExitVim.cpp.s
-
 core/MyRandom.o: core/MyRandom.cpp.o
 
 .PHONY : core/MyRandom.o
@@ -269,6 +215,60 @@ core/MyRandom.s: core/MyRandom.cpp.s
 core/MyRandom.cpp.s:
 	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s
 .PHONY : core/MyRandom.cpp.s
+
+core/keyuz4Helper.o: core/keyuz4Helper.cpp.o
+
+.PHONY : core/keyuz4Helper.o
+
+# target to build an object file
+core/keyuz4Helper.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o
+.PHONY : core/keyuz4Helper.cpp.o
+
+core/keyuz4Helper.i: core/keyuz4Helper.cpp.i
+
+.PHONY : core/keyuz4Helper.i
+
+# target to preprocess a source file
+core/keyuz4Helper.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.i
+.PHONY : core/keyuz4Helper.cpp.i
+
+core/keyuz4Helper.s: core/keyuz4Helper.cpp.s
+
+.PHONY : core/keyuz4Helper.s
+
+# target to generate assembly for a file
+core/keyuz4Helper.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.s
+.PHONY : core/keyuz4Helper.cpp.s
+
+core/keyuz4HowToExitVim.o: core/keyuz4HowToExitVim.cpp.o
+
+.PHONY : core/keyuz4HowToExitVim.o
+
+# target to build an object file
+core/keyuz4HowToExitVim.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o
+.PHONY : core/keyuz4HowToExitVim.cpp.o
+
+core/keyuz4HowToExitVim.i: core/keyuz4HowToExitVim.cpp.i
+
+.PHONY : core/keyuz4HowToExitVim.i
+
+# target to preprocess a source file
+core/keyuz4HowToExitVim.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.i
+.PHONY : core/keyuz4HowToExitVim.cpp.i
+
+core/keyuz4HowToExitVim.s: core/keyuz4HowToExitVim.cpp.s
+
+.PHONY : core/keyuz4HowToExitVim.s
+
+# target to generate assembly for a file
+core/keyuz4HowToExitVim.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.s
+.PHONY : core/keyuz4HowToExitVim.cpp.s
 
 exp/expmain.o: exp/expmain.cpp.o
 
@@ -339,15 +339,15 @@ help:
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"
-	@echo "... core/Evaluation.o"
-	@echo "... core/Evaluation.i"
-	@echo "... core/Evaluation.s"
-	@echo "... core/HowToExitVim.o"
-	@echo "... core/HowToExitVim.i"
-	@echo "... core/HowToExitVim.s"
 	@echo "... core/MyRandom.o"
 	@echo "... core/MyRandom.i"
 	@echo "... core/MyRandom.s"
+	@echo "... core/keyuz4Helper.o"
+	@echo "... core/keyuz4Helper.i"
+	@echo "... core/keyuz4Helper.s"
+	@echo "... core/keyuz4HowToExitVim.o"
+	@echo "... core/keyuz4HowToExitVim.i"
+	@echo "... core/keyuz4HowToExitVim.s"
 	@echo "... exp/expmain.o"
 	@echo "... exp/expmain.i"
 	@echo "... exp/expmain.s"

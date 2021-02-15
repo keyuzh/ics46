@@ -57,35 +57,9 @@ include CMakeFiles/othelloaistudent.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/othelloaistudent.dir/flags.make
 
-CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o: CMakeFiles/othelloaistudent.dir/flags.make
-CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o: ../core/Evaluation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o -c /home/ics46/projects/proj3/core/Evaluation.cpp
-
-CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj3/core/Evaluation.cpp > CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.i
-
-CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj3/core/Evaluation.cpp -o CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.s
-
-CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o: CMakeFiles/othelloaistudent.dir/flags.make
-CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o: ../core/HowToExitVim.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o"
-	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o -c /home/ics46/projects/proj3/core/HowToExitVim.cpp
-
-CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.i"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj3/core/HowToExitVim.cpp > CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.i
-
-CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s"
-	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj3/core/HowToExitVim.cpp -o CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.s
-
 CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: CMakeFiles/othelloaistudent.dir/flags.make
 CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o: ../core/MyRandom.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o -c /home/ics46/projects/proj3/core/MyRandom.cpp
 
 CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.i: cmake_force
@@ -96,18 +70,44 @@ CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj3/core/MyRandom.cpp -o CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s
 
+CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o: CMakeFiles/othelloaistudent.dir/flags.make
+CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o: ../core/keyuz4Helper.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o -c /home/ics46/projects/proj3/core/keyuz4Helper.cpp
+
+CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj3/core/keyuz4Helper.cpp > CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.i
+
+CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj3/core/keyuz4Helper.cpp -o CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.s
+
+CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o: CMakeFiles/othelloaistudent.dir/flags.make
+CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o: ../core/keyuz4HowToExitVim.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o -c /home/ics46/projects/proj3/core/keyuz4HowToExitVim.cpp
+
+CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj3/core/keyuz4HowToExitVim.cpp > CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.i
+
+CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj3/core/keyuz4HowToExitVim.cpp -o CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.s
+
 # Object files for target othelloaistudent
 othelloaistudent_OBJECTS = \
-"CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o" \
-"CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o" \
-"CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o"
+"CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o" \
+"CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o" \
+"CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o"
 
 # External object files for target othelloaistudent
 othelloaistudent_EXTERNAL_OBJECTS =
 
-lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/core/Evaluation.cpp.o
-lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/core/HowToExitVim.cpp.o
 lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
+lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/core/keyuz4Helper.cpp.o
+lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/core/keyuz4HowToExitVim.cpp.o
 lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/build.make
 lib/libothelloaistudent.a: CMakeFiles/othelloaistudent.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj3/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library lib/libothelloaistudent.a"

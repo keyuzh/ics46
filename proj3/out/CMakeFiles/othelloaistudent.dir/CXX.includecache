@@ -72,35 +72,25 @@ memory
 OthelloBoard.hpp
 ../include/othellogame/OthelloBoard.hpp
 
-/home/ics46/projects/proj3/core/Evaluation.cpp
-utility
--
-vector
--
-iostream
--
-Evaluation.hpp
-/home/ics46/projects/proj3/core/Evaluation.hpp
-
-/home/ics46/projects/proj3/core/Evaluation.hpp
+/home/ics46/projects/proj3/core/keyuz4Helper.hpp
 OthelloAI.hpp
 /home/ics46/projects/proj3/core/OthelloAI.hpp
+vector
+-
 
-/home/ics46/projects/proj3/core/HowToExitVim.cpp
+/home/ics46/projects/proj3/core/keyuz4HowToExitVim.cpp
 utility
 -
 vector
--
-iostream
 -
 ics46/factory/DynamicFactory.hpp
 -
-HowToExitVim.hpp
-/home/ics46/projects/proj3/core/HowToExitVim.hpp
-Evaluation.hpp
-/home/ics46/projects/proj3/core/Evaluation.hpp
+keyuz4Helper.hpp
+/home/ics46/projects/proj3/core/keyuz4Helper.hpp
+keyuz4HowToExitVim.hpp
+/home/ics46/projects/proj3/core/keyuz4HowToExitVim.hpp
 
-/home/ics46/projects/proj3/core/HowToExitVim.hpp
+/home/ics46/projects/proj3/core/keyuz4HowToExitVim.hpp
 OthelloAI.hpp
 /home/ics46/projects/proj3/core/OthelloAI.hpp
 
