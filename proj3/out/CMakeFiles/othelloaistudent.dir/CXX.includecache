@@ -72,6 +72,24 @@ memory
 OthelloBoard.hpp
 ../include/othellogame/OthelloBoard.hpp
 
+/home/ics46/projects/proj3/core/MostlyRandom.cpp
+random
+-
+utility
+-
+vector
+-
+ics46/factory/DynamicFactory.hpp
+-
+keyuz4Helper.hpp
+/home/ics46/projects/proj3/core/keyuz4Helper.hpp
+MostlyRandom.hpp
+/home/ics46/projects/proj3/core/MostlyRandom.hpp
+
+/home/ics46/projects/proj3/core/MostlyRandom.hpp
+OthelloAI.hpp
+/home/ics46/projects/proj3/core/OthelloAI.hpp
+
 /home/ics46/projects/proj3/core/keyuz4Helper.hpp
 OthelloAI.hpp
 /home/ics46/projects/proj3/core/OthelloAI.hpp

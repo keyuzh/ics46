@@ -189,32 +189,86 @@ app/main.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/main.cpp.s
 .PHONY : app/main.cpp.s
 
-core/MyRandom.o: core/MyRandom.cpp.o
+core/IHopeItDoesntGoWrong.o: core/IHopeItDoesntGoWrong.cpp.o
 
-.PHONY : core/MyRandom.o
+.PHONY : core/IHopeItDoesntGoWrong.o
 
 # target to build an object file
-core/MyRandom.cpp.o:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.o
-.PHONY : core/MyRandom.cpp.o
+core/IHopeItDoesntGoWrong.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IHopeItDoesntGoWrong.cpp.o
+.PHONY : core/IHopeItDoesntGoWrong.cpp.o
 
-core/MyRandom.i: core/MyRandom.cpp.i
+core/IHopeItDoesntGoWrong.i: core/IHopeItDoesntGoWrong.cpp.i
 
-.PHONY : core/MyRandom.i
+.PHONY : core/IHopeItDoesntGoWrong.i
 
 # target to preprocess a source file
-core/MyRandom.cpp.i:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.i
-.PHONY : core/MyRandom.cpp.i
+core/IHopeItDoesntGoWrong.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IHopeItDoesntGoWrong.cpp.i
+.PHONY : core/IHopeItDoesntGoWrong.cpp.i
 
-core/MyRandom.s: core/MyRandom.cpp.s
+core/IHopeItDoesntGoWrong.s: core/IHopeItDoesntGoWrong.cpp.s
 
-.PHONY : core/MyRandom.s
+.PHONY : core/IHopeItDoesntGoWrong.s
 
 # target to generate assembly for a file
-core/MyRandom.cpp.s:
-	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MyRandom.cpp.s
-.PHONY : core/MyRandom.cpp.s
+core/IHopeItDoesntGoWrong.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IHopeItDoesntGoWrong.cpp.s
+.PHONY : core/IHopeItDoesntGoWrong.cpp.s
+
+core/IKnowHowToExitVim.o: core/IKnowHowToExitVim.cpp.o
+
+.PHONY : core/IKnowHowToExitVim.o
+
+# target to build an object file
+core/IKnowHowToExitVim.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IKnowHowToExitVim.cpp.o
+.PHONY : core/IKnowHowToExitVim.cpp.o
+
+core/IKnowHowToExitVim.i: core/IKnowHowToExitVim.cpp.i
+
+.PHONY : core/IKnowHowToExitVim.i
+
+# target to preprocess a source file
+core/IKnowHowToExitVim.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IKnowHowToExitVim.cpp.i
+.PHONY : core/IKnowHowToExitVim.cpp.i
+
+core/IKnowHowToExitVim.s: core/IKnowHowToExitVim.cpp.s
+
+.PHONY : core/IKnowHowToExitVim.s
+
+# target to generate assembly for a file
+core/IKnowHowToExitVim.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/IKnowHowToExitVim.cpp.s
+.PHONY : core/IKnowHowToExitVim.cpp.s
+
+core/MostlyRandom.o: core/MostlyRandom.cpp.o
+
+.PHONY : core/MostlyRandom.o
+
+# target to build an object file
+core/MostlyRandom.cpp.o:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MostlyRandom.cpp.o
+.PHONY : core/MostlyRandom.cpp.o
+
+core/MostlyRandom.i: core/MostlyRandom.cpp.i
+
+.PHONY : core/MostlyRandom.i
+
+# target to preprocess a source file
+core/MostlyRandom.cpp.i:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MostlyRandom.cpp.i
+.PHONY : core/MostlyRandom.cpp.i
+
+core/MostlyRandom.s: core/MostlyRandom.cpp.s
+
+.PHONY : core/MostlyRandom.s
+
+# target to generate assembly for a file
+core/MostlyRandom.cpp.s:
+	$(MAKE) -f CMakeFiles/othelloaistudent.dir/build.make CMakeFiles/othelloaistudent.dir/core/MostlyRandom.cpp.s
+.PHONY : core/MostlyRandom.cpp.s
 
 core/keyuz4Helper.o: core/keyuz4Helper.cpp.o
 
@@ -339,9 +393,15 @@ help:
 	@echo "... app/main.o"
 	@echo "... app/main.i"
 	@echo "... app/main.s"
-	@echo "... core/MyRandom.o"
-	@echo "... core/MyRandom.i"
-	@echo "... core/MyRandom.s"
+	@echo "... core/IHopeItDoesntGoWrong.o"
+	@echo "... core/IHopeItDoesntGoWrong.i"
+	@echo "... core/IHopeItDoesntGoWrong.s"
+	@echo "... core/IKnowHowToExitVim.o"
+	@echo "... core/IKnowHowToExitVim.i"
+	@echo "... core/IKnowHowToExitVim.s"
+	@echo "... core/MostlyRandom.o"
+	@echo "... core/MostlyRandom.i"
+	@echo "... core/MostlyRandom.s"
 	@echo "... core/keyuz4Helper.o"
 	@echo "... core/keyuz4Helper.i"
 	@echo "... core/keyuz4Helper.s"

@@ -50,14 +50,6 @@ namespace keyuz4
     // returns the percentage of side cells that my side holds
     int countSide(const OthelloGameState& s, const OthelloCell& self);
 
-    // bool isRowFull(const OthelloBoard& board, int y);
-
-    // bool isColFull(const OthelloBoard& board, int x);
-
-    // bool isDiagonalFull(const OthelloBoard& board, int x, int y);
-
-    // int stability(const OthelloGameState& s, OthelloCell self);
-
     // returns the score difference between me and opponent
     double scoreDifference(const OthelloGameState& s, OthelloCell self);
 
