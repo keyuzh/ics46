@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 #include "Set.hpp"
+#include <set>
 
 
 
@@ -44,6 +45,20 @@ public:
 
 private:
     const Set<std::string>& words;
+
+    // Swapping each adjacent pair of characters in the word.
+    void swapAdjacentPair(std::set<std::string>& sug, const std::string& wd) const;
+
+    // In between each adjacent pair of characters in the word (also before the
+    // first character and after the last character), each letter from 'A' through
+    // 'Z' is inserted.
+    void insertChar(std::set<std::string>& sug, const std::string& wd) const;
+
+    void deleteChar(std::set<std::string>& sug, const std::string& wd) const;
+
+    void replaceChar(std::set<std::string>& sug, const std::string& wd) const;
+
+    void splitWord(std::set<std::string>& sug, const std::string& wd) const;
 };
 
 

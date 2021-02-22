@@ -7,9 +7,15 @@
 // with your code, outside of the context of the broader program or Google
 // Test.
 
+#include <iostream>
 
 int main()
 {
+    for (char i = 'A'; i <= 'Z'; i++)
+    {
+        std::cout << i << std::endl;
+    }
+    
 
 
     return 0;
