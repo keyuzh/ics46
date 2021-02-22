@@ -238,6 +238,9 @@ public:
 
 private:
     std::unique_ptr<SkipListLevelTester<ElementType>> levelTester;
+    SkipListKey<ElementType>** levels;
+    unsigned int sz;
+    unsigned int count;
 };
 
 
@@ -246,6 +249,9 @@ template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet()
     : SkipListSet{std::make_unique<RandomSkipListLevelTester<ElementType>>()}
 {
+    levels = new SkipListKey<ElementType>*[10];
+    sz = 0;
+    count = 0;
 }
 
 

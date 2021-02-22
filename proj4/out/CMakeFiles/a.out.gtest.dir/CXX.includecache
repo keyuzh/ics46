@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../core/WordChecker.hpp
+string
+-
+vector
+-
+Set.hpp
+../core/Set.hpp
+set
+-
+
+../provided/ListSet.hpp
+algorithm
+-
+Set.hpp
+../provided/Set.hpp
+
+../provided/Set.hpp
+
+/home/ics46/projects/proj4/gtest/WordChecker_SanityCheckTests.cpp
+string
+-
+vector
+-
+gtest/gtest.h
+-
+ListSet.hpp
+/home/ics46/projects/proj4/gtest/ListSet.hpp
+WordChecker.hpp
+/home/ics46/projects/proj4/gtest/WordChecker.hpp
+
