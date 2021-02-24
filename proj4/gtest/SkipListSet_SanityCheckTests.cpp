@@ -64,17 +64,17 @@ TEST(SkipListSet_SanityCheckTests, canMoveConstructToCompatibleType)
 }
 
 
-// TEST(SkipListSet_SanityCheckTests, canAssignToCompatibleType)
-// {
-//     SkipListSet<int> s1;
-//     SkipListSet<std::string> s2;
+TEST(SkipListSet_SanityCheckTests, canAssignToCompatibleType)
+{
+    SkipListSet<int> s1;
+    SkipListSet<std::string> s2;
 
-//     SkipListSet<int> s3;
-//     SkipListSet<std::string> s4;
+    SkipListSet<int> s3;
+    SkipListSet<std::string> s4;
 
-//     s1 = s3;
-//     s2 = s4;
-// }
+    s1 = s3;
+    s2 = s4;
+}
 
 
 TEST(SkipListSet_SanityCheckTests, canMoveAssignToCompatibleType)

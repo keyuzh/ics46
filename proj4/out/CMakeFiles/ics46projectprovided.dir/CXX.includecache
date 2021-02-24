@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 ../core/AVLSet.hpp
+algorithm
+-
 functional
 -
 Set.hpp

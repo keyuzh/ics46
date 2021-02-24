@@ -20,6 +20,7 @@
 #ifndef AVLSET_HPP
 #define AVLSET_HPP
 
+#include <algorithm>
 #include <functional>
 #include "Set.hpp"
 
@@ -101,11 +102,28 @@ public:
 private:
     // You'll no doubt want to add member variables and "helper" member
     // functions here.
+    struct Node
+    {
+        ElementType value;
+        Node* left;
+        Node* right;
+    };
+
+    Node* root;
+    bool shouldBalance;
+    
+private:
+    bool containsR(Node* n, const ElementType& target) const;
+    int findHeightR(Node* n) const;
+    unsigned int findSizeR(Node* n) const;
+    void addR(Node*& n, const ElementType& element);
+    void insert(Node*& n, const ElementType& element);
 };
 
 
 template <typename ElementType>
 AVLSet<ElementType>::AVLSet(bool shouldBalance)
+    : root{nullptr}, shouldBalance{shouldBalance}
 {
 }
 
@@ -145,34 +163,36 @@ AVLSet<ElementType>& AVLSet<ElementType>::operator=(AVLSet&& s) noexcept
 template <typename ElementType>
 bool AVLSet<ElementType>::isImplemented() const noexcept
 {
-    return false;
+    return true;
 }
 
 
 template <typename ElementType>
 void AVLSet<ElementType>::add(const ElementType& element)
 {
+    addR(root, element);
 }
 
 
 template <typename ElementType>
 bool AVLSet<ElementType>::contains(const ElementType& element) const
 {
-    return false;
+    return containsR(root, element);
 }
 
 
 template <typename ElementType>
 unsigned int AVLSet<ElementType>::size() const noexcept
 {
-    return 0;
+    
+    return findSizeR(root);
 }
 
 
 template <typename ElementType>
 int AVLSet<ElementType>::height() const noexcept
 {
-    return -1;
+    return findHeightR(root);
 }
 
 
@@ -193,7 +213,68 @@ void AVLSet<ElementType>::postorder(VisitFunction visit) const
 {
 }
 
+template <typename ElementType>
+bool AVLSet<ElementType>::containsR(Node* n, const ElementType& target) const
+{
+    if (n == nullptr)
+    {
+        return false;
+    }
+    if (n->value == target)
+    {
+        return true;
+    }
+    if (n->value < target)
+    {
+        return containsR(n->right, target);
+    }
+    return containsR(n->left, target);
+}
 
+template <typename ElementType>
+int AVLSet<ElementType>::findHeightR(Node* n) const
+{
+    if (n == nullptr)
+    {
+        return -1;
+    }
+    return 1 + std::max(findHeightR(n->left), findHeightR(n->right));
+}
+
+template <typename ElementType>
+unsigned int AVLSet<ElementType>::findSizeR(Node* n) const
+{
+    if (n == nullptr)
+    {
+        return 0;
+    }
+    return 1 + findSizeR(n->left) + findSizeR(n->right);
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::addR(Node*& n, const ElementType& element)
+{
+    if (n == nullptr)
+    {
+        insert(n, element);
+    }
+    if (n->value == element)
+    {
+        return;
+    }
+    if (n->value < element)
+    {
+        return addR(n->right, element);
+    }
+    return addR(n->left, element);
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::insert(Node*& n, const ElementType& element)
+{
+    Node* toInsert = new Node{element, nullptr, nullptr};
+    n = toInsert;
+}
 
 #endif // AVLSET_HPP
 

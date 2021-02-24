@@ -21,32 +21,32 @@
 #include "AVLSet.hpp"
 
 
-// TEST(AVLSet_SanityCheckTests, inheritFromSet)
-// {
-//     AVLSet<int> s1;
-//     Set<int>& ss1 = s1;
-//     int sz1 = ss1.size();
-//     sz1 = 0;
+TEST(AVLSet_SanityCheckTests, inheritFromSet)
+{
+    AVLSet<int> s1;
+    Set<int>& ss1 = s1;
+    int sz1 = ss1.size();
+    sz1 = 0;
 
-//     AVLSet<std::string> s2;
-//     Set<std::string>& ss2 = s2;
-//     int sz2 = ss2.size();
-//     sz2 = 0;
-// }
-
-
-// TEST(AVLSet_SanityCheckTests, canCreateAndDestroy)
-// {
-//     AVLSet<int> s1;
-//     AVLSet<std::string> s2;
-// }
+    AVLSet<std::string> s2;
+    Set<std::string>& ss2 = s2;
+    int sz2 = ss2.size();
+    sz2 = 0;
+}
 
 
-// TEST(AVLSet_SanityCheckTests, heightOfEmptyIsNegativeOne)
-// {
-//     AVLSet<int> s;
-//     ASSERT_EQ(-1, s.height());
-// }
+TEST(AVLSet_SanityCheckTests, canCreateAndDestroy)
+{
+    AVLSet<int> s1;
+    AVLSet<std::string> s2;
+}
+
+
+TEST(AVLSet_SanityCheckTests, heightOfEmptyIsNegativeOne)
+{
+    AVLSet<int> s;
+    ASSERT_EQ(-1, s.height());
+}
 
 
 // TEST(AVLSet_SanityCheckTests, canCopyConstructToCompatibleType)
@@ -95,40 +95,40 @@
 // }
 
 
-// TEST(AVLSet_SanityCheckTests, isImplemented)
-// {
-//     AVLSet<int> s1;
-//     EXPECT_TRUE(s1.isImplemented());
+TEST(AVLSet_SanityCheckTests, isImplemented)
+{
+    AVLSet<int> s1;
+    EXPECT_TRUE(s1.isImplemented());
 
-//     AVLSet<std::string> s2;
-//     EXPECT_TRUE(s2.isImplemented());
-// }
-
-
-// TEST(AVLSet_SanityCheckTests, containsElementsAfterAdding)
-// {
-//     AVLSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
-
-//     EXPECT_TRUE(s1.contains(11));
-//     EXPECT_TRUE(s1.contains(1));
-//     EXPECT_TRUE(s1.contains(5));
-// }
+    AVLSet<std::string> s2;
+    EXPECT_TRUE(s2.isImplemented());
+}
 
 
-// TEST(AVLSet_SanityCheckTests, doesNotContainElementsNotAdded)
-// {
-//     AVLSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
+TEST(AVLSet_SanityCheckTests, containsElementsAfterAdding)
+{
+    AVLSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
 
-//     EXPECT_FALSE(s1.contains(21));
-//     EXPECT_FALSE(s1.contains(2));
-//     EXPECT_FALSE(s1.contains(9));
-// }
+    EXPECT_TRUE(s1.contains(11));
+    EXPECT_TRUE(s1.contains(1));
+    EXPECT_TRUE(s1.contains(5));
+}
+
+
+TEST(AVLSet_SanityCheckTests, doesNotContainElementsNotAdded)
+{
+    AVLSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
+
+    EXPECT_FALSE(s1.contains(21));
+    EXPECT_FALSE(s1.contains(2));
+    EXPECT_FALSE(s1.contains(9));
+}
 
 
 // TEST(AVLSet_SanityCheckTests, sizeIsNumberOfElementsAdded)
