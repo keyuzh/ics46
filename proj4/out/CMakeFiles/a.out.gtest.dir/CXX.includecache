@@ -6,33 +6,25 @@
 
 #IncludeRegexTransform: 
 
-../core/WordChecker.hpp
-string
+../core/SkipListSet.hpp
+memory
 -
-vector
+random
 -
 Set.hpp
 ../core/Set.hpp
-set
--
-
-../provided/ListSet.hpp
-algorithm
--
-Set.hpp
-../provided/Set.hpp
 
 ../provided/Set.hpp
 
-/home/ics46/projects/proj4/gtest/WordChecker_SanityCheckTests.cpp
+/home/ics46/projects/proj4/gtest/SkipListSet_SanityCheckTests.cpp
+iostream
+-
+memory
+-
 string
--
-vector
 -
 gtest/gtest.h
 -
-ListSet.hpp
-/home/ics46/projects/proj4/gtest/ListSet.hpp
-WordChecker.hpp
-/home/ics46/projects/proj4/gtest/WordChecker.hpp
+SkipListSet.hpp
+/home/ics46/projects/proj4/gtest/SkipListSet.hpp
 

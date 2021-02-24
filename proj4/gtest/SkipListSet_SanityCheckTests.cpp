@@ -15,6 +15,8 @@
 // and don't change the code within the tests.  These should all compile
 // and pass before you submit your SkipListSet implementation.
 
+#include <iostream>
+
 #include <memory>
 #include <string>
 #include <gtest/gtest.h>
@@ -35,11 +37,11 @@ TEST(SkipListSet_SanityCheckTests, inheritFromSet)
 }
 
 
-// TEST(SkipListSet_SanityCheckTests, canCreateAndDestroy)
-// {
-//     SkipListSet<int> s1;
-//     SkipListSet<std::string> s2;
-// }
+TEST(SkipListSet_SanityCheckTests, canCreateAndDestroy)
+{
+    SkipListSet<int> s1;
+    SkipListSet<std::string> s2;
+}
 
 
 // TEST(SkipListSet_SanityCheckTests, canCopyConstructToCompatibleType)
@@ -52,14 +54,14 @@ TEST(SkipListSet_SanityCheckTests, inheritFromSet)
 // }
 
 
-// TEST(SkipListSet_SanityCheckTests, canMoveConstructToCompatibleType)
-// {
-//     SkipListSet<int> s1;
-//     SkipListSet<std::string> s2;
+TEST(SkipListSet_SanityCheckTests, canMoveConstructToCompatibleType)
+{
+    SkipListSet<int> s1;
+    SkipListSet<std::string> s2;
 
-//     SkipListSet<int> s1Copy{std::move(s1)};
-//     SkipListSet<std::string> s2Copy{std::move(s2)};
-// }
+    SkipListSet<int> s1Copy{std::move(s1)};
+    SkipListSet<std::string> s2Copy{std::move(s2)};
+}
 
 
 // TEST(SkipListSet_SanityCheckTests, canAssignToCompatibleType)
@@ -75,40 +77,40 @@ TEST(SkipListSet_SanityCheckTests, inheritFromSet)
 // }
 
 
-// TEST(SkipListSet_SanityCheckTests, canMoveAssignToCompatibleType)
-// {
-//     SkipListSet<int> s1;
-//     SkipListSet<std::string> s2;
+TEST(SkipListSet_SanityCheckTests, canMoveAssignToCompatibleType)
+{
+    SkipListSet<int> s1;
+    SkipListSet<std::string> s2;
 
-//     SkipListSet<int> s3;
-//     SkipListSet<std::string> s4;
+    SkipListSet<int> s3;
+    SkipListSet<std::string> s4;
 
-//     s1 = std::move(s3);
-//     s2 = std::move(s4);
-// }
-
-
-// TEST(SkipListSet_SanityCheckTests, isImplemented)
-// {
-//     SkipListSet<int> s1;
-//     EXPECT_TRUE(s1.isImplemented());
-
-//     SkipListSet<std::string> s2;
-//     EXPECT_TRUE(s2.isImplemented());
-// }
+    s1 = std::move(s3);
+    s2 = std::move(s4);
+}
 
 
-// TEST(SkipListSet_SanityCheckTests, containsElementsAfterAdding)
-// {
-//     SkipListSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
+TEST(SkipListSet_SanityCheckTests, isImplemented)
+{
+    SkipListSet<int> s1;
+    EXPECT_TRUE(s1.isImplemented());
 
-//     EXPECT_TRUE(s1.contains(11));
-//     EXPECT_TRUE(s1.contains(1));
-//     EXPECT_TRUE(s1.contains(5));
-// }
+    SkipListSet<std::string> s2;
+    EXPECT_TRUE(s2.isImplemented());
+}
+
+
+TEST(SkipListSet_SanityCheckTests, containsElementsAfterAdding)
+{
+    SkipListSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
+
+    EXPECT_TRUE(s1.contains(11));
+    EXPECT_TRUE(s1.contains(1));
+    EXPECT_TRUE(s1.contains(5));
+}
 
 
 // TEST(SkipListSet_SanityCheckTests, doesNotContainElementsNotAdded)

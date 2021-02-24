@@ -48,8 +48,6 @@ memory
 vector
 -
 
-../provided/Set.hpp
-
 /home/ics46/projects/proj4/provided/EmptySet.hpp
 Set.hpp
 /home/ics46/projects/proj4/provided/Set.hpp
@@ -111,10 +109,6 @@ WordSetLoader.hpp
 /home/ics46/projects/proj4/provided/SpellCheckShell.hpp
 string
 -
-
-/home/ics46/projects/proj4/provided/SpellChecker.cpp
-SpellChecker.hpp
-/home/ics46/projects/proj4/provided/SpellChecker.hpp
 
 /home/ics46/projects/proj4/provided/SpellChecker.hpp
 ics46/observable/Observable.hpp
