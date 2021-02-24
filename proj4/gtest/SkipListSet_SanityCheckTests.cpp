@@ -44,14 +44,14 @@ TEST(SkipListSet_SanityCheckTests, canCreateAndDestroy)
 }
 
 
-// TEST(SkipListSet_SanityCheckTests, canCopyConstructToCompatibleType)
-// {
-//     SkipListSet<int> s1;
-//     SkipListSet<std::string> s2;
+TEST(SkipListSet_SanityCheckTests, canCopyConstructToCompatibleType)
+{
+    SkipListSet<int> s1;
+    SkipListSet<std::string> s2;
 
-//     SkipListSet<int> s1Copy{s1};
-//     SkipListSet<std::string> s2Copy{s2};
-// }
+    SkipListSet<int> s1Copy{s1};
+    SkipListSet<std::string> s2Copy{s2};
+}
 
 
 TEST(SkipListSet_SanityCheckTests, canMoveConstructToCompatibleType)
