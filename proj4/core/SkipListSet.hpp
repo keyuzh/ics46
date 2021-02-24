@@ -298,7 +298,24 @@ SkipListSet<ElementType>::~SkipListSet() noexcept
 
 template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet(const SkipListSet& s)
+    : levelTester{s.levelTester.get()},
+    levels{new Node*[10]},
+    sz{0},
+    lvlCount{1}
 {
+    initiateLevel(0);
+    Node* current = s.levels[0];
+    SkipListKey<ElementType> posInf{SkipListKind::PosInf, ElementType{}};
+    while (true)
+    {
+        if (current->value == posInf)
+        {
+            break;
+        }
+        
+        add(current->value.getElement());
+        current = current->next;
+    }
 }
 
 

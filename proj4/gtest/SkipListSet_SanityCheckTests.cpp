@@ -113,88 +113,88 @@ TEST(SkipListSet_SanityCheckTests, containsElementsAfterAdding)
 }
 
 
-// TEST(SkipListSet_SanityCheckTests, doesNotContainElementsNotAdded)
-// {
-//     SkipListSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
+TEST(SkipListSet_SanityCheckTests, doesNotContainElementsNotAdded)
+{
+    SkipListSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
 
-//     EXPECT_FALSE(s1.contains(21));
-//     EXPECT_FALSE(s1.contains(2));
-//     EXPECT_FALSE(s1.contains(9));
-// }
-
-
-// TEST(SkipListSet_SanityCheckTests, sizeIsNumberOfElementsAdded)
-// {
-//     SkipListSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
-
-//     EXPECT_EQ(3, s1.size());
-// }
+    EXPECT_FALSE(s1.contains(21));
+    EXPECT_FALSE(s1.contains(2));
+    EXPECT_FALSE(s1.contains(9));
+}
 
 
-// namespace
-// {
-//     template <typename ElementType>
-//     class NeverGrowSkipListLevelTester : public SkipListLevelTester<ElementType>
-//     {
-//     public:
-//         virtual ~NeverGrowSkipListLevelTester() = default;
+TEST(SkipListSet_SanityCheckTests, sizeIsNumberOfElementsAdded)
+{
+    SkipListSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
 
-//         virtual bool shouldOccupyNextLevel(const ElementType& element) override;
-//         virtual std::unique_ptr<SkipListLevelTester<ElementType>> clone() override;
-//     };
+    EXPECT_EQ(3, s1.size());
+}
 
 
-//     template <typename ElementType>
-//     bool NeverGrowSkipListLevelTester<ElementType>::shouldOccupyNextLevel(const ElementType& element)
-//     {
-//         return false;        
-//     }
+namespace
+{
+    template <typename ElementType>
+    class NeverGrowSkipListLevelTester : public SkipListLevelTester<ElementType>
+    {
+    public:
+        virtual ~NeverGrowSkipListLevelTester() = default;
+
+        virtual bool shouldOccupyNextLevel(const ElementType& element) override;
+        virtual std::unique_ptr<SkipListLevelTester<ElementType>> clone() override;
+    };
 
 
-//     template <typename ElementType>
-//     std::unique_ptr<SkipListLevelTester<ElementType>> NeverGrowSkipListLevelTester<ElementType>::clone()
-//     {
-//         return std::unique_ptr<SkipListLevelTester<ElementType>>{
-//             new NeverGrowSkipListLevelTester};
-//     }
-// }
+    template <typename ElementType>
+    bool NeverGrowSkipListLevelTester<ElementType>::shouldOccupyNextLevel(const ElementType& element)
+    {
+        return false;        
+    }
 
 
-// TEST(SkipListSet_SanityCheckTests, alwaysOneLevelWhenWeNeverGrow)
-// {
-//     SkipListSet<int> s1{std::make_unique<NeverGrowSkipListLevelTester<int>>()};
-
-//     for (int i = 0; i < 100; ++i)
-//     {
-//         s1.add(i);
-//     }
-
-//     EXPECT_EQ(1, s1.levelCount());
-// }
+    template <typename ElementType>
+    std::unique_ptr<SkipListLevelTester<ElementType>> NeverGrowSkipListLevelTester<ElementType>::clone()
+    {
+        return std::unique_ptr<SkipListLevelTester<ElementType>>{
+            new NeverGrowSkipListLevelTester};
+    }
+}
 
 
-// TEST(SkipListSet_SanityCheckTests, allElementsOnLevel0WhenWeNeverGrow)
-// {
-//     SkipListSet<int> s1{std::make_unique<NeverGrowSkipListLevelTester<int>>()};
+TEST(SkipListSet_SanityCheckTests, alwaysOneLevelWhenWeNeverGrow)
+{
+    SkipListSet<int> s1{std::make_unique<NeverGrowSkipListLevelTester<int>>()};
 
-//     for (int i = 0; i < 100; ++i)
-//     {
-//         s1.add(i);
-//     }
+    for (int i = 0; i < 100; ++i)
+    {
+        s1.add(i);
+    }
 
-//     ASSERT_EQ(100, s1.elementsOnLevel(0));
-//     ASSERT_EQ(0, s1.elementsOnLevel(1));
+    EXPECT_EQ(1, s1.levelCount());
+}
 
-//     for (int i = 0; i < 100; ++i)
-//     {
-//         EXPECT_TRUE(s1.isElementOnLevel(i, 0));
-//         EXPECT_FALSE(s1.isElementOnLevel(i, 1));
-//     }
-// }
+
+TEST(SkipListSet_SanityCheckTests, allElementsOnLevel0WhenWeNeverGrow)
+{
+    SkipListSet<int> s1{std::make_unique<NeverGrowSkipListLevelTester<int>>()};
+
+    for (int i = 0; i < 100; ++i)
+    {
+        s1.add(i);
+    }
+
+    ASSERT_EQ(100, s1.elementsOnLevel(0));
+    ASSERT_EQ(0, s1.elementsOnLevel(1));
+
+    for (int i = 0; i < 100; ++i)
+    {
+        EXPECT_TRUE(s1.isElementOnLevel(i, 0));
+        EXPECT_FALSE(s1.isElementOnLevel(i, 1));
+    }
+}
 
