@@ -9,10 +9,6 @@ CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o: ../core/HashSet
 CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o: ../provided/Set.hpp
 CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o: ../gtest/HashSet_SanityCheckTests.cpp
 
-CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../core/SkipListSet.hpp
-CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../provided/Set.hpp
-CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../gtest/SkipListSet_SanityCheckTests.cpp
-
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../core/WordChecker.hpp
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../provided/ListSet.hpp
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../provided/Set.hpp

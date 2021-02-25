@@ -310,33 +310,6 @@ gtest/HashSet_SanityCheckTests.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.s
 .PHONY : gtest/HashSet_SanityCheckTests.cpp.s
 
-gtest/SkipListSet_SanityCheckTests.o: gtest/SkipListSet_SanityCheckTests.cpp.o
-
-.PHONY : gtest/SkipListSet_SanityCheckTests.o
-
-# target to build an object file
-gtest/SkipListSet_SanityCheckTests.cpp.o:
-	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o
-.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.o
-
-gtest/SkipListSet_SanityCheckTests.i: gtest/SkipListSet_SanityCheckTests.cpp.i
-
-.PHONY : gtest/SkipListSet_SanityCheckTests.i
-
-# target to preprocess a source file
-gtest/SkipListSet_SanityCheckTests.cpp.i:
-	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.i
-.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.i
-
-gtest/SkipListSet_SanityCheckTests.s: gtest/SkipListSet_SanityCheckTests.cpp.s
-
-.PHONY : gtest/SkipListSet_SanityCheckTests.s
-
-# target to generate assembly for a file
-gtest/SkipListSet_SanityCheckTests.cpp.s:
-	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s
-.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.s
-
 gtest/WordChecker_SanityCheckTests.o: gtest/WordChecker_SanityCheckTests.cpp.o
 
 .PHONY : gtest/WordChecker_SanityCheckTests.o
@@ -608,9 +581,6 @@ help:
 	@echo "... gtest/HashSet_SanityCheckTests.o"
 	@echo "... gtest/HashSet_SanityCheckTests.i"
 	@echo "... gtest/HashSet_SanityCheckTests.s"
-	@echo "... gtest/SkipListSet_SanityCheckTests.o"
-	@echo "... gtest/SkipListSet_SanityCheckTests.i"
-	@echo "... gtest/SkipListSet_SanityCheckTests.s"
 	@echo "... gtest/WordChecker_SanityCheckTests.o"
 	@echo "... gtest/WordChecker_SanityCheckTests.i"
 	@echo "... gtest/WordChecker_SanityCheckTests.s"

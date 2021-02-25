@@ -83,12 +83,12 @@ CMakeFiles/a.out.gtest.dir/all: CMakeFiles/ics46projectprovided.dir/all
 CMakeFiles/a.out.gtest.dir/all: CMakeFiles/ics46projectcore.dir/all
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/depend
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=5,6,7,8,9,10 "Built target a.out.gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=5,6,7,8,9 "Built target a.out.gtest"
 .PHONY : CMakeFiles/a.out.gtest.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/a.out.gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj4/out/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj4/out/CMakeFiles 15
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/a.out.gtest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics46/projects/proj4/out/CMakeFiles 0
 .PHONY : CMakeFiles/a.out.gtest.dir/rule
@@ -166,7 +166,7 @@ CMakeFiles/a.out.app.dir/clean:
 CMakeFiles/ics46projectprovided.dir/all: CMakeFiles/ics46projectcore.dir/all
 	$(MAKE) -f CMakeFiles/ics46projectprovided.dir/build.make CMakeFiles/ics46projectprovided.dir/depend
 	$(MAKE) -f CMakeFiles/ics46projectprovided.dir/build.make CMakeFiles/ics46projectprovided.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=13,14,15,16,17,18,19,20 "Built target ics46projectprovided"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=12,13,14,15,16,17,18,19 "Built target ics46projectprovided"
 .PHONY : CMakeFiles/ics46projectprovided.dir/all
 
 # Build rule for subdir invocation for target.
@@ -193,7 +193,7 @@ CMakeFiles/ics46projectprovided.dir/clean:
 CMakeFiles/ics46projectcore.dir/all:
 	$(MAKE) -f CMakeFiles/ics46projectcore.dir/build.make CMakeFiles/ics46projectcore.dir/depend
 	$(MAKE) -f CMakeFiles/ics46projectcore.dir/build.make CMakeFiles/ics46projectcore.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=11,12 "Built target ics46projectcore"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=10,11 "Built target ics46projectcore"
 .PHONY : CMakeFiles/ics46projectcore.dir/all
 
 # Build rule for subdir invocation for target.

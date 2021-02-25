@@ -109,7 +109,6 @@ private:
 
     struct Node
     {
-        // unsigned int key;
         ElementType value;
         Node* next;
     };
