@@ -131,64 +131,89 @@ TEST(AVLSet_SanityCheckTests, doesNotContainElementsNotAdded)
 }
 
 
-// TEST(AVLSet_SanityCheckTests, sizeIsNumberOfElementsAdded)
-// {
-//     AVLSet<int> s1;
-//     s1.add(11);
-//     s1.add(1);
-//     s1.add(5);
+TEST(AVLSet_SanityCheckTests, sizeIsNumberOfElementsAdded)
+{
+    AVLSet<int> s1;
+    s1.add(11);
+    s1.add(1);
+    s1.add(5);
 
-//     EXPECT_EQ(3, s1.size());
-// }
+    EXPECT_EQ(3, s1.size());
+}
+
+TEST(AVLSet_SanityCheckTests, canDetectImbalance)
+{
+    AVLSet<int> notBalanced{false};
+    notBalanced.add(1);
+    notBalanced.add(2);
+    notBalanced.add(3);
+
+    EXPECT_EQ(2, notBalanced.height());
+    EXPECT_FALSE(notBalanced.isBalanced());
+}
+
+TEST(AVLSet_SanityCheckTests, canDetectImbalanceRecursive)
+{
+    AVLSet<int> notBalanced{false};
+    notBalanced.add(0);
+    notBalanced.add(1);
+    notBalanced.add(2);
+    notBalanced.add(3);
+    notBalanced.add(-1);
+    notBalanced.add(-2);
+    notBalanced.add(-3);
+
+    EXPECT_EQ(3, notBalanced.height());
+    EXPECT_FALSE(notBalanced.isBalanced());
+}
+
+TEST(AVLSet_SanityCheckTests, heightDependsOnBalancing)
+{
+    AVLSet<int> balanced{true};
+    balanced.add(1);
+    balanced.add(2);
+    balanced.add(3);
+
+    AVLSet<int> notBalanced{false};
+    notBalanced.add(1);
+    notBalanced.add(2);
+    notBalanced.add(3);
+
+    EXPECT_EQ(1, balanced.height());
+    EXPECT_EQ(2, notBalanced.height());
+}
 
 
-// TEST(AVLSet_SanityCheckTests, heightDependsOnBalancing)
-// {
-//     AVLSet<int> balanced{true};
-//     balanced.add(1);
-//     balanced.add(2);
-//     balanced.add(3);
+TEST(AVLSet_SanityCheckTests, canProvideTraversals)
+{
+    AVLSet<int> s{false};
+    s.add(10);
+    s.add(20);
+    s.add(30);
+    s.add(40);
+    s.add(50);
 
-//     AVLSet<int> notBalanced{false};
-//     notBalanced.add(1);
-//     notBalanced.add(2);
-//     notBalanced.add(3);
+    std::vector<int> preElements;
+    std::vector<int> inElements;
+    std::vector<int> postElements;
 
-//     EXPECT_EQ(1, balanced.height());
-//     EXPECT_EQ(2, notBalanced.height());
-// }
+    s.preorder([&](const int& element) { preElements.push_back(element); });
+    s.inorder([&](const int& element) { inElements.push_back(element); });
+    s.postorder([&](const int& element) { postElements.push_back(element); });
 
+    std::vector<int> expectedPreElements{10, 20, 30, 40, 50};
+    std::vector<int> expectedInElements{10, 20, 30, 40, 50};
+    std::vector<int> expectedPostElements{50, 40, 30, 20, 10};
 
-// TEST(AVLSet_SanityCheckTests, canProvideTraversals)
-// {
-//     AVLSet<int> s{false};
-//     s.add(10);
-//     s.add(20);
-//     s.add(30);
-//     s.add(40);
-//     s.add(50);
+    ASSERT_EQ(5, preElements.size());
+    ASSERT_EQ(5, inElements.size());
+    ASSERT_EQ(5, postElements.size());
 
-//     std::vector<int> preElements;
-//     std::vector<int> inElements;
-//     std::vector<int> postElements;
-
-//     s.preorder([&](const int& element) { preElements.push_back(element); });
-//     s.inorder([&](const int& element) { inElements.push_back(element); });
-//     s.postorder([&](const int& element) { postElements.push_back(element); });
-
-//     std::vector<int> expectedPreElements{10, 20, 30, 40, 50};
-//     std::vector<int> expectedInElements{10, 20, 30, 40, 50};
-//     std::vector<int> expectedPostElements{50, 40, 30, 20, 10};
-
-//     ASSERT_EQ(5, preElements.size());
-//     ASSERT_EQ(5, inElements.size());
-//     ASSERT_EQ(5, postElements.size());
-
-//     for (unsigned int i = 0; i < 5; ++i)
-//     {
-//         EXPECT_EQ(preElements[i], expectedPreElements[i]);
-//         EXPECT_EQ(inElements[i], expectedInElements[i]);
-//         EXPECT_EQ(postElements[i], expectedPostElements[i]);
-//     }
-// }
+    for (unsigned int i = 0; i < 5; ++i)
+    {
+        EXPECT_EQ(preElements[i], expectedPreElements[i]);
+        EXPECT_EQ(inElements[i], expectedInElements[i]);
+        EXPECT_EQ(postElements[i], expectedPostElements[i]);
+    }
+}
 

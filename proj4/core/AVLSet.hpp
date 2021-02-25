@@ -107,6 +107,7 @@ private:
         ElementType value;
         Node* left;
         Node* right;
+        int height;
     };
 
     Node* root;
@@ -115,9 +116,23 @@ private:
 private:
     bool containsR(Node* n, const ElementType& target) const;
     int findHeightR(Node* n) const;
+    int findHeight(Node* n) const;
+    int reFindHeight(Node* n) const;
     unsigned int findSizeR(Node* n) const;
     void addR(Node*& n, const ElementType& element);
     void insert(Node*& n, const ElementType& element);
+
+    void preorderR(Node* n, VisitFunction visit) const;
+    void inorderR(Node* n, VisitFunction visit) const;
+    void postorderR(Node* n, VisitFunction visit) const;
+    bool isBalancedR(Node* n) const;
+    
+    int getHeightDiff(Node* n) const;
+
+    Node* rotateLL(Node* n);
+    Node* rotateRR(Node* n);
+public:
+    bool isBalanced() const;
 };
 
 
@@ -192,25 +207,29 @@ unsigned int AVLSet<ElementType>::size() const noexcept
 template <typename ElementType>
 int AVLSet<ElementType>::height() const noexcept
 {
-    return findHeightR(root);
+    // return findHeightR(root);
+    return findHeight(root);
 }
 
 
 template <typename ElementType>
 void AVLSet<ElementType>::preorder(VisitFunction visit) const
 {
+    preorderR(root, visit);
 }
 
 
 template <typename ElementType>
 void AVLSet<ElementType>::inorder(VisitFunction visit) const
 {
+    inorderR(root, visit);
 }
 
 
 template <typename ElementType>
 void AVLSet<ElementType>::postorder(VisitFunction visit) const
 {
+    postorderR(root, visit);
 }
 
 template <typename ElementType>
@@ -242,6 +261,22 @@ int AVLSet<ElementType>::findHeightR(Node* n) const
 }
 
 template <typename ElementType>
+int AVLSet<ElementType>::findHeight(Node* n) const
+{
+    if (n == nullptr)
+    {
+        return -1;
+    }
+    return n->height;
+}
+
+template <typename ElementType>
+int AVLSet<ElementType>::reFindHeight(Node* n) const
+{
+    return 1 + std::max(findHeight(n->left), findHeight(n->right));
+}
+
+template <typename ElementType>
 unsigned int AVLSet<ElementType>::findSizeR(Node* n) const
 {
     if (n == nullptr)
@@ -257,23 +292,172 @@ void AVLSet<ElementType>::addR(Node*& n, const ElementType& element)
     if (n == nullptr)
     {
         insert(n, element);
-    }
-    if (n->value == element)
-    {
+        // added as leaf node, no need to update height or balance
         return;
     }
-    if (n->value < element)
+    else if (n->value == element)
     {
-        return addR(n->right, element);
+        // already contains the node, do nothing
+        return;
     }
-    return addR(n->left, element);
+    else if (n->value < element)
+    {
+        // search right subtree
+        addR(n->right, element);
+    }
+    else 
+    {
+        // search left subtree
+        addR(n->left, element);
+    }
+    // update height of current node
+    n->height = reFindHeight(n);
+    if (!shouldBalance)
+    {
+        // no rebalance needed
+        return;
+    }
+    // find the difference in left and right subtree to determine
+    // if we need to do re-balancing
+    int heightDiff = getHeightDiff(n);
+    // left subtree has greater height than right, meaning we need to do L* rotation
+    if (heightDiff > 1)
+    {
+        // element smaller than left subtree value, meaning the element is inserted
+        // at left of left subtree -> LL rotation
+        if (element < n->left->value)
+        {
+            n = rotateLL(n);
+        }
+        // inserted at right of left subtree -> LR rotation
+        else if (element > n->left->value)
+        {
+            // LR rotation is equivalent to a RR rotation at left node,
+            // then LL rotation at current node
+            n->left = rotateRR(n->left);
+            n = rotateLL(n);
+        }
+    }
+    // right subtree has greater height than left, meaning we need to do R* rotation
+    else if (heightDiff < -1)
+    {
+        // greater than right subtree, inserted right of right
+        // RR rotation
+        if (element > n->right->value)
+        {
+            n = rotateRR(n);
+        }
+        // inserted at left of right subtree -> RL rotation
+        else if (element < n->right->value)
+        {
+            // RL rotation is equivalent to a LL rotation at right node,
+            // then RR rotation at current node
+            n->right = rotateLL(n->right);
+            n = rotateRR(n);
+        }
+    }
 }
 
 template <typename ElementType>
 void AVLSet<ElementType>::insert(Node*& n, const ElementType& element)
 {
-    Node* toInsert = new Node{element, nullptr, nullptr};
+    Node* toInsert = new Node{element, nullptr, nullptr, 0};
     n = toInsert;
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::preorderR(Node* n, VisitFunction visit) const
+{
+    if (n == nullptr)
+    {
+        return;
+    }
+    visit(n->value);
+    preorderR(n->left, visit);
+    preorderR(n->right, visit);
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::inorderR(Node* n, VisitFunction visit) const
+{
+    if (n == nullptr)
+    {
+        return;
+    }
+    inorderR(n->left, visit);
+    visit(n->value);
+    inorderR(n->right, visit);
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::postorderR(Node* n, VisitFunction visit) const
+{
+    if (n == nullptr)
+    {
+        return;
+    }
+    postorderR(n->left, visit);
+    postorderR(n->right, visit);
+    visit(n->value);
+}
+
+template <typename ElementType>
+bool AVLSet<ElementType>::isBalanced() const
+{
+    return isBalancedR(root);
+}
+
+template <typename ElementType>
+bool AVLSet<ElementType>::isBalancedR(Node* n) const
+{
+    if (n == nullptr)
+    {
+        return true;
+    }
+    int heightDiff = getHeightDiff(n);
+    // difference in left and right subtree height must between -1 and 1
+    // and each subtree need to have the same property
+    return (-1 <= heightDiff) && (heightDiff <= 1) && isBalancedR(n->left) && isBalancedR(n->right);
+}
+
+template <typename ElementType>
+int AVLSet<ElementType>::getHeightDiff(Node* n) const
+{
+    return findHeight(n->left) - findHeight(n->right);
+}
+
+template <typename ElementType>
+typename AVLSet<ElementType>::Node* AVLSet<ElementType>::rotateLL(Node* n)
+{
+    // diagram is in the lecture notes
+    // A is the left subtree of n
+    Node* a = n->left;
+    // T2 subtree is the right subtree of A
+    Node* t2 = a->right;
+    a->right = n;
+    n->left = t2;
+    // update height in moved nodes (a and n)
+    // the T nodes has the same height as before
+    n->height = reFindHeight(n);
+    a->height = reFindHeight(a);
+    return a;
+}
+
+template <typename ElementType>
+typename AVLSet<ElementType>::Node* AVLSet<ElementType>::rotateRR(Node* n)
+{
+    // diagram is in the lecture notes
+    // B is the right subtree of n
+    Node* b = n->right;
+    // T2 subtree is the left subtree of B
+    Node* t2 = b->left;
+    b->left = n;
+    n->right = t2;
+    // update height in moved nodes (b and n)
+    // the T nodes has the same height as before
+    n->height = reFindHeight(n);
+    b->height = reFindHeight(b);
+    return b;
 }
 
 #endif // AVLSET_HPP
