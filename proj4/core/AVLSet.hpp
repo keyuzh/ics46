@@ -131,6 +131,10 @@ private:
 
     Node* rotateLL(Node* n);
     Node* rotateRR(Node* n);
+
+    void clear(Node* n);
+
+    void copyR(Node*& self, const Node* other);
 public:
     bool isBalanced() const;
 };
@@ -146,24 +150,39 @@ AVLSet<ElementType>::AVLSet(bool shouldBalance)
 template <typename ElementType>
 AVLSet<ElementType>::~AVLSet() noexcept
 {
+    clear(root);
 }
 
 
 template <typename ElementType>
 AVLSet<ElementType>::AVLSet(const AVLSet& s)
+    : root{nullptr}, shouldBalance{s.shouldBalance}
 {
+    copyR(root, s.root);
 }
 
 
 template <typename ElementType>
 AVLSet<ElementType>::AVLSet(AVLSet&& s) noexcept
+    : root{nullptr}, shouldBalance{false}
 {
+    std::swap(root, s.root);
+    std::swap(shouldBalance, s.shouldBalance);
 }
 
 
 template <typename ElementType>
 AVLSet<ElementType>& AVLSet<ElementType>::operator=(const AVLSet& s)
 {
+    if (this != &s)
+    {
+        Node* nRoot{nullptr};
+        bool nShouldBalance = s.shouldBalance;
+        copyR(nRoot, s.root);
+        clear(root);
+        root = nRoot;
+        shouldBalance = nShouldBalance;
+    }
     return *this;
 }
 
@@ -171,6 +190,11 @@ AVLSet<ElementType>& AVLSet<ElementType>::operator=(const AVLSet& s)
 template <typename ElementType>
 AVLSet<ElementType>& AVLSet<ElementType>::operator=(AVLSet&& s) noexcept
 {
+    if (this != &s)
+    {
+        std::swap(root, s.root);
+        std::swap(shouldBalance, s.shouldBalance);
+    }
     return *this;
 }
 
@@ -458,6 +482,32 @@ typename AVLSet<ElementType>::Node* AVLSet<ElementType>::rotateRR(Node* n)
     n->height = reFindHeight(n);
     b->height = reFindHeight(b);
     return b;
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::clear(Node* n)
+{
+    if (n == nullptr)
+    {
+        return;
+    }
+    clear(n->left);
+    clear(n->right);
+    delete n;
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::copyR(Node*& self, const Node* other)
+{
+    if (other == nullptr)
+    {
+        self = nullptr;
+        return;
+    }
+    Node* n = new Node{other->value, nullptr, nullptr, other->height};
+    copyR(n->left, other->left);
+    copyR(n->right, other->right);
+    self = n;
 }
 
 #endif // AVLSET_HPP
