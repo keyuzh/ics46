@@ -61,10 +61,7 @@ public:
     bool operator==(const SkipListKey& other) const;
     bool operator<(const SkipListKey& other) const;
 
-    ElementType getElement()
-    {
-        return element;
-    }
+    ElementType getElement() {return element;}
 
 private:
     SkipListKind kind;
@@ -250,17 +247,39 @@ private:
     };
     
     std::unique_ptr<SkipListLevelTester<ElementType>> levelTester;
+    
+    // capacity of the array
+    unsigned int capacity;
+    // array of pointers pointing at the head of each level's linked list
     Node** levels;
+    // size of set
     unsigned int sz;
+    // level count
     unsigned int lvlCount;
 
+public:
+    // default number of levels in the array
+    static constexpr unsigned int DEFAULT_CAPACITY = 10;
+
 private:
+    // initiate the given level of skip list (-INF and +INF nodes)
     void initiateLevel(unsigned int level);
-    Node* initiateOneLevel();
+    // recursively add a node to the set
     Node* addr(Node* current, const ElementType& element);
+    // returns whether the given node is on level 0
     bool atLevelZero(const Node* current);
+    // returns a pointer to the +INF node of that level
     Node* findPosInf(unsigned int level) const;
+    // insert the node after the given node
     void insertAfter(Node* n, Node* toInsert);
+    // double the capacity of the array of pointers
+    void increaseCapacity();
+    // remove all nodes in the set
+    void clear();
+    // remove all nodes in a given level
+    void clearLevel(unsigned int level);
+    // copy the contents from the other skip list
+    void copySkipList(const SkipListSet& s);
 };
 
 
@@ -269,100 +288,52 @@ template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet()
     : SkipListSet{std::make_unique<RandomSkipListLevelTester<ElementType>>()}
 {
-    levels = new Node*[10];
-    sz = 0;
-    lvlCount = 0;
-
-    initiateLevel(0);
-    lvlCount++;
 }
 
 
 template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet(std::unique_ptr<SkipListLevelTester<ElementType>> levelTester)
     : levelTester{std::move(levelTester)},
-    levels{new Node*[10]},
+    capacity{DEFAULT_CAPACITY},
+    levels{new Node*[DEFAULT_CAPACITY]},
     sz{0},
     lvlCount{0}
 {
-    for (unsigned int i = 0; i < 10; i++)
-    {
-        levels[i] = nullptr;
-    }
     initiateLevel(0);
-    lvlCount++;
 }
 
 
 template <typename ElementType>
 SkipListSet<ElementType>::~SkipListSet() noexcept
 {
+    // delete the nodes
+    clear();
+    // then delete the array
     delete[] levels;
-}
-
-template<typename ElementType>
-void SkipListSet<ElementType>::insertAfter(Node* n, Node* toInsert)
-{
-    Node* after = n->next;
-    n->next = toInsert;
-    toInsert->next = after;
 }
 
 template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet(const SkipListSet& s)
     : levelTester{s.levelTester->clone()},
-    levels{new Node*[s.levelCount() * 2]},
+    capacity{s.capacity},
+    levels{new Node*[s.capacity]},
     sz{s.size()},
-    lvlCount{s.levelCount()}
+    lvlCount{0}
 {
-    // initiate every level first
-    for (unsigned int i = 0; i < lvlCount; i++)
-    {
-        initiateLevel(i);
-    }
-    // pointer to the last node in each level, points at negative infinity first
-    // we add each node after those nodes
-    Node** levelsCopy = new Node*[lvlCount];
-    for (unsigned int i = 0; i < lvlCount; i++)
-    {
-        levelsCopy[i] = levels[i];
-    }
-    
-    // pointer to negative inf node in bottom level of s
-    Node* nextToCopy = s.levels[0];
-    // go to the first node
-    nextToCopy = nextToCopy->next;
-
-    while (nextToCopy->next != nullptr)
-    {
-        // insert to level 0
-        ElementType element = nextToCopy->value.getElement();
-        SkipListKey<ElementType> key{SkipListKind::Normal, element};
-        Node* toInsert = new Node{key, nullptr, nullptr};
-        insertAfter(levelsCopy[0], toInsert);
-        levelsCopy[0] = levelsCopy[0]->next;
-        for (unsigned int i = 1; i < lvlCount; i++)
-        {
-            if (isElementOnLevel(element, i))
-            {
-                Node* insert = new Node{key, levelsCopy[i-1], nullptr};
-                insertAfter(levelsCopy[i], insert);
-                levelsCopy[i] = levelsCopy[i]->next;
-            }
-        }
-        nextToCopy = nextToCopy->next;
-    }
+    copySkipList(s);
 }
 
 
 template <typename ElementType>
 SkipListSet<ElementType>::SkipListSet(SkipListSet&& s) noexcept
     : levelTester{nullptr},
+    capacity{0},
     levels{nullptr},
     sz{0},
     lvlCount{0}
 {
     std::swap(levelTester, s.levelTester);
+    std::swap(capacity, s.capacity);
     std::swap(levels, s.levels);
     std::swap(sz, s.sz);
     std::swap(lvlCount, s.lvlCount);
@@ -374,47 +345,17 @@ SkipListSet<ElementType>& SkipListSet<ElementType>::operator=(const SkipListSet&
 {
     if (this != &s)
     {
+        // first delete current set
+        clear();
+        delete[] levels;
+        // copy data from the other set
         levelTester = s.levelTester->clone();
-        levels = new Node*[s.levelCount() * 2];
+        capacity = s.capacity;
+        levels = new Node*[s.capacity];
         sz = s.size();
-        lvlCount = s.levelCount();
-        // initiate every level first
-        for (unsigned int i = 0; i < lvlCount; i++)
-        {
-            initiateLevel(i);
-        }
-        // pointer to the last node in each level, points at negative infinity first
-        // we add each node after those nodes
-        Node** levelsCopy = new Node*[lvlCount];
-        for (unsigned int i = 0; i < lvlCount; i++)
-        {
-            levelsCopy[i] = levels[i];
-        }
-        
-        // pointer to negative inf node in bottom level of s
-        Node* nextToCopy = s.levels[0];
-        // go to the first node
-        nextToCopy = nextToCopy->next;
-
-        while (nextToCopy->next != nullptr)
-        {
-            // insert to level 0
-            ElementType element = nextToCopy->value.getElement();
-            SkipListKey<ElementType> key{SkipListKind::Normal, element};
-            Node* toInsert = new Node{key, nullptr, nullptr};
-            insertAfter(levelsCopy[0], toInsert);
-            levelsCopy[0] = levelsCopy[0]->next;
-            for (unsigned int i = 1; i < lvlCount; i++)
-            {
-                if (isElementOnLevel(element, i))
-                {
-                    Node* insert = new Node{key, levelsCopy[i-1], nullptr};
-                    insertAfter(levelsCopy[i], insert);
-                    levelsCopy[i] = levelsCopy[i]->next;
-                }
-            }
-            nextToCopy = nextToCopy->next;
-        }
+        // copy content from the other set
+        lvlCount = 0;
+        copySkipList(s);
     }
     return *this;
 }
@@ -423,10 +364,14 @@ SkipListSet<ElementType>& SkipListSet<ElementType>::operator=(const SkipListSet&
 template <typename ElementType>
 SkipListSet<ElementType>& SkipListSet<ElementType>::operator=(SkipListSet&& s) noexcept
 {
-    std::swap(levelTester, s.levelTester);
-    std::swap(levels, s.levels);
-    std::swap(sz, s.sz);
-    std::swap(lvlCount, s.lvlCount);
+    if (this != &s)
+    {
+        std::swap(levelTester, s.levelTester);
+        std::swap(capacity, s.capacity);
+        std::swap(levels, s.levels);
+        std::swap(sz, s.sz);
+        std::swap(lvlCount, s.lvlCount);
+    }
     return *this;
 }
 
@@ -441,49 +386,28 @@ bool SkipListSet<ElementType>::isImplemented() const noexcept
 template <typename ElementType>
 void SkipListSet<ElementType>::add(const ElementType& element)
 {
-    // std::cout << "add " << element << std::endl;
     // do similar thing as contain, but recursively
-    // head node of top level
     if (contains(element))
     {
-        // std::cout << "already contains" << std::endl;
+        // already contains the node
         return;
     }
-    Node* current = levels[lvlCount-1];
-    // SkipListKey<ElementType> key{SkipListKind::Normal, element};
+    // head node of top level
+    Node* current = levels[levelCount()-1];
+    // addr returns nullptr if the element dont need to occupy another level
+    // otherwise we need to create a new level
     Node* result = addr(current, element);
     if (result != nullptr)
     {
-        // should add another level and add that
+        // should add another level
         unsigned int topLevel = lvlCount;
         initiateLevel(topLevel);
-        Node* topPosInf = levels[topLevel];
-        Node* topNode = new Node{SkipListKey<ElementType>{SkipListKind::Normal, element}, result, topPosInf->next};
-        topPosInf->next = topNode;
-        // std::cout << "add to top level " << topLevel << std::endl;
-        lvlCount++;
+        Node* topNegInf = levels[topLevel];
+        Node* topNode = new Node{SkipListKey<ElementType>{SkipListKind::Normal, element}, result, topNegInf->next};
+        topNegInf->next = topNode;
     }
+    // increment size
     sz++;
-    // while (current != nullptr && current->next != nullptr)
-    // {
-    //     // if the current node's key is the one we're looking for
-    //     if (current->value == key)
-    //     {
-    //         return true;
-    //     }
-    //     //  else if the next node's key is larger than the key we're looking for:
-    //     else if (key < current->next->value)
-    //     {
-    //         // move down one level (terminating the search if we're already on the bottom level)
-    //         current = current->down;
-    //     }
-    //     else
-    //     {
-    //         // move forward to the next node on this level
-    //         current = current->next;
-    //     }
-    // }
-    // return false;
 }
 
 template <typename ElementType>
@@ -499,32 +423,38 @@ typename SkipListSet<ElementType>::Node* SkipListSet<ElementType>::addr(Node* cu
             Node* next = current->next;
             Node* added = new Node{key, nullptr, next};
             current->next = added;
-            // std::cout << "add to level 0" << std::endl;
             if (levelTester->shouldOccupyNextLevel(element))
             {
+                // add to upper level
                 return added;
             }
+            // don't add to upper level
             return nullptr;
         }
+        // keep going down the linked list in this level
         return addr(current->next, element);
     }
     if (key < current->next->value)
     {
+        // go down a level
         Node* below = addr(current->down, element);
         if (below != nullptr)
         {
+            // need to add the node to this level
+            // according to the recursive stack
             Node* next = current->next;
             Node* added = new Node{key, below, next};
             current->next = added;
-            // std::cout << "add to another level" << std::endl;
             if (levelTester->shouldOccupyNextLevel(element))
             {
+                // need to add to upper level
                 return added;
             }
-            return nullptr;
         }
+        // don't add to upper level
         return nullptr;
     }
+    // go down the linked list
     return addr(current->next, element);
 }
 
@@ -538,15 +468,11 @@ bool SkipListSet<ElementType>::atLevelZero(const Node* current)
 template <typename ElementType>
 bool SkipListSet<ElementType>::contains(const ElementType& element) const
 {
-    // std::cout << "check " << element << std::endl;
     // head node of top level
-    // std::cout << "start from level: " << lvlCount-1 << std::endl;
-    // std::cout << "elements: " << elementsOnLevel(lvlCount-1) << std::endl;
     Node* current = levels[lvlCount-1];
     SkipListKey<ElementType> key{SkipListKind::Normal, element};
     while (current->next != nullptr)
     {
-        // std::cout << "current value: " << current->value.getElement() << std::endl;
         // if the current node's key is the one we're looking for
         if (current->value == key)
         {
@@ -556,9 +482,7 @@ bool SkipListSet<ElementType>::contains(const ElementType& element) const
         else if (key < current->next->value)
         {
             // move down one level (terminating the search if we're already on the bottom level)
-            // std::cout << "moving down a level" << std::endl;
             current = current->down;
-            // std::cout << "going down a level" << std::endl;
             if (current == nullptr)
             {
                 return false;
@@ -568,7 +492,6 @@ bool SkipListSet<ElementType>::contains(const ElementType& element) const
         {
             // move forward to the next node on this level
             current = current->next;
-            // std::cout << "going right" << std::endl;
         }
     }
     return false;
@@ -592,11 +515,11 @@ unsigned int SkipListSet<ElementType>::levelCount() const noexcept
 template <typename ElementType>
 unsigned int SkipListSet<ElementType>::elementsOnLevel(unsigned int level) const noexcept
 {
-    if (level > lvlCount-1)
+    if (level >= lvlCount)
     {
+        // not a valid level
         return 0;
     }
-    
     Node* current = levels[level];
     unsigned int count{0};
     while (true)
@@ -615,8 +538,9 @@ unsigned int SkipListSet<ElementType>::elementsOnLevel(unsigned int level) const
 template <typename ElementType>
 bool SkipListSet<ElementType>::isElementOnLevel(const ElementType& element, unsigned int level) const
 {
-    if (level > lvlCount-1)
+    if (level >= lvlCount)
     {
+        // not valid 
         return false;
     }
     Node* current = levels[level];
@@ -625,7 +549,7 @@ bool SkipListSet<ElementType>::isElementOnLevel(const ElementType& element, unsi
     {
         if (current->value == key)
         {
-            // since we counted positive infinity, minus one
+            // found
             return true;
         }
         current = current->next;
@@ -636,11 +560,20 @@ bool SkipListSet<ElementType>::isElementOnLevel(const ElementType& element, unsi
 template <typename ElementType>
 void SkipListSet<ElementType>::initiateLevel(unsigned int level)
 {
-    // std::cout << "initiate level " << level << std::endl;
-    Node* first = new Node{SkipListKey<ElementType>{SkipListKind::NegInf, ElementType{}}, nullptr, nullptr};
-    Node* last = new Node{SkipListKey<ElementType>{SkipListKind::PosInf, ElementType{}}, nullptr, nullptr};
+    if (level >= capacity)
+    {
+        // need to increase capacity
+        increaseCapacity();
+    }
+    // create the -inf and +inf nodes and link them together
+    SkipListKey<ElementType> neg {SkipListKind::NegInf, ElementType{}};
+    SkipListKey<ElementType> pos {SkipListKind::PosInf, ElementType{}};
+    Node* first = new Node{neg, nullptr, nullptr};
+    Node* last = new Node{pos, nullptr, nullptr};
+    // link the two nodes together
     first->next = last;
     levels[level] = first;
+    // on upper levels, also link the infinity nodes with the lower level
     if (level != 0)
     {
         Node* belowPosInf = findPosInf(level-1);
@@ -648,6 +581,8 @@ void SkipListSet<ElementType>::initiateLevel(unsigned int level)
         first->down = belowNegInf;
         last->down = belowPosInf;
     }
+    // increment count
+    lvlCount++;
 }
 
 template <typename ElementType>
@@ -658,12 +593,110 @@ typename SkipListSet<ElementType>::Node* SkipListSet<ElementType>::findPosInf(un
     {
         if (current->next == nullptr)
         {
+            // at the end of linked list
             return current;
         }
         current = current->next;
     }
+    return nullptr;
 }
 
+template <typename ElementType>
+void SkipListSet<ElementType>::clear()
+{
+    for (unsigned int i = 0; i < levelCount(); i++)
+    {
+        clearLevel(i);
+    }
+}
+
+template <typename ElementType>
+void SkipListSet<ElementType>::clearLevel(unsigned int level)
+{
+    Node* current = levels[level];
+    while (current != nullptr)
+    {
+        // delete each node as we traverse the linked list
+        Node* toRemove = current;
+        current = current->next;
+        delete toRemove;
+    }
+}
+
+template <typename ElementType>
+void SkipListSet<ElementType>::increaseCapacity()
+{
+    // make a new array with twice the capacity, then copy the pointers
+    unsigned int newCapacity = capacity * 2 + 1;
+    Node** newLevels = new Node*[newCapacity];
+    for (unsigned int i = 0; i < capacity; i++)
+    {
+        newLevels[i] = levels[i];
+    }
+    delete[] levels;
+    levels = newLevels;
+    capacity = newCapacity;
+}
+
+template <typename ElementType>
+void SkipListSet<ElementType>::copySkipList(const SkipListSet& s)
+{
+    // initiate every level first
+    for (unsigned int i = 0; i < s.levelCount(); i++)
+    {
+        initiateLevel(i);
+    }
+    // temporary array of pointers to mark where to insert the nodes
+    // pointer to the last node in each level, points at negative infinity first
+    // we add each node after those nodes
+    Node** levelsCopy = new Node*[lvlCount];
+    for (unsigned int i = 0; i < lvlCount; i++)
+    {
+        levelsCopy[i] = levels[i];
+    }
+    // pointer to negative inf node in bottom level of s
+    Node* nextToCopy = s.levels[0];
+    // go to the first node (skip negative infinity)
+    nextToCopy = nextToCopy->next;
+    // traverse level 0 of the other skip list, copying each node
+    // after that check if the node is also present in other levels,
+    // if so, copy that as well
+    while (nextToCopy->next != nullptr)
+    {
+        // get the element and make a node from it
+        ElementType element = nextToCopy->value.getElement();
+        SkipListKey<ElementType> key{SkipListKind::Normal, element};
+        Node* toInsert = new Node{key, nullptr, nullptr};
+        // insert to level 0 first
+        insertAfter(levelsCopy[0], toInsert);
+        // point the pointer to newly inserted node, so that the next node
+        // insert after this one
+        levelsCopy[0] = levelsCopy[0]->next;
+        // check if the node is also present in other levels
+        for (unsigned int i = 1; i < lvlCount; i++)
+        {
+            if (isElementOnLevel(element, i))
+            {
+                // the node is on level i, insert that into my level i
+                Node* insert = new Node{key, levelsCopy[i-1], nullptr};
+                insertAfter(levelsCopy[i], insert);
+                levelsCopy[i] = levelsCopy[i]->next;
+            }
+        }
+        // copy next node
+        nextToCopy = nextToCopy->next;
+    }
+    // get rid of the temporary array
+    delete[] levelsCopy;
+}
+
+template<typename ElementType>
+void SkipListSet<ElementType>::insertAfter(Node* n, Node* toInsert)
+{
+    Node* after = n->next;
+    n->next = toInsert;
+    toInsert->next = after;
+}
 
 
 #endif // SKIPLISTSET_HPP

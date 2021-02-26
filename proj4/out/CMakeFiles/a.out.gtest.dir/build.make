@@ -57,9 +57,22 @@ include CMakeFiles/a.out.gtest.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/a.out.gtest.dir/flags.make
 
+CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o: ../gtest/AVLSet_AdditionalTests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o -c /home/ics46/projects/proj4/gtest/AVLSet_AdditionalTests.cpp
+
+CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj4/gtest/AVLSet_AdditionalTests.cpp > CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.i
+
+CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/AVLSet_AdditionalTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.s
+
 CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
 CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o: ../gtest/AVLSet_SanityCheckTests.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o -c /home/ics46/projects/proj4/gtest/AVLSet_SanityCheckTests.cpp
 
 CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.i: cmake_force
@@ -70,9 +83,22 @@ CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/AVLSet_SanityCheckTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.s
 
+CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o: ../gtest/HashSet_AdditionalTests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o -c /home/ics46/projects/proj4/gtest/HashSet_AdditionalTests.cpp
+
+CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj4/gtest/HashSet_AdditionalTests.cpp > CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.i
+
+CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/HashSet_AdditionalTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.s
+
 CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
 CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o: ../gtest/HashSet_SanityCheckTests.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o -c /home/ics46/projects/proj4/gtest/HashSet_SanityCheckTests.cpp
 
 CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.i: cmake_force
@@ -83,9 +109,35 @@ CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/HashSet_SanityCheckTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.s
 
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o: ../gtest/SkipListSet_AdditionalTests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o -c /home/ics46/projects/proj4/gtest/SkipListSet_AdditionalTests.cpp
+
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj4/gtest/SkipListSet_AdditionalTests.cpp > CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.i
+
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/SkipListSet_AdditionalTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.s
+
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../gtest/SkipListSet_SanityCheckTests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o -c /home/ics46/projects/proj4/gtest/SkipListSet_SanityCheckTests.cpp
+
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ics46/projects/proj4/gtest/SkipListSet_SanityCheckTests.cpp > CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.i
+
+CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ics46/projects/proj4/gtest/SkipListSet_SanityCheckTests.cpp -o CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s
+
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../gtest/WordChecker_SanityCheckTests.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o -c /home/ics46/projects/proj4/gtest/WordChecker_SanityCheckTests.cpp
 
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.i: cmake_force
@@ -98,7 +150,7 @@ CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.s: cmake_force
 
 CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o: CMakeFiles/a.out.gtest.dir/flags.make
 CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o: ../gtest/gtestmain.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
 	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o -c /home/ics46/projects/proj4/gtest/gtestmain.cpp
 
 CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.i: cmake_force
@@ -111,16 +163,24 @@ CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.s: cmake_force
 
 # Object files for target a.out.gtest
 a_out_gtest_OBJECTS = \
+"CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o" \
 "CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o" \
 "CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o" \
+"CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o" \
 "CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o" \
 "CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
 
 # External object files for target a.out.gtest
 a_out_gtest_EXTERNAL_OBJECTS =
 
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o
+bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/build.make
@@ -128,7 +188,7 @@ bin/a.out.gtest: lib/libics46projectcore.a
 bin/a.out.gtest: lib/libics46projectprovided.a
 bin/a.out.gtest: lib/libics46projectcore.a
 bin/a.out.gtest: CMakeFiles/a.out.gtest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable bin/a.out.gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics46/projects/proj4/out/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable bin/a.out.gtest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/a.out.gtest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

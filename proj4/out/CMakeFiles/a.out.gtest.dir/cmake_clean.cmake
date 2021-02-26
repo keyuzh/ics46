@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.o"
+  "CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.o"
+  "CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o"
+  "CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
   "bin/a.out.gtest"

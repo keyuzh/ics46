@@ -256,6 +256,33 @@ exp/expmain.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/exp/expmain.cpp.s
 .PHONY : exp/expmain.cpp.s
 
+gtest/AVLSet_AdditionalTests.o: gtest/AVLSet_AdditionalTests.cpp.o
+
+.PHONY : gtest/AVLSet_AdditionalTests.o
+
+# target to build an object file
+gtest/AVLSet_AdditionalTests.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.o
+.PHONY : gtest/AVLSet_AdditionalTests.cpp.o
+
+gtest/AVLSet_AdditionalTests.i: gtest/AVLSet_AdditionalTests.cpp.i
+
+.PHONY : gtest/AVLSet_AdditionalTests.i
+
+# target to preprocess a source file
+gtest/AVLSet_AdditionalTests.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.i
+.PHONY : gtest/AVLSet_AdditionalTests.cpp.i
+
+gtest/AVLSet_AdditionalTests.s: gtest/AVLSet_AdditionalTests.cpp.s
+
+.PHONY : gtest/AVLSet_AdditionalTests.s
+
+# target to generate assembly for a file
+gtest/AVLSet_AdditionalTests.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/AVLSet_AdditionalTests.cpp.s
+.PHONY : gtest/AVLSet_AdditionalTests.cpp.s
+
 gtest/AVLSet_SanityCheckTests.o: gtest/AVLSet_SanityCheckTests.cpp.o
 
 .PHONY : gtest/AVLSet_SanityCheckTests.o
@@ -283,6 +310,33 @@ gtest/AVLSet_SanityCheckTests.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/AVLSet_SanityCheckTests.cpp.s
 .PHONY : gtest/AVLSet_SanityCheckTests.cpp.s
 
+gtest/HashSet_AdditionalTests.o: gtest/HashSet_AdditionalTests.cpp.o
+
+.PHONY : gtest/HashSet_AdditionalTests.o
+
+# target to build an object file
+gtest/HashSet_AdditionalTests.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.o
+.PHONY : gtest/HashSet_AdditionalTests.cpp.o
+
+gtest/HashSet_AdditionalTests.i: gtest/HashSet_AdditionalTests.cpp.i
+
+.PHONY : gtest/HashSet_AdditionalTests.i
+
+# target to preprocess a source file
+gtest/HashSet_AdditionalTests.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.i
+.PHONY : gtest/HashSet_AdditionalTests.cpp.i
+
+gtest/HashSet_AdditionalTests.s: gtest/HashSet_AdditionalTests.cpp.s
+
+.PHONY : gtest/HashSet_AdditionalTests.s
+
+# target to generate assembly for a file
+gtest/HashSet_AdditionalTests.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/HashSet_AdditionalTests.cpp.s
+.PHONY : gtest/HashSet_AdditionalTests.cpp.s
+
 gtest/HashSet_SanityCheckTests.o: gtest/HashSet_SanityCheckTests.cpp.o
 
 .PHONY : gtest/HashSet_SanityCheckTests.o
@@ -309,6 +363,60 @@ gtest/HashSet_SanityCheckTests.s: gtest/HashSet_SanityCheckTests.cpp.s
 gtest/HashSet_SanityCheckTests.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/HashSet_SanityCheckTests.cpp.s
 .PHONY : gtest/HashSet_SanityCheckTests.cpp.s
+
+gtest/SkipListSet_AdditionalTests.o: gtest/SkipListSet_AdditionalTests.cpp.o
+
+.PHONY : gtest/SkipListSet_AdditionalTests.o
+
+# target to build an object file
+gtest/SkipListSet_AdditionalTests.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.o
+.PHONY : gtest/SkipListSet_AdditionalTests.cpp.o
+
+gtest/SkipListSet_AdditionalTests.i: gtest/SkipListSet_AdditionalTests.cpp.i
+
+.PHONY : gtest/SkipListSet_AdditionalTests.i
+
+# target to preprocess a source file
+gtest/SkipListSet_AdditionalTests.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.i
+.PHONY : gtest/SkipListSet_AdditionalTests.cpp.i
+
+gtest/SkipListSet_AdditionalTests.s: gtest/SkipListSet_AdditionalTests.cpp.s
+
+.PHONY : gtest/SkipListSet_AdditionalTests.s
+
+# target to generate assembly for a file
+gtest/SkipListSet_AdditionalTests.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_AdditionalTests.cpp.s
+.PHONY : gtest/SkipListSet_AdditionalTests.cpp.s
+
+gtest/SkipListSet_SanityCheckTests.o: gtest/SkipListSet_SanityCheckTests.cpp.o
+
+.PHONY : gtest/SkipListSet_SanityCheckTests.o
+
+# target to build an object file
+gtest/SkipListSet_SanityCheckTests.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o
+.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.o
+
+gtest/SkipListSet_SanityCheckTests.i: gtest/SkipListSet_SanityCheckTests.cpp.i
+
+.PHONY : gtest/SkipListSet_SanityCheckTests.i
+
+# target to preprocess a source file
+gtest/SkipListSet_SanityCheckTests.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.i
+.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.i
+
+gtest/SkipListSet_SanityCheckTests.s: gtest/SkipListSet_SanityCheckTests.cpp.s
+
+.PHONY : gtest/SkipListSet_SanityCheckTests.s
+
+# target to generate assembly for a file
+gtest/SkipListSet_SanityCheckTests.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s
+.PHONY : gtest/SkipListSet_SanityCheckTests.cpp.s
 
 gtest/WordChecker_SanityCheckTests.o: gtest/WordChecker_SanityCheckTests.cpp.o
 
@@ -575,12 +683,24 @@ help:
 	@echo "... exp/expmain.o"
 	@echo "... exp/expmain.i"
 	@echo "... exp/expmain.s"
+	@echo "... gtest/AVLSet_AdditionalTests.o"
+	@echo "... gtest/AVLSet_AdditionalTests.i"
+	@echo "... gtest/AVLSet_AdditionalTests.s"
 	@echo "... gtest/AVLSet_SanityCheckTests.o"
 	@echo "... gtest/AVLSet_SanityCheckTests.i"
 	@echo "... gtest/AVLSet_SanityCheckTests.s"
+	@echo "... gtest/HashSet_AdditionalTests.o"
+	@echo "... gtest/HashSet_AdditionalTests.i"
+	@echo "... gtest/HashSet_AdditionalTests.s"
 	@echo "... gtest/HashSet_SanityCheckTests.o"
 	@echo "... gtest/HashSet_SanityCheckTests.i"
 	@echo "... gtest/HashSet_SanityCheckTests.s"
+	@echo "... gtest/SkipListSet_AdditionalTests.o"
+	@echo "... gtest/SkipListSet_AdditionalTests.i"
+	@echo "... gtest/SkipListSet_AdditionalTests.s"
+	@echo "... gtest/SkipListSet_SanityCheckTests.o"
+	@echo "... gtest/SkipListSet_SanityCheckTests.i"
+	@echo "... gtest/SkipListSet_SanityCheckTests.s"
 	@echo "... gtest/WordChecker_SanityCheckTests.o"
 	@echo "... gtest/WordChecker_SanityCheckTests.i"
 	@echo "... gtest/WordChecker_SanityCheckTests.s"

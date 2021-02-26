@@ -15,8 +15,6 @@
 // and don't change the code within the tests.  These should all compile
 // and pass before you submit your SkipListSet implementation.
 
-#include <iostream>
-
 #include <memory>
 #include <string>
 #include <gtest/gtest.h>

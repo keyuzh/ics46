@@ -1,4 +1,4 @@
-SKIPLIST
+HASH PRODUCT
 ./wordset.txt
 ./biginput.txt
-TIME
+DISPLAY

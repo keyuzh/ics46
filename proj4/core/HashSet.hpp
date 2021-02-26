@@ -117,13 +117,13 @@ private:
     // pointer to an array of pointers, each points to a linked list
     Node** hashTable;
 
-    // current bucket count
+    // current hash table size
     unsigned int capacity;
 
-    // current count of number of values stored in bucket
+    // current size of elements stored in hash set
     unsigned int currentSize;
 
-    // give a key string, returns the index in bucket
+    // use the hash function to calculate the index of hash table to store
     unsigned int hashKey(const ElementType& key) const;
 
     // initialize hashTable to be an array of nullptr of size n
@@ -139,15 +139,17 @@ private:
         Node** oldTable, const unsigned int size, bool removeOld = false
     );
 
+    // given the index, return the number of elements at that index
     unsigned int sizeAtIndex(unsigned int index) const;
 
+    // returns the load factor
     double loadFactor() const;
     
 public:
     // maximum load factor
     static constexpr double MAX_LOAD_FACTOR = 0.8;
 
-    // remove all stored key/value pairs in the HashMap
+    // remove all elements
     void clear();
 };
 
@@ -253,16 +255,15 @@ bool HashSet<ElementType>::isImplemented() const noexcept
 template <typename ElementType>
 void HashSet<ElementType>::add(const ElementType& element)
 {
-    // if key already exists do nothing
+    // if element already exists do nothing
     if (contains(element))
     {
         return;
     }
-    
     // get the index in hashTable to add
     unsigned int hashedValue = hashKey(element);
-
-    if (hashTable[hashedValue] == nullptr)  // target bucket is empty
+    // target index is empty
+    if (hashTable[hashedValue] == nullptr)
     {
         // make a new linked list
         hashTable[hashedValue] = new Node{element, nullptr};
@@ -270,17 +271,14 @@ void HashSet<ElementType>::add(const ElementType& element)
     else  // collision, add to end of existing linked list
     {
         Node* pointer = hashTable[hashedValue];
-
         while (pointer->next != nullptr)  // iterate to the end
         {
             pointer = pointer->next;
         }
-        
         pointer->next = new Node{element, nullptr};  // add to the end
     }
-    // increment the number of key/value pairs stored in the hashmap
+    // increment size
     currentSize++;
-
     // check load factor to see if rehash is needed
     if (loadFactor() > MAX_LOAD_FACTOR)
     {
@@ -292,13 +290,11 @@ void HashSet<ElementType>::add(const ElementType& element)
 template <typename ElementType>
 bool HashSet<ElementType>::contains(const ElementType& element) const
 {
-    // go to the correct bucket
+    // go to the correct index
     Node* pointer = hashTable[hashKey(element)];
-
-    // go through the linked list and check each key
+    // go through the linked list and check each node
     while (pointer != nullptr)
     {
-        // check node->key
         if (pointer->value == element)  // found match
         {
             return true;
@@ -332,12 +328,11 @@ bool HashSet<ElementType>::isElementAtIndex(const ElementType& element, unsigned
 {
     if (index >= capacity)
     {
+        // not a valid index
         return false;
     }
-
     Node* pointer = hashTable[index];
-
-    // go through the linked list and check each key
+    // go through the linked list and check each node
     while (pointer != nullptr)
     {
         // check node->key
@@ -400,12 +395,11 @@ void HashSet<ElementType>::rehash()
 
     Node** oldTable = hashTable;     // make a pointer to point to the old table
     hashTable = new Node*[newSize];  // make a new table of bigger size
-
     // set properties of new table
     capacity = newSize;
     currentSize = 0;
+    // initialize new table
     initializeTable(newSize);
-
     // add contents from old table to new table, also delete all nodes
     mergeTable(oldTable, oldSize, true);
     delete[] oldTable;
@@ -427,14 +421,11 @@ void HashSet<ElementType>::mergeTable(
         {
             // add the values to new array (then delete the old node if needed)
             Node* pointer = oldTable[i];
-
             while (pointer != nullptr)
             {
                 add(pointer->value);
-
                 Node* toRemove = pointer;
                 pointer = pointer->next;
-
                 if (removeOld == true)  // delete old node if needed
                 {
                     delete toRemove;
@@ -448,15 +439,12 @@ template <typename ElementType>
 unsigned int HashSet<ElementType>::sizeAtIndex(unsigned int index) const
 {
     unsigned int sz{0};
-    if (hashTable[index] != nullptr)  // there is a linked list at the bucket
-        {
-            Node* pointer = hashTable[index];
-            do  // iterate through the end of linked list
-            {
-                sz++;
-                pointer = pointer->next;
-            } while (pointer != nullptr);
-        }
+    Node* pointer = hashTable[index];
+    while (pointer != nullptr)
+    {
+        sz++;
+        pointer = pointer->next;
+    }
     return sz;
 }
 
