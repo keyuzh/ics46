@@ -25,6 +25,11 @@ CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../core/Ski
 CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../provided/Set.hpp
 CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.o: ../gtest/SkipListSet_SanityCheckTests.cpp
 
+CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.o: ../core/WordChecker.hpp
+CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.o: ../provided/ListSet.hpp
+CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.o: ../provided/Set.hpp
+CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.o: ../gtest/WordChecker_AdditionalTests.cpp
+
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../core/WordChecker.hpp
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../provided/ListSet.hpp
 CMakeFiles/a.out.gtest.dir/gtest/WordChecker_SanityCheckTests.cpp.o: ../provided/Set.hpp

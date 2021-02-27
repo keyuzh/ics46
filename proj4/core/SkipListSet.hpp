@@ -402,6 +402,7 @@ void SkipListSet<ElementType>::add(const ElementType& element)
         // should add another level
         unsigned int topLevel = lvlCount;
         initiateLevel(topLevel);
+        // add the node to top level
         Node* topNegInf = levels[topLevel];
         Node* topNode = new Node{SkipListKey<ElementType>{SkipListKind::Normal, element}, result, topNegInf->next};
         topNegInf->next = topNode;

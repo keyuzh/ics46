@@ -11,20 +11,18 @@
 /home/ics46/projects/proj4/core/WordChecker.cpp
 algorithm
 -
-iostream
--
 set
 -
 WordChecker.hpp
 /home/ics46/projects/proj4/core/WordChecker.hpp
 
 /home/ics46/projects/proj4/core/WordChecker.hpp
+set
+-
 string
 -
 vector
 -
 Set.hpp
 /home/ics46/projects/proj4/core/Set.hpp
-set
--
 

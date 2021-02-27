@@ -418,6 +418,33 @@ gtest/SkipListSet_SanityCheckTests.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/SkipListSet_SanityCheckTests.cpp.s
 .PHONY : gtest/SkipListSet_SanityCheckTests.cpp.s
 
+gtest/WordChecker_AdditionalTests.o: gtest/WordChecker_AdditionalTests.cpp.o
+
+.PHONY : gtest/WordChecker_AdditionalTests.o
+
+# target to build an object file
+gtest/WordChecker_AdditionalTests.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.o
+.PHONY : gtest/WordChecker_AdditionalTests.cpp.o
+
+gtest/WordChecker_AdditionalTests.i: gtest/WordChecker_AdditionalTests.cpp.i
+
+.PHONY : gtest/WordChecker_AdditionalTests.i
+
+# target to preprocess a source file
+gtest/WordChecker_AdditionalTests.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.i
+.PHONY : gtest/WordChecker_AdditionalTests.cpp.i
+
+gtest/WordChecker_AdditionalTests.s: gtest/WordChecker_AdditionalTests.cpp.s
+
+.PHONY : gtest/WordChecker_AdditionalTests.s
+
+# target to generate assembly for a file
+gtest/WordChecker_AdditionalTests.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/gtest/WordChecker_AdditionalTests.cpp.s
+.PHONY : gtest/WordChecker_AdditionalTests.cpp.s
+
 gtest/WordChecker_SanityCheckTests.o: gtest/WordChecker_SanityCheckTests.cpp.o
 
 .PHONY : gtest/WordChecker_SanityCheckTests.o
@@ -701,6 +728,9 @@ help:
 	@echo "... gtest/SkipListSet_SanityCheckTests.o"
 	@echo "... gtest/SkipListSet_SanityCheckTests.i"
 	@echo "... gtest/SkipListSet_SanityCheckTests.s"
+	@echo "... gtest/WordChecker_AdditionalTests.o"
+	@echo "... gtest/WordChecker_AdditionalTests.i"
+	@echo "... gtest/WordChecker_AdditionalTests.s"
 	@echo "... gtest/WordChecker_SanityCheckTests.o"
 	@echo "... gtest/WordChecker_SanityCheckTests.i"
 	@echo "... gtest/WordChecker_SanityCheckTests.s"

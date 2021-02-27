@@ -107,35 +107,48 @@ private:
         ElementType value;
         Node* left;
         Node* right;
-        int height;
+        int height; // height of subtree
     };
-
     Node* root;
     bool shouldBalance;
     
 private:
+    // recursively search the tree
     bool containsR(Node* n, const ElementType& target) const;
+    // find the height of given node recursively
     int findHeightR(Node* n) const;
+    // returns the height stored in the node
     int findHeight(Node* n) const;
+    // recalculate the height of a given node after rotation
     int reFindHeight(Node* n) const;
+    // recursively find the size of the tree
     unsigned int findSizeR(Node* n) const;
+    // add a node to the tree
     void addR(Node*& n, const ElementType& element);
+    // insert a node at the given position
     void insert(Node*& n, const ElementType& element);
-
+    // recursive preorder traversal
     void preorderR(Node* n, VisitFunction visit) const;
+    // recursive inorder traversal
     void inorderR(Node* n, VisitFunction visit) const;
+    // recursive postorder traversal
     void postorderR(Node* n, VisitFunction visit) const;
+    // recursively determine if the tree is valid AVL tree
     bool isBalancedR(Node* n) const;
-    
+    // returns the difference in height of left and right subtree
     int getHeightDiff(Node* n) const;
-
+    // rebalance at given node
+    void rebalance(Node*& n, const ElementType& element);
+    // make a LL rotation at given root, returns the new root
     Node* rotateLL(Node* n);
+    // make a RR rotation at given root, returns the new root
     Node* rotateRR(Node* n);
-
+    // deletes all nodes in the tree
     void clear(Node* n);
-
+    // recursively copy the other AVL tree
     void copyR(Node*& self, const Node* other);
 public:
+    // returns whether the tree is a valid AVL tree
     bool isBalanced() const;
 };
 
@@ -158,6 +171,7 @@ template <typename ElementType>
 AVLSet<ElementType>::AVLSet(const AVLSet& s)
     : root{nullptr}, shouldBalance{s.shouldBalance}
 {
+    // copy the nodes
     copyR(root, s.root);
 }
 
@@ -231,7 +245,6 @@ unsigned int AVLSet<ElementType>::size() const noexcept
 template <typename ElementType>
 int AVLSet<ElementType>::height() const noexcept
 {
-    // return findHeightR(root);
     return findHeight(root);
 }
 
@@ -261,16 +274,20 @@ bool AVLSet<ElementType>::containsR(Node* n, const ElementType& target) const
 {
     if (n == nullptr)
     {
+        // searched to a leaf node, the element does not exist
         return false;
     }
     if (n->value == target)
     {
+        // found
         return true;
     }
     if (n->value < target)
     {
+        // go right
         return containsR(n->right, target);
     }
+    // go left
     return containsR(n->left, target);
 }
 
@@ -279,6 +296,7 @@ int AVLSet<ElementType>::findHeightR(Node* n) const
 {
     if (n == nullptr)
     {
+        // empty tree
         return -1;
     }
     return 1 + std::max(findHeightR(n->left), findHeightR(n->right));
@@ -291,6 +309,7 @@ int AVLSet<ElementType>::findHeight(Node* n) const
     {
         return -1;
     }
+    // use the stored value
     return n->height;
 }
 
@@ -305,6 +324,7 @@ unsigned int AVLSet<ElementType>::findSizeR(Node* n) const
 {
     if (n == nullptr)
     {
+        // leaf node
         return 0;
     }
     return 1 + findSizeR(n->left) + findSizeR(n->right);
@@ -336,11 +356,16 @@ void AVLSet<ElementType>::addR(Node*& n, const ElementType& element)
     }
     // update height of current node
     n->height = reFindHeight(n);
-    if (!shouldBalance)
+    if (shouldBalance)
     {
-        // no rebalance needed
-        return;
+        // do rotations if needed
+        rebalance(n, element);
     }
+}
+
+template <typename ElementType>
+void AVLSet<ElementType>::rebalance(Node*& n, const ElementType& element)
+{
     // find the difference in left and right subtree to determine
     // if we need to do re-balancing
     int heightDiff = getHeightDiff(n);
@@ -396,6 +421,7 @@ void AVLSet<ElementType>::preorderR(Node* n, VisitFunction visit) const
     {
         return;
     }
+    // preorder: visit first, then left and right
     visit(n->value);
     preorderR(n->left, visit);
     preorderR(n->right, visit);
@@ -408,6 +434,7 @@ void AVLSet<ElementType>::inorderR(Node* n, VisitFunction visit) const
     {
         return;
     }
+    // inorder: left, visit, right
     inorderR(n->left, visit);
     visit(n->value);
     inorderR(n->right, visit);
@@ -420,6 +447,7 @@ void AVLSet<ElementType>::postorderR(Node* n, VisitFunction visit) const
     {
         return;
     }
+    // postorder: left, right, visit
     postorderR(n->left, visit);
     postorderR(n->right, visit);
     visit(n->value);
@@ -464,6 +492,7 @@ typename AVLSet<ElementType>::Node* AVLSet<ElementType>::rotateLL(Node* n)
     // the T nodes has the same height as before
     n->height = reFindHeight(n);
     a->height = reFindHeight(a);
+    // return new root node
     return a;
 }
 
@@ -481,6 +510,7 @@ typename AVLSet<ElementType>::Node* AVLSet<ElementType>::rotateRR(Node* n)
     // the T nodes has the same height as before
     n->height = reFindHeight(n);
     b->height = reFindHeight(b);
+    // return new root node
     return b;
 }
 
@@ -491,6 +521,7 @@ void AVLSet<ElementType>::clear(Node* n)
     {
         return;
     }
+    // delete child node first, so we dont need to preserve pointers
     clear(n->left);
     clear(n->right);
     delete n;
@@ -501,10 +532,13 @@ void AVLSet<ElementType>::copyR(Node*& self, const Node* other)
 {
     if (other == nullptr)
     {
+        // end of a branch
         self = nullptr;
         return;
     }
+    // make a new node
     Node* n = new Node{other->value, nullptr, nullptr, other->height};
+    // updpate left and right pointer
     copyR(n->left, other->left);
     copyR(n->right, other->right);
     self = n;

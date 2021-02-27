@@ -107,6 +107,7 @@ public:
 private:
     HashFunction hashFunction;
 
+    // node for linked list
     struct Node
     {
         ElementType value;

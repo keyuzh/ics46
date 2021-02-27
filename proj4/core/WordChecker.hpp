@@ -16,10 +16,10 @@
 #ifndef WORDCHECKER_HPP
 #define WORDCHECKER_HPP
 
+#include <set>
 #include <string>
 #include <vector>
 #include "Set.hpp"
-#include <set>
 
 
 
@@ -48,16 +48,17 @@ private:
 
     // Swapping each adjacent pair of characters in the word.
     void swapAdjacentPair(std::set<std::string>& sug, const std::string& wd) const;
-
     // In between each adjacent pair of characters in the word (also before the
     // first character and after the last character), each letter from 'A' through
     // 'Z' is inserted.
     void insertChar(std::set<std::string>& sug, const std::string& wd) const;
-
+    // Deleting each character from the word.
     void deleteChar(std::set<std::string>& sug, const std::string& wd) const;
-
+    // Replacing each character in the word with each letter from 'A' through 'Z'.
     void replaceChar(std::set<std::string>& sug, const std::string& wd) const;
-
+    // Splitting the word into a pair of words by adding a space in between each
+    // adjacent pair of characters in the word. It should be noted that this will
+    // only generate a suggestion if both words in the pair are found in the word set.
     void splitWord(std::set<std::string>& sug, const std::string& wd) const;
 };
 

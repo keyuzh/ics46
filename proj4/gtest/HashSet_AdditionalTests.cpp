@@ -110,5 +110,4 @@ TEST(HashSet_AdditionalTests, assignmentChangeOriginal)
     ASSERT_TRUE(s2.contains(2));
     ASSERT_FALSE(s2.contains(4));
     ASSERT_EQ(2, s2.elementsAtIndex(0));
-
 }

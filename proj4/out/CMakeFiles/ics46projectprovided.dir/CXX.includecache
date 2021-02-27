@@ -31,14 +31,14 @@ Set.hpp
 ../core/Set.hpp
 
 ../core/WordChecker.hpp
+set
+-
 string
 -
 vector
 -
 Set.hpp
 ../core/Set.hpp
-set
--
 
 ../include/ics46/observable/Observable.hpp
 algorithm

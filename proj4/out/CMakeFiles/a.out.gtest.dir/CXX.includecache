@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+../core/HashSet.hpp
+functional
+-
+utility
+-
+Set.hpp
+../core/Set.hpp
+
 ../core/SkipListSet.hpp
 memory
 -
@@ -14,7 +22,39 @@ random
 Set.hpp
 ../core/Set.hpp
 
+../core/WordChecker.hpp
+set
+-
+string
+-
+vector
+-
+Set.hpp
+../core/Set.hpp
+
+../provided/ListSet.hpp
+algorithm
+-
+Set.hpp
 ../provided/Set.hpp
+
+../provided/Set.hpp
+
+/home/ics46/projects/proj4/gtest/HashSet_AdditionalTests.cpp
+string
+-
+gtest/gtest.h
+-
+HashSet.hpp
+/home/ics46/projects/proj4/gtest/HashSet.hpp
+
+/home/ics46/projects/proj4/gtest/HashSet_SanityCheckTests.cpp
+string
+-
+gtest/gtest.h
+-
+HashSet.hpp
+/home/ics46/projects/proj4/gtest/HashSet.hpp
 
 /home/ics46/projects/proj4/gtest/SkipListSet_AdditionalTests.cpp
 memory
@@ -25,4 +65,26 @@ gtest/gtest.h
 -
 SkipListSet.hpp
 /home/ics46/projects/proj4/gtest/SkipListSet.hpp
+
+/home/ics46/projects/proj4/gtest/SkipListSet_SanityCheckTests.cpp
+memory
+-
+string
+-
+gtest/gtest.h
+-
+SkipListSet.hpp
+/home/ics46/projects/proj4/gtest/SkipListSet.hpp
+
+/home/ics46/projects/proj4/gtest/WordChecker_AdditionalTests.cpp
+string
+-
+vector
+-
+gtest/gtest.h
+-
+ListSet.hpp
+/home/ics46/projects/proj4/gtest/ListSet.hpp
+WordChecker.hpp
+/home/ics46/projects/proj4/gtest/WordChecker.hpp
 
