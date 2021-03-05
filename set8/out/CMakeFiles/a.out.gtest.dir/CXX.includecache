@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../core/problem4.hpp
+initializer_list
+-
+map
+-
+vector
+-
+
+/home/ics46/projects/set8/gtest/DisjointSetForestTests.cpp
+gtest/gtest.h
+-
+array
+-
+string
+-
+vector
+-
+problem4.hpp
+/home/ics46/projects/set8/gtest/problem4.hpp
+
