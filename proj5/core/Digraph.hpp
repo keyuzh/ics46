@@ -26,6 +26,8 @@
 #include <map>
 #include <utility>
 #include <vector>
+#include <set>
+#include <iostream>
 
 
 
@@ -207,11 +209,18 @@ private:
     // Add whatever member variables you think you need here.  One
     // possibility is a std::map where the keys are vertex numbers
     // and the values are DigraphVertex<VertexInfo, EdgeInfo> objects.
+    std::map<int, DigraphVertex<VertexInfo, EdgeInfo>> adjList;
 
 
     // You can also feel free to add any additional member functions
     // you'd like (public or private), so long as you don't remove or
     // change the signatures of the ones that already exist.
+    bool vertexExists(int vertex) const;
+    bool edgeExists(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const;
+    EdgeInfo findEdge(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const;
+    void eraseEdge(std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to);
+    bool canReachEveryVertex(int vertex) const;
+    void DFTr(std::set<int>& reached, int vertex) const;
 };
 
 
@@ -222,19 +231,45 @@ private:
 
 template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>::Digraph()
+    : adjList{}
 {
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>::Digraph(const Digraph& d)
+    : adjList{d.adjList}
 {
+    // std::cout << "this vertex: ";
+    // for (auto& vertex : adjList)
+    // {
+    //     std::cout << &(vertex.first) << " ";
+    // }
+    // std::cout << std::endl << "this list: ";
+    // for (auto& vertex : adjList)
+    // {
+    //     std::cout << &(vertex.second.edges) << " ";
+    // }
+    // std::cout << std::endl;
+    // std::cout << "other vertex: ";
+    // for (auto& vertex : d.adjList)
+    // {
+    //     std::cout << &(vertex.first) << " ";
+    // }
+    // std::cout << std::endl << "other list: ";
+    // for (auto& vertex : d.adjList)
+    // {
+    //     std::cout << &(vertex.second.edges) << " ";
+    // }
+    // std::cout << std::endl;
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>::Digraph(Digraph&& d) noexcept
+    : adjList{}
 {
+    std::swap(adjList, d.adjList);
 }
 
 
@@ -247,6 +282,11 @@ Digraph<VertexInfo, EdgeInfo>::~Digraph() noexcept
 template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(const Digraph& d)
 {
+    if (this != &d)
+    {
+        adjList = d.adjList;
+    }
+    
     return *this;
 }
 
@@ -254,6 +294,11 @@ Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(const Di
 template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(Digraph&& d) noexcept
 {
+    if (this != &d)
+    {
+        std::swap(adjList, d.adjList);
+    }
+    
     return *this;
 }
 
@@ -261,87 +306,184 @@ Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(Digraph&
 template <typename VertexInfo, typename EdgeInfo>
 std::vector<int> Digraph<VertexInfo, EdgeInfo>::vertices() const
 {
-    return std::vector<int>{};
+    std::vector<int> v;
+    for (auto vertex : adjList)
+    {
+        v.push_back(vertex.first);
+    }
+    return v;
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 std::vector<std::pair<int, int>> Digraph<VertexInfo, EdgeInfo>::edges() const
 {
-    return std::vector<std::pair<int, int>>{};
+    std::vector<std::pair<int, int>> result;
+    for (auto vertex : adjList)
+    {
+        std::vector<std::pair<int, int>> vertexEdge = edges(vertex.first);
+        result.insert(result.end(), vertexEdge.begin(), vertexEdge.end());
+    }
+    return result;
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 std::vector<std::pair<int, int>> Digraph<VertexInfo, EdgeInfo>::edges(int vertex) const
 {
-    return std::vector<std::pair<int, int>>{};
+    std::vector<std::pair<int, int>> edgeVector;
+    try
+    {
+        std::list<DigraphEdge<EdgeInfo>> edgeList = adjList.at(vertex).edges;
+        for (auto& e : edgeList)
+        {
+            edgeVector.push_back({e.fromVertex, e.toVertex});
+        }
+    }
+    catch(const std::out_of_range& e)
+    {
+        throw DigraphException{"vertex not found"};
+    }
+    return edgeVector;
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 VertexInfo Digraph<VertexInfo, EdgeInfo>::vertexInfo(int vertex) const
 {
-    return VertexInfo{};
+    // if (!vertexExists(vertex))
+    // {
+    //     throw DigraphException{"vertex not found"};
+    // }
+    // return adjList.at(vertex).vinfo;
+    try
+    {
+        return adjList.at(vertex).vinfo;
+    }
+    catch(const std::out_of_range& e)
+    {
+        throw DigraphException{"vertex not found"};
+    }
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 EdgeInfo Digraph<VertexInfo, EdgeInfo>::edgeInfo(int fromVertex, int toVertex) const
 {
-    return EdgeInfo{};
+    if (!(vertexExists(fromVertex) && vertexExists(toVertex)))
+    {
+        throw DigraphException{"One vertex does not exist"};
+    }
+    return findEdge(adjList.at(fromVertex).edges, fromVertex, toVertex);
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 void Digraph<VertexInfo, EdgeInfo>::addVertex(int vertex, const VertexInfo& vinfo)
 {
+    if (vertexExists(vertex))
+    {
+        // vertex found
+        throw DigraphException{"vertex already exists"};
+    }
+    adjList[vertex] = DigraphVertex<VertexInfo, EdgeInfo>{vinfo, std::list<DigraphEdge<EdgeInfo>>{}};
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 void Digraph<VertexInfo, EdgeInfo>::addEdge(int fromVertex, int toVertex, const EdgeInfo& einfo)
 {
+    if (!(vertexExists(fromVertex) && vertexExists(toVertex)))
+    {
+        throw DigraphException{"One vertex does not exist"};
+    }
+    if (edgeExists(adjList.at(fromVertex).edges, fromVertex, toVertex))
+    {
+        throw DigraphException{"Edge already exists"};
+    }        
+    adjList.at(fromVertex).edges.push_back(DigraphEdge<EdgeInfo>{fromVertex, toVertex, einfo});
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 void Digraph<VertexInfo, EdgeInfo>::removeVertex(int vertex)
 {
+    if (!vertexExists(vertex))
+    {
+        throw DigraphException{"vertex does not exist"};
+    }
+    // remove ingoing edges first
+    for (auto& v : adjList)
+    {
+        try
+        {
+            removeEdge(v.first, vertex);
+        }
+        catch(const DigraphException& e)
+        {
+            continue;
+        }
+    }
+    // remove outgoing edges
+    adjList.erase(vertex);
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 void Digraph<VertexInfo, EdgeInfo>::removeEdge(int fromVertex, int toVertex)
 {
+    if (!(vertexExists(fromVertex) && vertexExists(toVertex)))
+    {
+        throw DigraphException{"One vertex does not exist"};
+    }
+    eraseEdge(adjList.at(fromVertex).edges, fromVertex, toVertex);
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 int Digraph<VertexInfo, EdgeInfo>::vertexCount() const noexcept
 {
-    return 0;
+    return adjList.size();
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 int Digraph<VertexInfo, EdgeInfo>::edgeCount() const noexcept
 {
-    return 0;
+    int count{0};
+    for (auto vertex : adjList)
+    {
+        count += edgeCount(vertex.first);
+    }
+    return count;
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 int Digraph<VertexInfo, EdgeInfo>::edgeCount(int vertex) const
 {
-    return 0;
+    try
+    {
+        return adjList.at(vertex).edges.size();
+    }
+    catch(const std::out_of_range& e)
+    {
+        throw DigraphException{"vertex not found"};
+    }
 }
 
 
 template <typename VertexInfo, typename EdgeInfo>
 bool Digraph<VertexInfo, EdgeInfo>::isStronglyConnected() const
 {
-    return false;
+    for (auto& vertex : adjList)
+    {
+        if (!canReachEveryVertex(vertex.first))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -353,7 +495,76 @@ std::map<int, int> Digraph<VertexInfo, EdgeInfo>::findShortestPaths(
     return std::map<int, int>{};
 }
 
+template <typename VertexInfo, typename EdgeInfo>
+bool Digraph<VertexInfo, EdgeInfo>::vertexExists(int vertex) const
+{
+    return (adjList.find(vertex) != adjList.end());
+}
 
+template <typename VertexInfo, typename EdgeInfo>
+bool Digraph<VertexInfo, EdgeInfo>::edgeExists(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const
+{
+    for (auto& e : edges)
+    {
+        if (e.fromVertex == from && e.toVertex == to)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <typename VertexInfo, typename EdgeInfo>
+EdgeInfo Digraph<VertexInfo, EdgeInfo>::findEdge(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const
+{
+    for (auto& e : edges)
+    {
+        if (e.fromVertex == from && e.toVertex == to)
+        {
+            return e.einfo;
+        }
+    }
+    throw DigraphException{"Edge does not exist"};
+}
+
+template <typename VertexInfo, typename EdgeInfo>
+void Digraph<VertexInfo, EdgeInfo>::eraseEdge(std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to)
+{
+    for (auto e = edges.begin(); e != edges.end(); e++)
+    {
+        if (e->fromVertex == from && e->toVertex == to)
+        {
+            // found the edge
+            edges.erase(e);
+            return;
+        }
+    }
+    throw DigraphException{"Edge does not exist"};
+}
+
+template <typename VertexInfo, typename EdgeInfo>
+bool Digraph<VertexInfo, EdgeInfo>::canReachEveryVertex(int vertex) const
+{
+    std::set<int> reached;
+    // do DFT on the vertex
+    DFTr(reached, vertex);
+    return (reached.size() == vertexCount());
+}
+
+template <typename VertexInfo, typename EdgeInfo>
+void Digraph<VertexInfo, EdgeInfo>::DFTr(std::set<int>& reached, int vertex) const
+{
+    std::pair<std::set<int>::iterator, bool> success = reached.insert(vertex);
+    if (success.second)
+    {
+        // vertex not visited, do recursive DFT from here
+        std::vector<std::pair<int, int>> edgeFromVertex = edges(vertex);
+        for (auto& e : edgeFromVertex)
+        {
+            DFTr(reached, e.second);
+        }
+    }
+}
 
 #endif // DIGRAPH_HPP
 
