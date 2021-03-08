@@ -386,31 +386,136 @@ TEST(Digraph_SanityCheckTests, isStronglyConnectedWhenAllPossibleEdgesArePresent
 }
 
 
-// TEST(Digraph_SanityCheckTests, canFindShortestPathWhenNoChoicesAreToBeMade)
-// {
-//     Digraph<int, double> d1;
-//     d1.addVertex(1, 10);
-//     d1.addVertex(2, 20);
-//     d1.addVertex(3, 30);
+TEST(Digraph_SanityCheckTests, canFindShortestPathWhenNoChoicesAreToBeMade)
+{
+    Digraph<int, double> d1;
+    d1.addVertex(1, 10);
+    d1.addVertex(2, 20);
+    d1.addVertex(3, 30);
 
-//     d1.addEdge(1, 2, 5.0);
-//     d1.addEdge(2, 3, 17.0);
+    d1.addEdge(1, 2, 5.0);
+    d1.addEdge(2, 3, 17.0);
 
-//     std::map<int, int> paths = d1.findShortestPaths(
-//         1,
-//         [](double edgeInfo)
-//         {
-//             return edgeInfo;
-//         });
+    std::map<int, int> paths = d1.findShortestPaths(
+        1,
+        [](double edgeInfo)
+        {
+            return edgeInfo;
+        });
 
-//     ASSERT_EQ(3, paths.size());
+    ASSERT_EQ(3, paths.size());
 
-//     ASSERT_TRUE(paths.find(1) != paths.end());
-//     ASSERT_TRUE(paths.find(2) != paths.end());
-//     ASSERT_TRUE(paths.find(3) != paths.end());
+    ASSERT_TRUE(paths.find(1) != paths.end());
+    ASSERT_TRUE(paths.find(2) != paths.end());
+    ASSERT_TRUE(paths.find(3) != paths.end());
 
-//     ASSERT_EQ(1, paths[1]);
-//     ASSERT_EQ(1, paths[2]);
-//     ASSERT_EQ(2, paths[3]);
-// }
+    ASSERT_EQ(1, paths[1]);
+    ASSERT_EQ(1, paths[2]);
+    ASSERT_EQ(2, paths[3]);
+}
+
+namespace
+{
+    template <typename T>
+    T distance(T edgeInfo)
+    {
+        return edgeInfo;
+    }
+}
+
+TEST(Digraph_SanityCheckTests, canFindShortestPathWithLectureExample)
+{
+    // use the example in lecture nots 
+    Digraph<int, int> d1;
+    d1.addVertex(1, 10);
+    d1.addVertex(2, 20);
+    d1.addVertex(3, 30);
+    d1.addVertex(4, 40);
+    d1.addVertex(5, 50);
+    d1.addVertex(6, 60);
+    d1.addVertex(7, 70);
+
+    d1.addEdge(1, 2, 8);
+    d1.addEdge(1, 3, 6);
+    d1.addEdge(2, 4, 10);
+    d1.addEdge(3, 4, 15);
+    d1.addEdge(3, 5, 9);
+    d1.addEdge(4, 5, 14);
+    d1.addEdge(4, 6, 4);
+    d1.addEdge(5, 6, 13);
+    d1.addEdge(5, 7, 17);
+    d1.addEdge(6, 7, 7);
+
+    std::map<int, int> paths = d1.findShortestPaths(
+        1,
+        [](int edgeInfo)
+        {
+            return edgeInfo;
+        });
+
+    ASSERT_EQ(7, paths.size());
+
+    ASSERT_TRUE(paths.find(1) != paths.end());
+    ASSERT_TRUE(paths.find(2) != paths.end());
+    ASSERT_TRUE(paths.find(3) != paths.end());
+    ASSERT_TRUE(paths.find(4) != paths.end());
+    ASSERT_TRUE(paths.find(5) != paths.end());
+    ASSERT_TRUE(paths.find(6) != paths.end());
+    ASSERT_TRUE(paths.find(7) != paths.end());
+
+    ASSERT_EQ(1, paths[1]);
+    ASSERT_EQ(1, paths[2]);
+    ASSERT_EQ(1, paths[3]);
+    ASSERT_EQ(2, paths[4]);
+    ASSERT_EQ(3, paths[5]);
+    ASSERT_EQ(4, paths[6]);
+    ASSERT_EQ(6, paths[7]);
+}
+
+TEST(Digraph_SanityCheckTests, canFindShortestPathWithAppExample)
+{
+    Digraph<int, double> d1;
+    d1.addVertex(0, 10);
+    d1.addVertex(1, 20);
+    d1.addVertex(2, 30);
+    d1.addVertex(5, 40);
+    d1.addVertex(4, 50);
+    d1.addVertex(10, 60);
+    d1.addVertex(9, 70);
+    d1.addVertex(12, 80);
+
+    d1.addEdge(0, 12, 0.06/40.0);
+    d1.addEdge(5, 4, 2.0/24.5);
+    d1.addEdge(2, 1, 2.0/27.5);
+    d1.addEdge(5, 2, 2.3/40.5);
+    d1.addEdge(9, 0, 0.05/39.5);
+    d1.addEdge(4, 10, 0.1/37.1);
+    d1.addEdge(1, 0, 1.5/27.5);
+    d1.addEdge(10, 9, 3.2/59.3);
+
+    std::map<int, int> paths = d1.findShortestPaths(
+        5,
+        [](double edgeInfo)
+        {
+            return edgeInfo;
+        });
+    
+    ASSERT_TRUE(paths.find(1) != paths.end());
+    ASSERT_TRUE(paths.find(2) != paths.end());
+    ASSERT_TRUE(paths.find(0) != paths.end());
+    ASSERT_TRUE(paths.find(4) != paths.end());
+    ASSERT_TRUE(paths.find(5) != paths.end());
+    ASSERT_TRUE(paths.find(9) != paths.end());
+    ASSERT_TRUE(paths.find(10) != paths.end());
+    ASSERT_TRUE(paths.find(12) != paths.end());
+
+    ASSERT_EQ(0, paths[12]);
+    ASSERT_EQ(9, paths[0]);
+    ASSERT_EQ(10, paths[9]);
+    ASSERT_EQ(4, paths[10]);
+    ASSERT_EQ(5, paths[4]);
+
+    ASSERT_EQ(2, paths[1]);
+    ASSERT_EQ(5, paths[2]);
+}
 

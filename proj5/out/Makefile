@@ -248,6 +248,39 @@ app/RoadMapWriter.cpp.s:
 	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.s
 .PHONY : app/RoadMapWriter.cpp.s
 
+app/TripCalculator.o: app/TripCalculator.cpp.o
+
+.PHONY : app/TripCalculator.o
+
+# target to build an object file
+app/TripCalculator.cpp.o:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/TripCalculator.cpp.o
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o
+.PHONY : app/TripCalculator.cpp.o
+
+app/TripCalculator.i: app/TripCalculator.cpp.i
+
+.PHONY : app/TripCalculator.i
+
+# target to preprocess a source file
+app/TripCalculator.cpp.i:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/TripCalculator.cpp.i
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.i
+.PHONY : app/TripCalculator.cpp.i
+
+app/TripCalculator.s: app/TripCalculator.cpp.s
+
+.PHONY : app/TripCalculator.s
+
+# target to generate assembly for a file
+app/TripCalculator.cpp.s:
+	$(MAKE) -f CMakeFiles/a.out.gtest.dir/build.make CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.exp.dir/build.make CMakeFiles/a.out.exp.dir/app/TripCalculator.cpp.s
+	$(MAKE) -f CMakeFiles/a.out.app.dir/build.make CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.s
+.PHONY : app/TripCalculator.cpp.s
+
 app/TripReader.o: app/TripReader.cpp.o
 
 .PHONY : app/TripReader.o
@@ -409,6 +442,9 @@ help:
 	@echo "... app/RoadMapWriter.o"
 	@echo "... app/RoadMapWriter.i"
 	@echo "... app/RoadMapWriter.s"
+	@echo "... app/TripCalculator.o"
+	@echo "... app/TripCalculator.i"
+	@echo "... app/TripCalculator.s"
 	@echo "... app/TripReader.o"
 	@echo "... app/TripReader.i"
 	@echo "... app/TripReader.s"

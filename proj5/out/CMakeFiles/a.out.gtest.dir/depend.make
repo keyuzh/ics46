@@ -17,6 +17,18 @@ CMakeFiles/a.out.gtest.dir/app/RoadMapWriter.cpp.o: ../app/RoadMapWriter.cpp
 CMakeFiles/a.out.gtest.dir/app/RoadMapWriter.cpp.o: ../app/RoadMapWriter.hpp
 CMakeFiles/a.out.gtest.dir/app/RoadMapWriter.cpp.o: ../app/RoadSegment.hpp
 
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../core/Digraph.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/InputReader.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/RoadMap.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/RoadMapReader.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/RoadMapWriter.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/RoadSegment.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/Trip.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/TripCalculator.cpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/TripCalculator.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/TripMetric.hpp
+CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o: ../app/TripReader.hpp
+
 CMakeFiles/a.out.gtest.dir/app/TripReader.cpp.o: ../app/InputReader.hpp
 CMakeFiles/a.out.gtest.dir/app/TripReader.cpp.o: ../app/Trip.hpp
 CMakeFiles/a.out.gtest.dir/app/TripReader.cpp.o: ../app/TripMetric.hpp

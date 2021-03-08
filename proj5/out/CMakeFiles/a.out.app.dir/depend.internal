@@ -17,6 +17,18 @@ CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.o
  /home/ics46/projects/proj5/app/RoadMapWriter.cpp
  /home/ics46/projects/proj5/app/RoadMapWriter.hpp
  /home/ics46/projects/proj5/app/RoadSegment.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o
+ ../core/Digraph.hpp
+ /home/ics46/projects/proj5/app/InputReader.hpp
+ /home/ics46/projects/proj5/app/RoadMap.hpp
+ /home/ics46/projects/proj5/app/RoadMapReader.hpp
+ /home/ics46/projects/proj5/app/RoadMapWriter.hpp
+ /home/ics46/projects/proj5/app/RoadSegment.hpp
+ /home/ics46/projects/proj5/app/Trip.hpp
+ /home/ics46/projects/proj5/app/TripCalculator.cpp
+ /home/ics46/projects/proj5/app/TripCalculator.hpp
+ /home/ics46/projects/proj5/app/TripMetric.hpp
+ /home/ics46/projects/proj5/app/TripReader.hpp
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o
  /home/ics46/projects/proj5/app/InputReader.hpp
  /home/ics46/projects/proj5/app/Trip.hpp
@@ -24,4 +36,14 @@ CMakeFiles/a.out.app.dir/app/TripReader.cpp.o
  /home/ics46/projects/proj5/app/TripReader.cpp
  /home/ics46/projects/proj5/app/TripReader.hpp
 CMakeFiles/a.out.app.dir/app/main.cpp.o
+ ../core/Digraph.hpp
+ /home/ics46/projects/proj5/app/InputReader.hpp
+ /home/ics46/projects/proj5/app/RoadMap.hpp
+ /home/ics46/projects/proj5/app/RoadMapReader.hpp
+ /home/ics46/projects/proj5/app/RoadMapWriter.hpp
+ /home/ics46/projects/proj5/app/RoadSegment.hpp
+ /home/ics46/projects/proj5/app/Trip.hpp
+ /home/ics46/projects/proj5/app/TripCalculator.hpp
+ /home/ics46/projects/proj5/app/TripMetric.hpp
+ /home/ics46/projects/proj5/app/TripReader.hpp
  /home/ics46/projects/proj5/app/main.cpp

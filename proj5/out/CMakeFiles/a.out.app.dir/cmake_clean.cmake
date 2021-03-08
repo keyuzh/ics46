@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.app.dir/app/InputReader.cpp.o"
   "CMakeFiles/a.out.app.dir/app/RoadMapReader.cpp.o"
   "CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.o"
+  "CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o"
   "CMakeFiles/a.out.app.dir/app/TripReader.cpp.o"
   "CMakeFiles/a.out.app.dir/app/main.cpp.o"
   "bin/a.out.app"

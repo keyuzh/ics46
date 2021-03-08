@@ -17,11 +17,33 @@ CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.o: ../app/RoadMapWriter.cpp
 CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.o: ../app/RoadMapWriter.hpp
 CMakeFiles/a.out.app.dir/app/RoadMapWriter.cpp.o: ../app/RoadSegment.hpp
 
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../core/Digraph.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/InputReader.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/RoadMap.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/RoadMapReader.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/RoadMapWriter.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/RoadSegment.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/Trip.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/TripCalculator.cpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/TripCalculator.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/TripMetric.hpp
+CMakeFiles/a.out.app.dir/app/TripCalculator.cpp.o: ../app/TripReader.hpp
+
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o: ../app/InputReader.hpp
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o: ../app/Trip.hpp
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o: ../app/TripMetric.hpp
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o: ../app/TripReader.cpp
 CMakeFiles/a.out.app.dir/app/TripReader.cpp.o: ../app/TripReader.hpp
 
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../core/Digraph.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/InputReader.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/RoadMap.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/RoadMapReader.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/RoadMapWriter.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/RoadSegment.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/Trip.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/TripCalculator.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/TripMetric.hpp
+CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/TripReader.hpp
 CMakeFiles/a.out.app.dir/app/main.cpp.o: ../app/main.cpp
 

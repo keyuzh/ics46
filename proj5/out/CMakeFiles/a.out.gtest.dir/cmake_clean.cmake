@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.out.gtest.dir/app/InputReader.cpp.o"
   "CMakeFiles/a.out.gtest.dir/app/RoadMapReader.cpp.o"
   "CMakeFiles/a.out.gtest.dir/app/RoadMapWriter.cpp.o"
+  "CMakeFiles/a.out.gtest.dir/app/TripCalculator.cpp.o"
   "CMakeFiles/a.out.gtest.dir/app/TripReader.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/Digraph_SanityCheckTests.cpp.o"
   "CMakeFiles/a.out.gtest.dir/gtest/gtestmain.cpp.o"
