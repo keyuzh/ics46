@@ -28,6 +28,8 @@
 #include <vector>
 #include <set>
 #include <iostream>
+#include <cmath>
+#include <queue>
 
 
 
@@ -210,6 +212,13 @@ private:
     // possibility is a std::map where the keys are vertex numbers
     // and the values are DigraphVertex<VertexInfo, EdgeInfo> objects.
     std::map<int, DigraphVertex<VertexInfo, EdgeInfo>> adjList;
+
+    struct Dijkstra
+    {
+        bool k;
+        double d;
+        int p;
+    };
 
 
     // You can also feel free to add any additional member functions
@@ -492,7 +501,53 @@ std::map<int, int> Digraph<VertexInfo, EdgeInfo>::findShortestPaths(
     int startVertex,
     std::function<double(const EdgeInfo&)> edgeWeightFunc) const
 {
-    return std::map<int, int>{};
+    // use a std::map to store the table for Dijkstra Algorithm
+    std::map<int, Dijkstra> dijk;
+    // initialize values in the table
+    for (auto& vertex : vertices())
+    {
+        // set dv to inf or 0
+        double dTemp = (vertex == startVertex) ? 0 : std::numeric_limits<double>::infinity();
+        // we use the vertex number itself to represent none or unknown
+        dijk[vertex] = Dijkstra{false, dTemp, vertex};
+    }
+    // empty priority queue; first elemet is priority, the second element is vertex
+    std::priority_queue<std::pair<double, int>, std::vector<std::pair<double, int>>, 
+                        std::greater<std::pair<double, int>>> pq;
+    // enqueue start vertex with priority 0
+    pq.push({0, startVertex});
+    while (!pq.empty())
+    {
+        // get the vertex with smallest priority
+        int v = pq.top().second;
+        // dequeue it
+        pq.pop();
+        if (!dijk[v].k)  // if kv is false
+        {
+            dijk[v].k = true;  // set it to true
+            // for each vertex w such that edge v → w exists
+            for (auto& e : edges(v))
+            {
+                int w = e.second;        // vertex w
+                double& dw = dijk[w].d;  // dw
+                // dv + C(v, w)
+                double dvPlusC = dijk[v].d + edgeWeightFunc(edgeInfo(v, w));
+                if (dw > dvPlusC)        // if (dw > dv + C(v, w))
+                {
+                    dw = dvPlusC;        // dw = dv + C(v, w)
+                    dijk[w].p = v;       // pw = v
+                    pq.push({dw, w});    // enqueue w into pq with priority dw
+                }
+            }
+        }
+    }
+    // after Dijkstra Algo, construct std::map for return value from table
+    std::map<int, int> result;
+    for (auto& i : dijk) 
+    {
+        result[i.first] = i.second.p;
+    }
+    return result;
 }
 
 template <typename VertexInfo, typename EdgeInfo>
