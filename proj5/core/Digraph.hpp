@@ -26,10 +26,11 @@
 #include <map>
 #include <utility>
 #include <vector>
-#include <set>
-#include <iostream>
+
 #include <cmath>
+#include <iostream>
 #include <queue>
+#include <set>
 
 
 
@@ -213,6 +214,7 @@ private:
     // and the values are DigraphVertex<VertexInfo, EdgeInfo> objects.
     std::map<int, DigraphVertex<VertexInfo, EdgeInfo>> adjList;
 
+    // struct used in Dijkstra's Algorithm
     struct Dijkstra
     {
         bool k;
@@ -220,15 +222,21 @@ private:
         int p;
     };
 
-
     // You can also feel free to add any additional member functions
     // you'd like (public or private), so long as you don't remove or
     // change the signatures of the ones that already exist.
+
+    // return whether the given vertex exists in digraph
     bool vertexExists(int vertex) const;
+    // return whether the given edge exists in edges
     bool edgeExists(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const;
+    // return the corresponding EdgeInfo; throw DigraphException if not exist
     EdgeInfo findEdge(const std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to) const;
+    // remove the edge from digraph; throw DigraphException if not exist
     void eraseEdge(std::list<DigraphEdge<EdgeInfo>>& edges, int from, int to);
+    // returns whether the given vertex can reach every other vertex in the digraph
     bool canReachEveryVertex(int vertex) const;
+    // recursive DFT algorithm
     void DFTr(std::set<int>& reached, int vertex) const;
 };
 
@@ -249,28 +257,6 @@ template <typename VertexInfo, typename EdgeInfo>
 Digraph<VertexInfo, EdgeInfo>::Digraph(const Digraph& d)
     : adjList{d.adjList}
 {
-    // std::cout << "this vertex: ";
-    // for (auto& vertex : adjList)
-    // {
-    //     std::cout << &(vertex.first) << " ";
-    // }
-    // std::cout << std::endl << "this list: ";
-    // for (auto& vertex : adjList)
-    // {
-    //     std::cout << &(vertex.second.edges) << " ";
-    // }
-    // std::cout << std::endl;
-    // std::cout << "other vertex: ";
-    // for (auto& vertex : d.adjList)
-    // {
-    //     std::cout << &(vertex.first) << " ";
-    // }
-    // std::cout << std::endl << "other list: ";
-    // for (auto& vertex : d.adjList)
-    // {
-    //     std::cout << &(vertex.second.edges) << " ";
-    // }
-    // std::cout << std::endl;
 }
 
 
@@ -295,7 +281,6 @@ Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(const Di
     {
         adjList = d.adjList;
     }
-    
     return *this;
 }
 
@@ -307,7 +292,6 @@ Digraph<VertexInfo, EdgeInfo>& Digraph<VertexInfo, EdgeInfo>::operator=(Digraph&
     {
         std::swap(adjList, d.adjList);
     }
-    
     return *this;
 }
 
@@ -327,9 +311,11 @@ std::vector<int> Digraph<VertexInfo, EdgeInfo>::vertices() const
 template <typename VertexInfo, typename EdgeInfo>
 std::vector<std::pair<int, int>> Digraph<VertexInfo, EdgeInfo>::edges() const
 {
+    // total big vector for all edges
     std::vector<std::pair<int, int>> result;
     for (auto vertex : adjList)
     {
+        // insert the edges from each vertex
         std::vector<std::pair<int, int>> vertexEdge = edges(vertex.first);
         result.insert(result.end(), vertexEdge.begin(), vertexEdge.end());
     }
@@ -343,7 +329,9 @@ std::vector<std::pair<int, int>> Digraph<VertexInfo, EdgeInfo>::edges(int vertex
     std::vector<std::pair<int, int>> edgeVector;
     try
     {
+        // use .at() to check for existence of vertex
         std::list<DigraphEdge<EdgeInfo>> edgeList = adjList.at(vertex).edges;
+        // insert to result vector
         for (auto& e : edgeList)
         {
             edgeVector.push_back({e.fromVertex, e.toVertex});
@@ -360,13 +348,9 @@ std::vector<std::pair<int, int>> Digraph<VertexInfo, EdgeInfo>::edges(int vertex
 template <typename VertexInfo, typename EdgeInfo>
 VertexInfo Digraph<VertexInfo, EdgeInfo>::vertexInfo(int vertex) const
 {
-    // if (!vertexExists(vertex))
-    // {
-    //     throw DigraphException{"vertex not found"};
-    // }
-    // return adjList.at(vertex).vinfo;
     try
     {
+        // use .at() to check for existence of vertex
         return adjList.at(vertex).vinfo;
     }
     catch(const std::out_of_range& e)
@@ -392,9 +376,10 @@ void Digraph<VertexInfo, EdgeInfo>::addVertex(int vertex, const VertexInfo& vinf
 {
     if (vertexExists(vertex))
     {
-        // vertex found
+        // vertex already exists
         throw DigraphException{"vertex already exists"};
     }
+    // insert into map
     adjList[vertex] = DigraphVertex<VertexInfo, EdgeInfo>{vinfo, std::list<DigraphEdge<EdgeInfo>>{}};
 }
 
@@ -410,6 +395,7 @@ void Digraph<VertexInfo, EdgeInfo>::addEdge(int fromVertex, int toVertex, const 
     {
         throw DigraphException{"Edge already exists"};
     }        
+    // add edge to vector
     adjList.at(fromVertex).edges.push_back(DigraphEdge<EdgeInfo>{fromVertex, toVertex, einfo});
 }
 
@@ -430,6 +416,7 @@ void Digraph<VertexInfo, EdgeInfo>::removeVertex(int vertex)
         }
         catch(const DigraphException& e)
         {
+            // no edge from vertex v, continue to next iteration
             continue;
         }
     }

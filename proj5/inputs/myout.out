@@ -1,64 +1,3 @@
-LOCATIONS
-    0: 1st St & 101st Ave
-    1: 1st St & 102nd Ave
-    2: 1st St & 103rd Ave
-    3: 2nd St & 101st Ave
-    4: 2nd St & 102nd Ave
-    5: 2nd St & 103rd Ave
-    6: 3rd St & 101st Ave
-    7: 3rd St & 102nd Ave
-    8: 3rd St & 103rd Ave
-    9: Freeway North @ 101st Ave
-    10: Freeway North @ 102nd Ave
-    11: Freeway North @ 103rd Ave
-    12: Freeway South @ 101st Ave
-    13: Freeway South @ 102nd Ave
-    14: Freeway South @ 103rd Ave
-
-ROAD SEGMENTS
-    0,1: 1.5miles; 30mph
-    0,3: 2.3miles; 37.5mph
-    0,9: 0.05miles; 40.1mph
-    0,12: 0.06miles; 40mph
-    1,0: 1.5miles; 27.5mph
-    1,2: 2miles; 30.5mph
-    1,4: 2.3miles; 30.3mph
-    2,1: 2miles; 27.5mph
-    2,5: 2.3miles; 42.6mph
-    3,4: 1.5miles; 26.5mph
-    3,0: 2.3miles; 37.4mph
-    3,6: 2.5miles; 39.2mph
-    4,3: 1.5miles; 28mph
-    4,5: 2miles; 30.2mph
-    4,1: 2.3miles; 32.5mph
-    4,7: 2.5miles; 31.5mph
-    4,10: 0.1miles; 37.1mph
-    4,13: 0.09miles; 38.5mph
-    5,4: 2miles; 24.5mph
-    5,2: 2.3miles; 40.5mph
-    5,8: 2.5miles; 42.8mph
-    6,7: 1.5miles; 29mph
-    6,3: 2.5miles; 38.5mph
-    7,6: 1.5miles; 28.5mph
-    7,8: 2miles; 35.2mph
-    7,4: 2.5miles; 30.9mph
-    8,7: 2miles; 32.5mph
-    8,5: 2.5miles; 43.2mph
-    8,11: 0.07miles; 35.4mph
-    8,14: 0.08miles; 41.5mph
-    9,0: 0.05miles; 39.5mph
-    10,9: 3.2miles; 59.3mph
-    10,4: 0.1miles; 39mph
-    11,10: 2.75miles; 57.6mph
-    11,8: 0.07miles; 37.6mph
-    12,13: 2.75miles; 60mph
-    12,0: 0.06miles; 40.5mph
-    13,14: 3.2miles; 59.5mph
-    13,4: 0.09miles; 39mph
-    14,8: 0.08miles; 37.5mph
-
-
-
 Shortest distance from 1st St & 101st Ave to 3rd St & 103rd Ave
   Begin at 1st St & 101st Ave
   Continue to Freeway South @ 101st Ave (0.1 miles)
@@ -96,11 +35,12 @@ Total distance: 2.3 miles
 
 Shortest driving time from 2nd St & 103rd Ave to Freeway South @ 101st Ave
   Begin at 2nd St & 103rd Ave
-  Continue to 1st St & 103rd Ave (2.3 miles @ 40.5mph = 3 mins 24.4 secs)
-  Continue to 1st St & 102nd Ave (2.0 miles @ 27.5mph = 4 mins 21.8 secs)
-  Continue to 1st St & 101st Ave (1.5 miles @ 27.5mph = 3 mins 16.4 secs)
+  Continue to 2nd St & 102nd Ave (2.0 miles @ 24.5mph = 4 mins 53.9 secs)
+  Continue to Freeway North @ 102nd Ave (0.1 miles @ 37.1mph = 9.7 secs)
+  Continue to Freeway North @ 101st Ave (3.2 miles @ 59.3mph = 3 mins 14.3 secs)
+  Continue to 1st St & 101st Ave (0.1 miles @ 39.5mph = 4.6 secs)
   Continue to Freeway South @ 101st Ave (0.1 miles @ 40.0mph = 5.4 secs)
-Total time: 11 mins 8.0 secs
+Total time: 8 mins 27.8 secs
 
 Shortest driving time from 1st St & 103rd Ave to Freeway North @ 103rd Ave
   Begin at 1st St & 103rd Ave
@@ -115,4 +55,3 @@ Shortest driving time from 3rd St & 101st Ave to Freeway South @ 103rd Ave
   Continue to 3rd St & 103rd Ave (2.0 miles @ 35.2mph = 3 mins 24.5 secs)
   Continue to Freeway South @ 103rd Ave (0.1 miles @ 41.5mph = 6.9 secs)
 Total time: 6 mins 37.7 secs
-

@@ -79,17 +79,6 @@ TEST(Digraph_SanityCheckTests, copyConstructDoesNotChangeCopy)
     ASSERT_THROW(dd1.removeVertex(3), DigraphException);
 }
 
-TEST(Digraph_SanityCheckTests, copyConstructMakeDeepCopy)
-{
-    Digraph<int, int> d1;
-    d1.addVertex(1, 1);
-    d1.addVertex(2, 2);
-    d1.addEdge(1, 2, 4);
-
-    Digraph<int, int> dd1{d1};
-
-}
-
 
 TEST(Digraph_SanityCheckTests, canMoveConstructToCompatibleType)
 {
@@ -113,6 +102,64 @@ TEST(Digraph_SanityCheckTests, canAssignToCompatibleType)
     d3 = d4;
 }
 
+TEST(Digraph_SanityCheckTests, assignmentDoesNotChangeOriginal)
+{
+    Digraph<int, int> d1;
+    d1.addVertex(1, 1);
+    d1.addVertex(2, 2);
+    d1.addEdge(1, 2, 4);
+
+    Digraph<int, int> dd1 = d1;
+    dd1.addVertex(3, 3);
+    dd1.addEdge(3, 1, 5);
+
+    ASSERT_EQ(2, d1.vertexCount());
+    ASSERT_EQ(1, d1.edgeCount());
+    ASSERT_EQ(3, dd1.vertexCount());
+    ASSERT_EQ(2, dd1.edgeCount());
+    ASSERT_THROW(d1.removeEdge(3, 1), DigraphException);
+    ASSERT_THROW(d1.removeVertex(3), DigraphException);
+}
+
+TEST(Digraph_SanityCheckTests, assignmentDoesNotChangeCopy)
+{
+    Digraph<int, int> d1;
+    d1.addVertex(1, 1);
+    d1.addVertex(2, 2);
+    d1.addEdge(1, 2, 4);
+
+    Digraph<int, int> dd1 = d1;
+    d1.addVertex(3, 3);
+    d1.addEdge(3, 1, 5);
+
+    ASSERT_EQ(3, d1.vertexCount());
+    ASSERT_EQ(2, d1.edgeCount());
+    ASSERT_EQ(2, dd1.vertexCount());
+    ASSERT_EQ(1, dd1.edgeCount());
+    ASSERT_THROW(dd1.removeEdge(3, 1), DigraphException);
+    ASSERT_THROW(dd1.removeVertex(3), DigraphException);
+}
+
+TEST(Digraph_SanityCheckTests, assignmentRemovesOriginal)
+{
+    Digraph<int, int> d1;
+    d1.addVertex(1, 1);
+    d1.addVertex(2, 2);
+    d1.addEdge(1, 2, 4);
+    d1.addEdge(2, 1, 5);
+
+    Digraph<int, int> dd1;
+    dd1.addVertex(3, 3);
+    dd1.addVertex(4, 4);
+    dd1.addEdge(3, 4, 5);
+
+    dd1 = d1;
+
+    ASSERT_EQ(2, dd1.vertexCount());
+    ASSERT_EQ(2, dd1.edgeCount());
+    ASSERT_THROW(dd1.removeEdge(3, 4), DigraphException);
+    ASSERT_THROW(dd1.removeVertex(3), DigraphException);
+}
 
 TEST(Digraph_SanityCheckTests, canMoveAssignToCompatibleType)
 {
@@ -126,6 +173,17 @@ TEST(Digraph_SanityCheckTests, canMoveAssignToCompatibleType)
     d3 = std::move(d4);
 }
 
+TEST(Digraph_SanityCheckTests, emptyGraphDoesNotContainAnyVertex)
+{
+    Digraph<std::string, std::string> d1;
+    ASSERT_EQ(0, d1.vertices().size());
+}
+
+TEST(Digraph_SanityCheckTests, emptyGraphDoesNotContainAnyEdge)
+{
+    Digraph<std::string, std::string> d1;
+    ASSERT_EQ(0, d1.edges().size());
+}
 
 TEST(Digraph_SanityCheckTests, canGetAllVertexNumbers)
 {
@@ -189,6 +247,26 @@ TEST(Digraph_SanityCheckTests, canGetAllEdgesForOneVertex)
     ASSERT_EQ(1, edges.size());
     ASSERT_EQ(2, edges[0].first);
     ASSERT_EQ(3, edges[0].second);
+}
+
+TEST(Digraph_SanityCheckTests, canGetMultipleEdgesForOneVertex)
+{
+    Digraph<std::string, std::string> d1;
+    d1.addVertex(1, "Example1");
+    d1.addVertex(2, "Example2");
+    d1.addVertex(3, "Example3");
+
+    d1.addEdge(1, 2, "Edge1");
+    d1.addEdge(1, 3, "Edge2");
+    d1.addEdge(2, 3, "Edge3");
+
+    std::vector<std::pair<int, int>> edges = d1.edges(1);
+    std::sort(edges.begin(), edges.end());
+    ASSERT_EQ(2, edges.size());
+    ASSERT_EQ(1, edges[0].first);
+    ASSERT_EQ(2, edges[0].second);
+    ASSERT_EQ(1, edges[1].first);
+    ASSERT_EQ(3, edges[1].second);
 }
 
 
@@ -296,8 +374,6 @@ TEST(Digraph_SanityCheckTests, cannotGetEdgesAfterRemovingVertex)
     ASSERT_THROW({ d1.edgeCount(2); }, DigraphException);
     ASSERT_EQ(0, d1.edgeCount(1));
     ASSERT_EQ(0, d1.edgeCount(3));
-
-
 }
 
 
@@ -317,6 +393,20 @@ TEST(Digraph_SanityCheckTests, cannotGetEdgeInfoAfterRemovingEdge)
     ASSERT_THROW({ d1.edgeInfo(1, 3); }, DigraphException);
 }
 
+TEST(Digraph_SanityCheckTests, cannotAddExistingVertices)
+{
+    Digraph<int, int> d1;
+
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+        ASSERT_EQ(i, d1.vertexCount());
+    }
+    for (int i = 1; i <= 10; ++i)
+    {
+        ASSERT_THROW(d1.addVertex(i, i), DigraphException);
+    }
+}
 
 TEST(Digraph_SanityCheckTests, addingVerticesIncreasesVertexCount)
 {
@@ -329,6 +419,25 @@ TEST(Digraph_SanityCheckTests, addingVerticesIncreasesVertexCount)
     }
 }
 
+TEST(Digraph_SanityCheckTests, cannotAddExistingEdges)
+{
+    Digraph<int, int> d1;
+
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+    }
+
+    for (int i = 2; i <= 10; ++i)
+    {
+        d1.addEdge(1, i, 100);
+        ASSERT_EQ(i - 1, d1.edgeCount());
+    }
+    for (int i = 2; i <= 10; ++i)
+    {
+        ASSERT_THROW(d1.addEdge(1, i, 100), DigraphException);
+    }
+}
 
 TEST(Digraph_SanityCheckTests, addingEdgesIncreasesEdgeCount)
 {
@@ -364,6 +473,79 @@ TEST(Digraph_SanityCheckTests, addingEdgesIncreasesEdgeCountFromVertex)
     }
 }
 
+TEST(Digraph_SanityCheckTests, cannotRemoveNonExistingVertex)
+{
+    Digraph<int, int> d1;
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+    }
+    ASSERT_EQ(10, d1.vertexCount());
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.removeVertex(i);
+        ASSERT_THROW(d1.removeVertex(i), DigraphException);
+    }
+}
+
+TEST(Digraph_SanityCheckTests, removeVertexDecreaseCount)
+{
+    Digraph<int, int> d1;
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+    }
+    ASSERT_EQ(10, d1.vertexCount());
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.removeVertex(i);
+        ASSERT_EQ(10-i, d1.vertexCount());
+    }
+}
+
+TEST(Digraph_SanityCheckTests, cannotRemoveNonExistingEdge)
+{
+    Digraph<int, int> d1;
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+    }
+    for (int i = 2; i <= 10; ++i)
+    {
+        d1.addEdge(1, i, 100);
+        ASSERT_EQ(i - 1, d1.edgeCount(1));
+        ASSERT_EQ(0, d1.edgeCount(2));
+    }
+
+    for (int i = 10; i >= 2; i--)
+    {
+        d1.removeEdge(1, i);
+        ASSERT_THROW(d1.removeEdge(1, i), DigraphException);
+    }
+}
+
+TEST(Digraph_SanityCheckTests, removingEdgeDecreaseEdgeCount)
+{
+    Digraph<int, int> d1;
+    for (int i = 1; i <= 10; ++i)
+    {
+        d1.addVertex(i, i);
+    }
+    for (int i = 2; i <= 10; ++i)
+    {
+        d1.addEdge(1, i, 100);
+        ASSERT_EQ(i - 1, d1.edgeCount(1));
+        ASSERT_EQ(i - 1, d1.edgeCount());
+        ASSERT_EQ(0, d1.edgeCount(2));
+    }
+    for (int i = 10; i >= 2; i--)
+    {
+        d1.removeEdge(1, i);
+        ASSERT_EQ(i - 2, d1.edgeCount(1));
+        ASSERT_EQ(i - 2, d1.edgeCount());
+    }
+}
+
 
 TEST(Digraph_SanityCheckTests, isStronglyConnectedWhenAllPossibleEdgesArePresent)
 {
@@ -385,6 +567,26 @@ TEST(Digraph_SanityCheckTests, isStronglyConnectedWhenAllPossibleEdgesArePresent
     ASSERT_TRUE(d1.isStronglyConnected());
 }
 
+TEST(Digraph_SanityCheckTests, notStronglyConnected)
+{
+    Digraph<int, int> d1;
+    d1.addVertex(1, 10);
+    d1.addVertex(2, 20);
+    d1.addVertex(3, 30);
+    d1.addVertex(4, 40);
+
+    d1.addEdge(1, 1, 50);
+    d1.addEdge(1, 2, 50);
+    d1.addEdge(2, 1, 50);
+    d1.addEdge(2, 2, 50);
+
+    d1.addEdge(3, 3, 50);
+    d1.addEdge(3, 4, 50);
+    d1.addEdge(4, 3, 50);
+    d1.addEdge(4, 4, 50);
+
+    ASSERT_FALSE(d1.isStronglyConnected());
+}
 
 TEST(Digraph_SanityCheckTests, canFindShortestPathWhenNoChoicesAreToBeMade)
 {
@@ -414,6 +616,32 @@ TEST(Digraph_SanityCheckTests, canFindShortestPathWhenNoChoicesAreToBeMade)
     ASSERT_EQ(2, paths[3]);
 }
 
+TEST(Digraph_SanityCheckTests, findShortestPathValueIsSelfWhenNeverReached)
+{
+    Digraph<int, double> d1;
+    d1.addVertex(1, 10);
+    d1.addVertex(2, 20);
+    d1.addVertex(3, 30);
+
+    std::map<int, int> paths = d1.findShortestPaths(
+        1,
+        [](double edgeInfo)
+        {
+            return edgeInfo;
+        });
+
+    ASSERT_EQ(3, paths.size());
+
+    ASSERT_TRUE(paths.find(1) != paths.end());
+    ASSERT_TRUE(paths.find(2) != paths.end());
+    ASSERT_TRUE(paths.find(3) != paths.end());
+
+    ASSERT_EQ(1, paths[1]);
+    ASSERT_EQ(2, paths[2]);
+    ASSERT_EQ(3, paths[3]);
+}
+
+
 namespace
 {
     template <typename T>
@@ -425,7 +653,7 @@ namespace
 
 TEST(Digraph_SanityCheckTests, canFindShortestPathWithLectureExample)
 {
-    // use the example in lecture nots 
+    // use the example in lecture notes 
     Digraph<int, int> d1;
     d1.addVertex(1, 10);
     d1.addVertex(2, 20);

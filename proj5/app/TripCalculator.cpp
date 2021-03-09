@@ -1,9 +1,16 @@
+// TripCalculator.cpp
+// ICS46 Winter 2021 Project 5
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4
 
 #include "TripCalculator.hpp"
-#include <iomanip>
-#include <string>
+
 #include <cmath>
+#include <iomanip>
+#include <map>
 #include <sstream>
+#include <string>
 
 namespace
 {
@@ -14,33 +21,33 @@ namespace
 
     double weightByTime(const RoadSegment& segment)
     {
-        return (double(segment.miles) / double(segment.milesPerHour)) * 3600;
+        return (segment.miles / segment.milesPerHour);
     }
 
     std::string convertTime(double t)
     {
         std::stringstream result;
         result << std::fixed << std::setprecision(1);
-        // hr, min, sec
-        double second = fmod(t, 60.0);
+        // calculate hr, min, sec
+        double second = std::fmod(t, 60.0);
         int minute = t / 60.0;
         int hour = minute / 60;
+        // value over 60 is converted to hours
         minute = minute % 60;
+        // feed into string stream
         if (hour != 0)
         {
-            result << hour << " hrs ";
-            result << minute << " mins ";
-            result << second << " secs";
+            result << hour << " hrs " << minute << " mins " << second << " secs";
         }
         else if (minute != 0)
         {
-            result << minute << " mins ";
-            result << second << " secs";
+            result << minute << " mins " << second << " secs";
         }
         else
         {
             result << second << " secs";
         }
+        // convert back to string
         return result.str();
     }
 }
@@ -48,18 +55,11 @@ namespace
 TripCalculator::TripCalculator(std::istream& in)
     : inputReader{in}
 {   
-
 }
 
 void TripCalculator::readRoadMap()
 {
     roadMap = roadMapReader.readRoadMap(inputReader);
-    DEBUG = true;
-    if (DEBUG)
-    {
-        writer.writeRoadMap(std::cout, roadMap);
-        std::cout << std::endl << std::endl;
-    }
 }
 
 void TripCalculator::readTrips()
@@ -77,72 +77,69 @@ void TripCalculator::displayTrips()
     }
 }
 
+bool TripCalculator::isConnected() const
+{
+    return roadMap.isStronglyConnected();
+}
+
 
 std::list<int> TripCalculator::shortestTrip(int start, int end, const TripMetric& type) const
 {
-    std::cout << start<< std::endl;
     std::map<int, int> paths;
     switch (type)
     {
     case TripMetric::Distance:
         // shortest distance
-        std::cout << "Distance" << std::endl;
         paths = roadMap.findShortestPaths(start, weightByDist);
         break;
     case TripMetric::Time:
-        std::cout << "time" << std::endl;
         // shortest time
-        // paths = roadMap.findShortestPaths(start, [](RoadSegment seg){return seg.miles / seg.milesPerHour;});
         paths = roadMap.findShortestPaths(start, weightByTime);
         break;
     }
-    
-    for (auto& i : paths)
-    {
-        std::cout << i.second << "->" << i.first << std::endl;
-    }
-    
-    
-    // backtrace from end
     std::list<int> route;
     int current = end;
     // push the final vertex
     route.push_front(current);
+    // backtrace from end, push to front of list
     while (current != start)
     {
-        std::cout << current << " ";
         current = paths[current];
         route.push_front(current);
     }
-    std::cout << std::endl;
     return route;
 }
 
 void TripCalculator::displayRoute(const std::list<int>& route, const TripMetric& type) const
 {
-    std::setprecision(1);
+    // print first line
     displayFirstLine(route, type);
     double total{0};
     int prev;
+    // print each line of trip
     for (auto i = route.begin(); i != route.end(); i++)
     {
         int current = *i;
         const std::string& info = roadMap.vertexInfo(current);
         if (i == route.begin())
         {
+            // starting location
             std::cout << "  Begin at " << info << std::endl;
         }
         else
         {
             std::cout << "  Continue to " << info << displayContinueLine(prev, current, total, type) << std::endl;
         }
+        // save the previous vertex to calculate distance and time
         prev = *i;
     }
+    // print total
     displayFinalLine(total, type);
 }
 
 void TripCalculator::displayFirstLine(const std::list<int>& route, const TripMetric& type) const
 {
+    // name of starting and ending vertex
     const std::string& startInfo = roadMap.vertexInfo(route.front());
     const std::string& endInfo = roadMap.vertexInfo(route.back());
     switch (type)
@@ -160,6 +157,7 @@ void TripCalculator::displayFirstLine(const std::list<int>& route, const TripMet
 
 void TripCalculator::displayFinalLine(double total, const TripMetric& type) const
 {
+    // set precision to one decimal place
     std::cout << std::fixed << std::setprecision(1);
     switch (type)
     {
@@ -176,22 +174,27 @@ void TripCalculator::displayFinalLine(double total, const TripMetric& type) cons
 
 std::string TripCalculator::displayContinueLine(int prev, int current, double& total, const TripMetric& type) const
 {
+    // set precision to one decimal place
     std::stringstream result;
     result << std::fixed << std::setprecision(1);
+    // get the edge
     RoadSegment segment = roadMap.edgeInfo(prev, current);
     double distance = segment.miles;
     result << " (" << distance << " miles";
     if (type == TripMetric::Time)
     {
+        // calculate time
         double speed = segment.milesPerHour;
-        double travelTime = (distance / speed) * 3600.0;
+        double travelTime = (distance / speed) * 3600.0;  // time in seconds
         result << " @ " << segment.milesPerHour << "mph = " << convertTime(travelTime);
+        // increment total
         total += travelTime;
     }
     else
     {
+        // for distance, just add to total
         total += distance;
     }
-    result << ")";
+    result << ")";  // add closing )
     return result.str();
 }

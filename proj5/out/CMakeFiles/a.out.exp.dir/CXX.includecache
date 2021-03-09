@@ -28,6 +28,10 @@ cmath
 queue
 -
 
+/home/ics46/projects/proj5/app/InputReader.cpp
+InputReader.hpp
+/home/ics46/projects/proj5/app/InputReader.hpp
+
 /home/ics46/projects/proj5/app/InputReader.hpp
 istream
 -
@@ -75,21 +79,25 @@ TripMetric.hpp
 /home/ics46/projects/proj5/app/TripCalculator.cpp
 TripCalculator.hpp
 /home/ics46/projects/proj5/app/TripCalculator.hpp
-iomanip
--
-string
--
 cmath
 -
-sstream
--
-
-/home/ics46/projects/proj5/app/TripCalculator.hpp
-iostream
+iomanip
 -
 map
 -
+sstream
+-
+string
+-
+
+/home/ics46/projects/proj5/app/TripCalculator.hpp
+istream
+-
 list
+-
+string
+-
+vector
 -
 InputReader.hpp
 /home/ics46/projects/proj5/app/InputReader.hpp
@@ -104,6 +112,14 @@ TripReader.hpp
 
 /home/ics46/projects/proj5/app/TripMetric.hpp
 
+/home/ics46/projects/proj5/app/TripReader.cpp
+sstream
+-
+string
+-
+TripReader.hpp
+/home/ics46/projects/proj5/app/TripReader.hpp
+
 /home/ics46/projects/proj5/app/TripReader.hpp
 vector
 -
@@ -111,4 +127,10 @@ Trip.hpp
 /home/ics46/projects/proj5/app/Trip.hpp
 InputReader.hpp
 /home/ics46/projects/proj5/app/InputReader.hpp
+
+/home/ics46/projects/proj5/exp/expmain.cpp
+iostream
+-
+queue
+-
 

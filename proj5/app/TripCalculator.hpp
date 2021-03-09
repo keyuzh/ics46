@@ -1,17 +1,16 @@
 // TripCalculator.hpp
-//
-// ICS 46 Winter 2021
-// Project #5: Rock and Roll Stops the Traffic
-//
-// A TripReader reads a sequence of trips from the given input, assuming
-// they're written in the format described in the project write-up.
+// ICS46 Winter 2021 Project 5
+// Name: Keyu Zhang
+// ID: 19898090
+// UCINetID: keyuz4
 
 #ifndef TRIPCALCULATOR_HPP
 #define TRIPCALCULATOR_HPP
 
-#include <iostream>
-#include <map>
+#include <istream>
 #include <list>
+#include <string>
+#include <vector>
 
 #include "InputReader.hpp"
 #include "RoadMap.hpp"
@@ -22,33 +21,39 @@
 
 class TripCalculator
 {
-private:
-    InputReader inputReader;
-    RoadMapReader roadMapReader;
-    RoadMap roadMap;
-    RoadMapWriter writer;
-    TripReader tripReader;
-
-    std::vector<Trip> trips;
-
-    bool DEBUG;
-
 public:
+    // constructor, need a input source
     TripCalculator(std::istream& in);
-    // ~TripCalculator();
-
+    // public function to read input
     void readRoadMap();
     void readTrips();
+    // public function to display output
     void displayTrips();
+    // check if the roadmap is strongly connected
+    bool isConnected() const;
 
 private:
+    // provided input reader classes
+    InputReader inputReader;
+    RoadMapReader roadMapReader;
+    TripReader tripReader;
+    // roadmap (digraph) class
+    RoadMap roadMap;
+    // vector to store the trips read from input
+    std::vector<Trip> trips;
+
+private:
+    // call findShortestPaths() in digraph class to find the shortest trip
+    // between the given vertices, return a list of vertices along the route
     std::list<int> shortestTrip(int start, int end, const TripMetric& type) const;
+    // write one route to std::cout
     void displayRoute(const std::list<int>& route, const TripMetric& type) const;
+    // helper functions for displayRoute()
     void displayFirstLine(const std::list<int>& route, const TripMetric& type) const;
     void displayFinalLine(double total, const TripMetric& type) const;
-    std::string displayContinueLine(int prev, int current, double& total, const TripMetric& type) const;
+    std::string displayContinueLine(
+        int prev, int current, double& total, const TripMetric& type) const;
 };
 
 
-#endif // TRIPREADER_HPP
-
+#endif // TRIPCALCULATOR_HPP

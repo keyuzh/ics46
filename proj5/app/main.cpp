@@ -12,11 +12,18 @@
 int main()
 {
     TripCalculator cal{std::cin};
-    cal.readRoadMap();
-    // now read and calculate trips
-    cal.readTrips();
-    cal.displayTrips();
-   
+    cal.readRoadMap();  // read input
+
+    if (cal.isConnected())
+    {
+        cal.readTrips();     // read trip input
+        cal.displayTrips();  // display output
+    }
+    else
+    {
+        // disconnected, just display the message
+        std::cout << "Disconnected Map" << std::endl;
+    }
 
     return 0;
 }
